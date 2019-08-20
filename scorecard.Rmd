@@ -1,0 +1,162 @@
+---
+title: "Ethiopia"
+author: "Commitment to Human Capital - Scorecard"
+urlcolor: blue
+output:
+  pdf_document:
+    latex_engine: xelatex
+    fig_caption: yes
+    keep_tex: yes
+    pandoc_args: ["-V", "classoption=twocolumn"]
+fontsize: 9.2pt
+geometry: "left=1.5cm,right=1.5cm,top=2.2cm,bottom=2.2cm"
+header-includes:
+  \usepackage{fancyhdr}
+  \pagestyle{fancy}
+  \usepackage[table]{xcolor}
+  \usepackage{xcolor}
+  \usepackage{graphicx}
+  \usepackage{eurosym}
+  \usepackage{booktabs,xcolor}
+  \rhead{Africa Human Capital Project - \today}
+  \rfoot[C]{\includegraphics[width=2cm]{static/footer3.png}}
+  \fancypagestyle{plain}{\pagestyle{fancy}}
+  \pagenumbering{gobble}
+  \usepackage{pagecolor}
+  \pagecolor{white}
+  \usepackage{fourier}
+  \usepackage[fontsize=8.7pt]{scrextend}
+  \usepackage{float}
+  \usepackage[utf8]{inputenc}
+---
+
+\definecolor{bondiblue}{rgb}{0.0, 0.58, 0.71}
+\newcommand\boldblue[1]{\textcolor{bondiblue}{\textbf{#1}}}
+
+This note presents a snapshot of the country's commitment on the human capital agenda and the main actions being taken by the World Bank Group to support the government. 
+
+### \boldblue{H\small{UMAN CAPITAL CONTEXT}}###
+
+* **Human Capital Index (HCI).** In Ethiopia the productivity as a future worker of a child born today is  **38 percent** as much as it could be. The HCI has three components: survival to age 5, health, and education. For more information on the HCI, please see the country two-pager on \boldblue{www.worldbank.org/humancapitalproject} 
+
+* **Social Protection Coverage** In Ethiopia, **13 percent** of the population is covered by social safety net programs. This is lower than both the African average (23) and the average for low income countries (17).
+
+* **Open Defecation.** Across Ethiopia **27 percent** of the population practices open defecation. This is higher than the regional average (25) and the average for its incoe group (27).
+
+
+### \boldblue{W\small{OMEN'S EMPOWERMENT}}###
+* **Total Fertility Rate.** In Ethiopia, the total fertility rate is 4.1. This is lower than both the regional average (4.8) and the average for its income group (4.6). 
+
+* **Adolescent Fertility Rate.** In Ethiopia, there are **62 births** per 1,000 women ages 15-19. This is lower than both the regional average (95) and the average for its income group (94). 
+
+* **Contraceptive Prevalence.** In Ethiopia, **37%** of women ages 15-49 uses some form of contraceptive method. This is higher than both the regional average (31) and the average for its income group (28)
+
+* **Women, Business and the Law Index.** This index measures gender equality in the law and identifies barriers to women's economic participation, and a larger value shows higher gender equity. In Ethiopia, the value is **72** out of 100. This is higher than both the regional average (70) and the average for its income group (68). 
+* **Net Enrolment Rate in Secondary School.** In Ethiopia, **30 percent** of women of secondary-school age are enrolled in schoold. This is lower than the regional average (33) and the average for its income group (31).
+
+### \boldblue{W\small{HOW IS THE COUNTRY DOING?}}###
+Ethiopia is part of a network of countries committed to the Human Capital agenda. 
+
+* **Health Spending.** Ethiopia spends **6.0 percent** of its government budget on Health. This is lower than the regional average (7.6) and the average for its income group (6.8). 
+
+* **Education Spending.** Ethiopia spends **27.1 percent** of its government budget on Education. This is higher than the regional average (15.3) and the average for its income group (15.5).
+
+* **Social Protection Spending.** Ethiopia spends **10.8 percent** of its budget on Social Protection. This is higher than the regional average (9.9) and equal as the average for its income group (10.8).
+
+```{r out.width = "100%", fig.align = "right", echo=FALSE}
+knitr::include_graphics("charts/all_mf_Ethiopia.pdf")
+```
+\vspace{3mm}
+```{r out.width = "100%", out.height="120%", fig.align = "right", echo=FALSE, strip.white=TRUE}
+knitr::include_graphics("charts/socsec_Ethiopia.pdf")
+```
+\vspace{3mm}
+
+* **Efficiency of Spending.** Ethiopia's HCI is **lower** than what it is predicted for its level of per capita spending on the social sectors. 
+
+```{r out.width = "100%", out.height="50%",  fig.align = "center", echo=FALSE, strip.white=TRUE}
+knitr::include_graphics("charts/efficiency_Ethiopia.pdf")
+```
+
+* **Domestic Resource Mobilization.** Ethiopia's tax revenue is **7.7%** of GDP. This is lower than the regional average (16.1) and the average for its income group (14.3). This is also lower than what could be predicted for Ethiopia's GDP per capita.
+
+```{r out.width = "100%", out.height="50%", fig.align = "right", echo=FALSE}
+knitr::include_graphics("charts/drm_Ethiopia.pdf")
+```
+
+* **Building Human Capital.** Ethiopia's Country Policy and Institutional Assesment rating for building human resources  is **4.5** (1 is low and 6 is high). This is higher than both the regional average (3.5) and the average for its income group (3.5). This indicator assesses the national policies and public and private sector service delivery that affect access to and quality of health and education services.
+
+* **Identification** In Ethiopia, **65 percent** of the population does not have proof of identity. This is higher than both the regional average (34) and the average for its income group (35). Access to identification is a key enabler for human capital development as it allows access to better services.
+
+* **Statistical Data on Human Capital** In Ethiopia, the latest available data on stunting rates is from 2006. Similarly, the last available data point on Harmonized Learning Outcomes is from 2010.
+&nbsp;
+
+### \boldblue{H\small{OW IS THE WORLD BANK SUPPORTING THE EFFORT?}}#####
+
+The following table summarizes the World Bank investments in Human Development for Ethiopia, including measures of volume, performance, and other relevant indicators.
+
+\definecolor{asparagus}{RGB}{3, 158, 115}
+\definecolor{blush}{RGB}{204 121 167}
+\definecolor{arylideyellow}{RGB}{230 159 0}
+\definecolor{blue(ncs)}{rgb}{0.0, 0.53, 0.74}
+\definecolor{ashgrey}{rgb}{0.7, 0.75, 0.71}
+\definecolor{bleudefrance}{rgb}{0.19, 0.55, 0.91}
+\definecolor{iceberg}{rgb}{0.44, 0.65, 0.82}
+\begin{table}[H]
+\small
+\begin{tabular}{lcccc}
+\textbf{World Bank Investments in HD}       & \textbf{}        & \textbf{}      & \textbf{} & \textbf{} \\\hline
+\textbf{Indicator}       & \textbf{HD}        & \textbf{Edu}      & \textbf{HNP} & \textbf{SPJ} \\\hline
+\cellcolor{iceberg}HD Portfolio      &    \cellcolor{iceberg}     &   \cellcolor{iceberg}    & \cellcolor{iceberg} & \cellcolor{iceberg} \\ \hline
+USD (million)                    &      3,558                &     300                &   250        & 3,008         \\
+Percentage of total        &        \cellcolor{asparagus}32               &     \cellcolor{arylideyellow}      3           &     \cellcolor{arylideyellow}  2         & \cellcolor{asparagus}27 \\
+Diff. with perc. for regional average &         +9              &  -3                 &  -6        & +18 \\
+Diff. with perc. for income group avg   &       +4                &     -3                  &    -9          &  +18 \\  \hline
+\cellcolor{iceberg}HD FY 20 Lending Program      &   \cellcolor{iceberg}      & \cellcolor{iceberg}      & \cellcolor{iceberg} & \cellcolor{iceberg} \\ \hline
+USD (million)                    &      560                &    60                 &    0      &  500     \\
+Percentage of total        &      \cellcolor{asparagus}  100               &       \cellcolor{asparagus} 10            &    \cellcolor{blush} 0             &  \cellcolor{asparagus}89.3  \\
+Diff. with perc. for regional average &   +44           &   -20           &       -9   &   +77   \\
+Diff. with perc. for income group avg   &     +64                   &  +2                &     -11        &   +73   \\  \hline
+\cellcolor{iceberg}HD Performance      &   \cellcolor{iceberg}      & \cellcolor{iceberg}      & \cellcolor{iceberg} & \cellcolor{iceberg} \\ \hline
+Average Development Outcome (DO)                  &     \cellcolor{arylideyellow} 3.3               &   \cellcolor{blush} 3                 &     \cellcolor{blush}3     &  \cellcolor{arylideyellow}3.5     \\
+Difference with DO for region   &    -0.2     &        -0.3               &      -0.57           &  -0.15 \\
+Difference with DO for income group   &      -0.11                &      -0.34               &      -0.57          &   -0.06  \\
+Perc. Satisfactory DO                 &     100               &    100                 &     \ 100     &  100     \\
+Average Implementation Progress (IP)         &      \cellcolor{blush} 3               &   \cellcolor{blush}    3               &   \cellcolor{blush} 3             & \cellcolor{blush}3  \\
+Difference with IP for region   &      -0.32          &       -0.22               &       -0.34          &    0.51 \\
+Difference with IP for income group   &      -0.30                &       -0.23               &      -0.40             &   -0.36  \\
+Perc. Satisfactory IP                 &      100               &    100                 &     \ 100     &  100     \\
+Disbursement ratio (DR) &        \cellcolor{asparagus}54.5              &        .            &  .               & \cellcolor{asparagus}54.5 \\
+Difference with DR for region   &    15.5               &     .         &    .           &  +2 \\
+Difference with DR for income group   &     +10                &     .              &     .           &   -5  \\\hline
+\cellcolor{iceberg}Other indicators      &   \cellcolor{iceberg}      & \cellcolor{iceberg}      & \cellcolor{iceberg} & \cellcolor{iceberg} \\ \hline
+Average project size (PS) (USD mill.)                 &    \cellcolor{asparagus}  351                &    \cellcolor{asparagus}  300                 &    \cellcolor{asparagus}  250     &  \cellcolor{asparagus}   752       \\
+Difference with PS for region        &     +255               &         +293               &   190                &   +664 \\
+Difference with PS for income group   &    +277              &        +242            &  178             & +659 \\
+Perc. of portfolio that is co-TTL'd (CTT)    &      \cellcolor{asparagus}  62                &    \cellcolor{blush}     0               &    \cellcolor{blush}    0           &   \cellcolor{asparagus} 73  \\
+Diff. with CTT for region (perc. points)  &     +36                &      -15               &        -31          &    +42\\
+Diff. with CTT income group (perc. points)  &     +32                &     -21               &       -35           &  +37\\
+\hline
+                         \multicolumn{5}{l}{Note: a) Pink indicates that the value is within the first tercile of the} \\
+                         \multicolumn{5}{l}{distribution for all the countries. Orange indicates that the value is } \\
+                         \multicolumn{5}{l}{is within the second tercile. Green indicates that it is within the third} \\
+                         \multicolumn{5}{l}{tercile. b) FY20 lending program includes only projects rated A, B and } \\
+                          \multicolumn{5}{l}{unrated. c) DO and IP are on a scale of 1 to 5 where 1 is Unsatisfactory } \\
+                          \multicolumn{5}{l}{and5 is Highly Satisfactory. d) Data as of July 15, 2019.} \\
+\end{tabular}
+\end{table}
+
+* **Human Capital Policy Operations.** Currently, the pipeline for Ethiopia **does not** include any Development Policy Operations with a Human Capital-related component or prior action.
+
+* **Women Empowerment Project.** Currently, Ethiopia **does not** have an active project focused on women empowerment or on sexual and reproductive health.
+
+\noindent\rule{9cm}{0.4pt}
+The present scorecard aims to be a conversation starter on some of the main indicators that show progress towards human capital outcomes. The list of indicators presented here is not exhaustive and should be complemented with more specific variables.
+&nbsp;
+
+The sources for the different indicators come from the Human Capital Project, the World Development Indicators, and the World Bank's internal system to monitor investments.
+&nbsp;
+
+For more information, please contact the Africa Human Capital team: AFR_HCP_Team@worldbankgroup.org 
+
+
