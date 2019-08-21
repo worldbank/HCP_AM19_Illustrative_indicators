@@ -2,6 +2,44 @@
 #   Sub Functions
 #----------------------------------------------------------
 
+rows_lab <- function(){
+  x <- c(
+    "\\textbf{World Bank Investments in HD} & \\textbf{} & \\textbf{} & \\textbf{} & \\textbf{}",
+    "\\textbf{Indicator} & \\textbf{HD} & \\textbf{Edu} & \\textbf{HNP} & \\textbf{SPJ}",
+    "\\cellcolor{iceberg}HD Portfolio & \\cellcolor{iceberg} & \\cellcolor{iceberg} & \\cellcolor{iceberg} & \\cellcolor{iceberg}",
+    "USD (million)",
+    "Percentage of total",
+    "Diff. with perc. for regional average",
+    "Diff. with perc. for income group avg",
+    "\\cellcolor{iceberg}HD FY 20 Lending Program",
+    "USD (million)",
+    "Percentage of total",
+    "Diff. with perc. for regional average",
+    "Diff. with perc. for income group avg",
+    "\\cellcolor{iceberg}HD Performance",
+    "Average Development Outcome (DO)",
+    "Difference with DO for region",
+    "Difference with DO for income group",
+    "Perc. Satisfactory DO",
+    "Average Implementation Progress (IP)",
+    "Difference with IP for region",
+    "Difference with IP for income group",
+    "Perc. Satisfactory IP",
+    "Disbursement ratio (DR)",
+    "Difference with DR for region",
+    "Difference with DR for income group",
+    "\\cellcolor{iceberg}Other indicators",
+    "Average project size (PS) (USD mill.)",
+    "Difference with PS for region",
+    "Difference with PS for income group",
+    "Perc. of portfolio that is co-TTL'd (CTT)",
+    "Diff. with CTT for region (perc. points)",
+    "Diff. with CTT income group (perc. points)"
+  )
+  return(x)
+}
+
+
 RunMD <- function(x) {
   file_name <- paste0("scorecard_", x[["wbcode"]])
 
@@ -37,6 +75,7 @@ RunMD <- function(x) {
 #----------------------------------------------------------
 
 hci <- haven::read_dta("input/textforscorecard.dta")
+rl <- rows_lab()   # rows labels
 
 countries <- NULL
 countries <- c("ETH", "COL")
