@@ -591,6 +591,7 @@ replace stat_text="In " + wbcountrynameb + ///
 if lasttime_nostu_rep!=. & lasttime_hlo_mf_rep==.
 
 
+save "C:\Users\WB538904\OneDrive - WBG\CHI_AM19_scorecard\input\textforscorecard.dta", replace
 /////////////////////////////////////////////
 
 
