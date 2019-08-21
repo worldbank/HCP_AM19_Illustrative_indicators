@@ -15,8 +15,7 @@ set maxvar 32000
 local outputfilepath "C:\Users\WB469563\OneDrive - WBG\Documents (zdebebe@worldbank.org)\OneDrive - WBG\Documents (zdebebe@worldbank.org)\Human Capital Project\HCP Africa\Scorecard"
 global charts "C:\Users\WB469563\OneDrive - WBG\Documents (zdebebe@worldbank.org)\OneDrive - WBG\Documents (zdebebe@worldbank.org)\Human Capital Project\HCP Africa\Scorecard\charts"
 
-use scorecardanalysis_2019-08-13.dta, clear
-graph set window fontface "Baskerville Old Face"
+use scorecardanalysis.dta, clear
 
 //Preliminaries 
 
@@ -589,6 +588,20 @@ replace stat_text="In " + wbcountrynameb + ///
 " The last available data point on stunting rate is from " ///
 + strofreal(round(lasttime_nostu_rep,1)) + "." ///
 if lasttime_nostu_rep!=. & lasttime_hlo_mf_rep==.
+
+gen dpohc_text= ///
+         cond(dpohc==1,                 /* 
+*/ "Currently, the pipeline for " + wbcountrynameb + " includes at least one Development Policy Operation with a Human Capital-related component or prior action.",    /* 
+*/       cond(dpohc==0,                         /* 
+*/ "Currently, the pipeline for " + wbcountrynameb + " does not include any Development Policy Operation with a Human Capital-related component or prior action.",     /*    
+*/ ""))
+
+gen wep_text= ///
+         cond(wep==1,                 /* 
+*/ "Currently, " + wbcountrynameb + " has at least one active project focused on women empowerment or on sexual and reproductive health.",    /* 
+*/       cond(wep==0,                         /* 
+*/ "Currently, the pipeline for " + wbcountrynameb + " does not have an active project focused on women empowerment or on sexual and reproductive health.",     /*    
+*/ ""))
 
 
 save "C:\Users\WB538904\OneDrive - WBG\CHI_AM19_scorecard\input\textforscorecard.dta", replace
