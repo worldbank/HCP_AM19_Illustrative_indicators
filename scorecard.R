@@ -60,8 +60,8 @@ hci <- cbind(hci, tv)
 #----------------------------------------------------------
 
 countries <- NULL
-countries <- c("ETH", "COL")
 countries <- c("ETH")
+countries <- c("ETH", "COL")
 if (length(countries) > 0) {
   hci <-  hci[hci[["wbcode"]]  %in% countries,]
 }
@@ -69,4 +69,4 @@ if (length(countries) > 0) {
 y <- apply(hci, 1, RunMD)
 
 # Delete and copy files
-#dc_files()
+dc_files()
