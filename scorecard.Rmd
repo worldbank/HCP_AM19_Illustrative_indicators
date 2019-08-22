@@ -1,5 +1,5 @@
 ---
-title: "Ethiopia"
+title: "`r countrynamet`"
 author: "Commitment to Human Capital - Scorecard"
 urlcolor: blue
 output:
@@ -37,23 +37,22 @@ This note presents a snapshot of the country's commitment on the human capital a
 
 ### \boldblue{H\small{UMAN CAPITAL CONTEXT}}###
 
-*  `r x[["hci_text"]]` 
+* `r x[["hci_text"]]` 
 
-* **Social Protection Coverage**  `r x[["lastspc_text"]]`
+* **Social Protection Coverage** `r x[["lastspc_text"]]`
 
-* **Open Defecation.**  `r x[["lastod_text"]]`
-
+* **Open Defecation.** `r x[["lastod_text"]]`
 
 ### \boldblue{W\small{OMEN'S EMPOWERMENT}}###
-* **Total Fertility Rate.**  `r x[["lasttfr_text"]]`
+* **Total Fertility Rate.** `r x[["lasttfr_text"]]`
 
-* **Adolescent Fertility Rate.**  `r x[["lastafr_text"]]`
+* **Adolescent Fertility Rate.** `r x[["lastafr_text"]]`
 
-* **Contraceptive Prevalence.**  `r x[["contracep_text"]]`
+* **Contraceptive Prevalence.** `r x[["contracep_text"]]`
 
-* **Women, Business and the Law Index.**  `r x[["wbl_text"]]` 
+* **Women, Business and the Law Index.** `r x[["wbl_text"]]` 
 
-* **Net Enrolment Rate in Secondary School.**  `r x[["lastner_sec_f_text"]]`
+* **Net Enrolment Rate in Secondary School.** `r x[["lastner_sec_f_text"]]`
 
 ### \boldblue{W\small{HOW IS THE COUNTRY DOING?}}###
 `r x[["hci_memt"]]`
@@ -65,24 +64,28 @@ This note presents a snapshot of the country's commitment on the human capital a
 * **Social Protection Spending.** `r x[["socprot_text"]]`
 
 ```{r out.width = "100%", fig.align = "right", echo=FALSE}
-knitr::include_graphics("charts/all_mf_ETH.pdf")
+gr1 <- paste0("charts/all_mf_", x[["wbcode"]], ".pdf")
+knitr::include_graphics(gr1)
 ```
 \vspace{3mm}
 ```{r out.width = "100%", out.height="120%", fig.align = "right", echo=FALSE, strip.white=TRUE}
-knitr::include_graphics("charts/socsec_ETH.pdf")
+gr2 <- paste0("charts/socsec_", x[["wbcode"]], ".pdf")
+knitr::include_graphics(gr2)
 ```
 \vspace{3mm}
 
 * **Efficiency of Spending.** `r x[["eff_text"]]`
 
-```{r out.width = "100%", out.height="50%",  fig.align = "center", echo=FALSE, strip.white=TRUE}
-knitr::include_graphics("charts/efficiency_ETH.pdf")
+```{r out.width = "100%", out.height="50%", fig.align = "center", echo=FALSE, strip.white=TRUE}
+gr3 <- paste0("charts/efficiency_", x[["wbcode"]], ".pdf")
+knitr::include_graphics(gr3)
 ```
 
 * **Domestic Resource Mobilization.** `r x[["drm_text"]]`
 
 ```{r out.width = "100%", out.height="50%", fig.align = "right", echo=FALSE}
-knitr::include_graphics("charts/drm_ETH.pdf")
+gr4 <- paste0("charts/drm_", x[["wbcode"]], ".pdf")
+knitr::include_graphics(gr4)
 ```
 
 * **Building Human Capital.** `r x[["cpia_text"]]`
@@ -105,21 +108,49 @@ The following table summarizes the World Bank investments in Human Development f
 \begin{table}[H]
 \small
 \begin{tabular}{lcccc}
-`r rl[[1]]` \\\hline
-`r rl[[2]]` & \cellcolor{iceberg} & \cellcolor{iceberg} & \cellcolor{iceberg} & \cellcolor{iceberg} \\ 
-\hline
- \multicolumn{5}{l}{Note: a) Pink indicates that the value is within the first tercile of the} \\
- \multicolumn{5}{l}{distribution for all the countries. Orange indicates that the value is } \\
- \multicolumn{5}{l}{is within the second tercile. Green indicates that it is within the third} \\
+`r rl[[1]]` \\ \hline
+`r rl[[2]]` \\ \hline
+`r rl[[3]]` \\ \hline
+`r rl[[4]]` & `r x[["hdportfolio"]]` & `r x[["eduportfolio"]]` & `r x[["hnpportfolio"]]` & `r x[["spjportfolio"]]` \\ 
+`r rl[[5]]` & `r x[["hdportfolio_share"]]` & `r x[["eduportfolio_share"]]` & `r x[["hnpportfolio_share"]]` & `r x[["spjportfolio_share"]]` \\ 
+`r rl[[6]]` & `r x[["hdportfolio_share_diffmr"]]` & `r x[["eduportfolio_share_diffmr"]]` & `r x[["hnpportfolio_share_diffmr"]]` & `r x[["spjportfolio_share_diffmr"]]` \\ 
+`r rl[[7]]` & `r x[["hdportfolio_share_diffmi"]]` & `r x[["eduportfolio_share_diffmi"]]` & `r x[["hnpportfolio_share_diffmi"]]` & `r x[["spjportfolio_share_diffmi"]]` \\ \hline
+`r rl[[8]]` \\ \hline 
+`r rl[[9]]` & `r x[["pipeline_hd"]]` & `r x[["pipeline_edu"]]` & `r x[["pipeline_hnp"]]` & `r x[["pipeline_spj"]]` \\ 
+`r rl[[10]]` & `r x[["pipeline_hd_share"]]` & `r x[["pipeline_edu_share"]]` & `r x[["pipeline_hnp_share"]]` & `r x[["pipeline_spj_share"]]` \\ 
+`r rl[[11]]` & `r x[["pipeline_hd_share_diffmr"]]` & `r x[["pipeline_edu_share_diffmr"]]` & `r x[["pipeline_hnp_share_diffmr"]]` & `r x[["pipeline_spj_share_diffmr"]]` \\ 
+`r rl[[12]]` & `r x[["pipeline_hd_share_diffmi"]]` & `r x[["pipeline_edu_share_diffmi"]]` & `r x[["pipeline_hnp_share_diffmi"]]` & `r x[["pipeline_spj_share_diffmi"]]` \\ \hline
+`r rl[[13]]` \\ \hline
+`r rl[[14]]` & `r x[["do_performance_hd"]]` & `r x[["do_performance_edu"]]` & `r x[["do_performance_hnp"]]` & `r x[["do_performance_spj"]]` \\ 
+`r rl[[15]]` & `r x[["do_performance_hd_diffmr"]]` & `r x[["do_performance_edu_diffmr"]]` & `r x[["do_performance_hnp_diffmr"]]` & `r x[["do_performance_spj_diffmr"]]` \\ 
+`r rl[[16]]` & `r x[["do_performance_hd_diffmi"]]` & `r x[["do_performance_edu_diffmi"]]` & `r x[["do_performance_hnp_diffmi"]]` & `r x[["do_performance_spj_diffmi"]]` \\ 
+`r rl[[17]]` & `r x[["percsatisfdo_hd"]]` & `r x[["percsatisfdo_edu"]]` & `r x[["percsatisfdo_hnp"]]` & `r x[["percsatisfdo_spj"]]` \\ 
+`r rl[[18]]` & `r x[["ip_performance_hd"]]` & `r x[["ip_performance_edu"]]` & `r x[["ip_performance_hnp"]]` & `r x[["ip_performance_spj"]]` \\ 
+`r rl[[19]]` & `r x[["ip_performance_hd_diffmr"]]` & `r x[["ip_performance_edu_diffmr"]]` & `r x[["ip_performance_hnp_diffmr"]]` & `r x[["ip_performance_spj_diffmr"]]` \\ 
+`r rl[[20]]` & `r x[["ip_performance_hd_diffmi"]]` & `r x[["ip_performance_edu_diffmi"]]` & `r x[["ip_performance_hnp_diffmi"]]` & `r x[["ip_performance_spj_diffmi"]]` \\ 
+`r rl[[21]]` & `r x[["percsatisfip_hd"]]` & `r x[["percsatisfip_edu"]]` & `r x[["percsatisfip_hnp"]]` & `r x[["percsatisfip_spj"]]` \\ 
+`r rl[[22]]` & `r x[["disburratio_hd"]]` & `r x[["disburratio_edu"]]` & `r x[["disburratio_hnp"]]` & `r x[["disburratio_spj"]]` \\ 
+`r rl[[23]]` & `r x[["disburratio_hd_diffmr"]]` & `r x[["disburratio_edu_diffmr"]]` & `r x[["disburratio_hnp_diffmr"]]` & `r x[["disburratio_spj_diffmr"]]` \\ 
+`r rl[[24]]` & `r x[["disburratio_hd_diffmi"]]` & `r x[["disburratio_edu_diffmi"]]` & `r x[["disburratio_hnp_diffmi"]]` & `r x[["disburratio_spj_diffmi"]]` \\ \hline
+`r rl[[25]]` \\ \hline
+`r rl[[26]]` & `r x[["avgsize_hd"]]` & `r x[["avgsize_edu"]]` & `r x[["avgsize_hnp"]]` & `r x[["avgsize_spj"]]` \\ 
+`r rl[[27]]` & `r x[["avgsize_hd_diffmr"]]` & `r x[["avgsize_edu_diffmr"]]` & `r x[["avgsize_hnp_diffmr"]]` & `r x[["avgsize_spj_diffmr"]]` \\ 
+`r rl[[28]]` & `r x[["avgsize_hd_diffmi"]]` & `r x[["avgsize_edu_diffmi"]]` & `r x[["avgsize_hnp_diffmi"]]` & `r x[["avgsize_spj_diffmi"]]` \\ 
+`r rl[[29]]` & `r x[["crossgpshare_hd"]]` & `r x[["crossgpshare_edu"]]` & `r x[["crossgpshare_hnp"]]` & `r x[["crossgpshare_spj"]]` \\ 
+`r rl[[30]]` & `r x[["crossgpshare_hd_diffmr"]]` & `r x[["crossgpshare_edu_diffmr"]]` & `r x[["crossgpshare_hnp_diffmr"]]` & `r x[["crossgpshare_spj_diffmr"]]` \\ 
+`r rl[[31]]` & `r x[["crossgpshare_hd_diffmi"]]` & `r x[["crossgpshare_edu_diffmi"]]` & `r x[["crossgpshare_hnp_diffmi"]]` & `r x[["crossgpshare_spj_diffmi"]]` \\ \hline
+ \multicolumn{5}{l}{Note: a) \colorbox{blush}{Pink} indicates that the value is within the first tercile of the} \\
+ \multicolumn{5}{l}{distribution for all the countries. \colorbox{arylideyellow}{Orange} indicates that the value is } \\
+ \multicolumn{5}{l}{is within the second tercile. \colorbox{asparagus}{Green} indicates that it is within the third} \\
  \multicolumn{5}{l}{tercile. b) FY20 lending program includes only projects rated A, B and } \\
  \multicolumn{5}{l}{unrated. c) DO and IP are on a scale of 1 to 5 where 1 is Unsatisfactory } \\
  \multicolumn{5}{l}{and5 is Highly Satisfactory. d) Data as of July 15, 2019.} \\
 \end{tabular}
 \end{table}
 
-* **Human Capital Policy Operations.** Currently, the pipeline for Ethiopia **does not** include any Development Policy Operations with a Human Capital-related component or prior action.
+* **Human Capital Policy Operations.** Currently, the pipeline for `r x[["wbcountrynameb"]]` **does not** include any Development Policy Operations with a Human Capital-related component or prior action.
 
-* **Women Empowerment Project.** Currently, Ethiopia **does not** have an active project focused on women empowerment or on sexual and reproductive health.
+* **Women Empowerment Project.** Currently, `r x[["wbcountrynameb"]]` **does not** have an active project focused on women empowerment or on sexual and reproductive health.
 
 \noindent\rule{9cm}{0.4pt}
 The present scorecard aims to be a conversation starter on some of the main indicators that show progress towards human capital outcomes. The list of indicators presented here is not exhaustive and should be complemented with more specific variables.

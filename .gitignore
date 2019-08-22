@@ -16,3 +16,5 @@ test/
 scorecard.tex
 
 *.tex
+
+_aux/
