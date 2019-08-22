@@ -604,6 +604,128 @@ gen wep_text= ///
 */ ""))
 
 
+
+replace hdportfolio_share = hdportfolio_share *100
+replace eduportfolio_share = eduportfolio_share *100
+replace hnpportfolio_share = hnpportfolio_share *100
+replace spjportfolio_share = spjportfolio_share *100
+
+replace hdportfolio_share_diffmr = hdportfolio_share_diffmr *100
+replace eduportfolio_share_diffmr = eduportfolio_share_diffmr *100
+replace hnpportfolio_share_diffmr = hnpportfolio_share_diffmr *100
+replace spjportfolio_share_diffmr = spjportfolio_share_diffmr *100
+
+replace hdportfolio_share_diffmi = hdportfolio_share_diffmi *100
+replace eduportfolio_share_diffmi = eduportfolio_share_diffmi *100
+replace hnpportfolio_share_diffmi = hnpportfolio_share_diffmi *100
+replace spjportfolio_share_diffmi = spjportfolio_share_diffmi *100
+
+replace pipeline_hd_share = pipeline_hd_share *100
+replace pipeline_edu_share = pipeline_edu_share *100
+replace pipeline_hnp_share = pipeline_hnp_share *100
+replace pipeline_spj_share = pipeline_spj_share *100
+
+replace pipeline_hd_share_diffmr = pipeline_hd_share_diffmr *100
+replace pipeline_edu_share_diffmr = pipeline_edu_share_diffmr *100
+replace pipeline_hnp_share_diffmr = pipeline_hnp_share_diffmr *100
+replace pipeline_spj_share_diffmr = pipeline_spj_share_diffmr *100
+
+replace pipeline_hd_share_diffmi = pipeline_hd_share_diffmi *100
+replace pipeline_edu_share_diffmi = pipeline_edu_share_diffmi *100
+replace pipeline_hnp_share_diffmi = pipeline_hnp_share_diffmi *100
+replace pipeline_spj_share_diffmi = pipeline_spj_share_diffmi *100
+
+destring percsatisfdo_hd percsatisfdo_edu percsatisfdo_hnp percsatisfdo_spj , replace 
+destring percsatisfip_hd percsatisfip_edu percsatisfip_hnp percsatisfip_spj , replace 
+
+replace percsatisfdo_hd = percsatisfdo_hd *100
+replace percsatisfdo_edu = percsatisfdo_edu *100
+replace percsatisfdo_hnp = percsatisfdo_hnp *100
+replace percsatisfdo_spj = percsatisfdo_spj *100
+
+replace percsatisfip_hd = percsatisfip_hd *100
+replace percsatisfip_edu = percsatisfip_edu *100
+replace percsatisfip_hnp = percsatisfip_hnp *100
+replace percsatisfip_spj = percsatisfip_spj *100
+
+replace crossgpshare_hd = crossgpshare_hd *100
+replace crossgpshare_edu = crossgpshare_edu *100
+replace crossgpshare_hnp = crossgpshare_hnp *100
+replace crossgpshare_spj = crossgpshare_spj *100
+
+replace crossgpshare_hd_diffmr = crossgpshare_hd_diffmr *100
+replace crossgpshare_edu_diffmr = crossgpshare_edu_diffmr *100
+replace crossgpshare_hnp_diffmr = crossgpshare_hnp_diffmr *100
+replace crossgpshare_spj_diffmr = crossgpshare_spj_diffmr *100
+
+replace crossgpshare_hd_diffmi = crossgpshare_hd_diffmi *100
+replace crossgpshare_edu_diffmi = crossgpshare_edu_diffmi *100
+replace crossgpshare_hnp_diffmi = crossgpshare_hnp_diffmi *100
+replace crossgpshare_spj_diffmi = crossgpshare_spj_diffmi *100
+
+
+
+
+format %9.0fc hdportfolio eduportfolio hnpportfolio spjportfolio pipeline_hd pipeline_edu pipeline_hnp pipeline_spj avgsize_hd avgsize_edu avgsize_hnp avgsize_spj avgsize_hd_diffmr avgsize_edu_diffmr avgsize_hnp_diffmr avgsize_hd_diffmi avgsize_edu_diffmi avgsize_hnp_diffmi avgsize_spj_diffmi hdportfolio_share eduportfolio_share hnpportfolio_share spjportfolio_share hdportfolio_share_diffmr eduportfolio_share_diffmr hnpportfolio_share_diffmr spjportfolio_share_diffmr hdportfolio_share_diffmi eduportfolio_share_diffmi hnpportfolio_share_diffmi spjportfolio_share_diffmi pipeline_hd_share pipeline_edu_share pipeline_hnp_share pipeline_spj_share pipeline_hd_share_diffmi pipeline_edu_share_diffmi pipeline_hnp_share_diffmi pipeline_spj_share_diffmi pipeline_hd_share_diffmr pipeline_edu_share_diffmr pipeline_hnp_share_diffmr pipeline_spj_share_diffmr percsatisfdo_hd percsatisfdo_edu percsatisfdo_hnp percsatisfdo_spj percsatisfip_hd percsatisfip_edu percsatisfip_hnp percsatisfip_spj disburratio_hd disburratio_edu disburratio_hnp disburratio_spj disburratio_hd_diffmr disburratio_edu_diffmr  disburratio_hnp_diffmr disburratio_spj_diffmr disburratio_hd_diffmi disburratio_edu_diffmi  disburratio_hnp_diffmi disburratio_spj_diffmi crossgpshare_hd crossgpshare_edu crossgpshare_hnp crossgpshare_spj crossgpshare_hd_diffmr crossgpshare_edu_diffmr crossgpshare_hnp_diffmr crossgpshare_spj_diffmr crossgpshare_hd_diffmi crossgpshare_edu_diffmi crossgpshare_hnp_diffmi crossgpshare_spj_diffmi
+format %9.0fc  avgsize_hd_diffmr avgsize_edu_diffmr avgsize_hnp_diffmr avgsize_spj_diffmr
+
+format %9.2fc do_performance_hd do_performance_edu do_performance_hnp do_performance_spj 
+format %9.2fc do_performance_hd_diffmr do_performance_edu_diffmr do_performance_hnp_diffmr do_performance_spj_diffmr
+format %9.2fc do_performance_hd_diffmi do_performance_edu_diffmi do_performance_hnp_diffmi do_performance_spj_diffmi
+
+format %9.2fc ip_performance_hd ip_performance_edu ip_performance_hnp ip_performance_spj 
+format %9.2fc ip_performance_hd_diffmr ip_performance_edu_diffmr ip_performance_hnp_diffmr ip_performance_spj_diffmr
+format %9.2fc ip_performance_hd_diffmi ip_performance_edu_diffmi ip_performance_hnp_diffmi ip_performance_spj_diffmi
+
+format %9.2fc do_performance_hd_diffmr do_performance_edu_diffmr do_performance_hnp_diffmr do_performance_spj_diffmr
+format %9.2fc ip_performance_hd_diffmr ip_performance_edu_diffmr ip_performance_hnp_diffmr ip_performance_spj_diffmr
+
+
+format %9.0fc hci_mf_100
+format %9.0fc lastspc
+format %9.0fc lastspc_mr
+format %9.0fc lastspc_mi
+format %9.0fc lastod
+format %9.0fc lastod_mr
+format %9.0fc lastod_mi
+format %9.1fc lasttfr
+format %9.1fc lasttfr_mr
+format %9.1fc lasttfr_mi
+format %9.0fc lastafr
+format %9.0fc lastafr_mr
+format %9.0fc lastafr_mi
+format %9.0fc contracep
+format %9.0fc contracep_mr
+format %9.0fc contracep_mi
+format %9.0fc wbl
+format %9.0fc wbl_mr
+format %9.0fc wbl_mi
+format %9.0fc lastner_sec_f
+format %9.0fc lastner_sec_f_mr
+format %9.0fc lastner_sec_f_mi
+format %9.1fc edugov
+format %9.1fc edugov_mr
+format %9.1fc edugov_mi
+format %9.1fc healthgov
+format %9.1fc healthgov_mr
+format %9.1fc healthgov_mi
+format %9.1fc socprotgov
+format %9.1fc socprotgov_mr
+format %9.1fc socprotgov_mi
+format %9.1fc drm
+format %9.1fc drm_mr
+format %9.1fc drm_mi
+format %9.1fc lastcpia_hr
+format %9.1fc lastcpia_hr_mr
+format %9.1fc lastcpia_hr_mi
+format %9.0fc unregpop_share
+format %9.0fc unregpop_share_mr
+format %9.0fc unregpop_share_mi
+
+
+
+
+
 save "C:\Users\WB538904\OneDrive - WBG\CHI_AM19_scorecard\input\textforscorecard.dta", replace
 /////////////////////////////////////////////
 
