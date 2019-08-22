@@ -36,9 +36,14 @@ tvars <- read_csv("static/table_vars.csv")
 two_dig <- grep("^.*performance.*diffm", tvars$name)
 zero_dig <- tvars$name[-two_dig]
 
+diff_vars <- grep("diff", tvars$name, value = TRUE)
+
 hci <- hci %>%
   mutate_at(tvars$name, chg_fmt, digits = 2) %>%
-  mutate_at(zero_dig, chg_fmt, digits = 0)
+  mutate_at(zero_dig, chg_fmt, digits = 0) %>%
+  mutate_at(diff_vars, ~ifelse(grepl("^(\\-|\\.)",.), .,
+                               paste0("+", .)))
+
 
 # Colors of cells in Table
 tv <- apply(f, 1, color_cell, df = hci)
