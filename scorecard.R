@@ -1,4 +1,12 @@
 #----------------------------------------------------------
+#   libraries
+#----------------------------------------------------------
+
+library(tidyverse)
+
+
+
+#----------------------------------------------------------
 #   Sub Functions
 #----------------------------------------------------------
 
@@ -11,12 +19,12 @@ rows_lab <- function(){
     "Percentage of total",
     "Diff. with perc. for regional average",
     "Diff. with perc. for income group avg",
-    "\\cellcolor{iceberg}HD FY 20 Lending Program",
+    "\\cellcolor{iceberg}HD FY 20 Lending Program & \\cellcolor{iceberg} & \\cellcolor{iceberg} & \\cellcolor{iceberg} & \\cellcolor{iceberg}",
     "USD (million)",
     "Percentage of total",
     "Diff. with perc. for regional average",
     "Diff. with perc. for income group avg",
-    "\\cellcolor{iceberg}HD Performance",
+    "\\cellcolor{iceberg}HD Performance & \\cellcolor{iceberg} & \\cellcolor{iceberg} & \\cellcolor{iceberg} & \\cellcolor{iceberg}",
     "Average Development Outcome (DO)",
     "Difference with DO for region",
     "Difference with DO for income group",
@@ -28,7 +36,7 @@ rows_lab <- function(){
     "Disbursement ratio (DR)",
     "Difference with DR for region",
     "Difference with DR for income group",
-    "\\cellcolor{iceberg}Other indicators",
+    "\\cellcolor{iceberg}Other indicators & \\cellcolor{iceberg} & \\cellcolor{iceberg} & \\cellcolor{iceberg} & \\cellcolor{iceberg}",
     "Average project size (PS) (USD mill.)",
     "Difference with PS for region",
     "Difference with PS for income group",
@@ -38,6 +46,25 @@ rows_lab <- function(){
   )
   return(x)
 }
+
+color_con <-  function(f, df) {
+  z <- f[[1]]
+  y <- f[[2]]
+  df[[z]] <- signif(df[[z]], digits = 3)  # rounding
+
+  x <- dplyr::case_when(
+    df[[y]] == 1 ~ paste("\\cellcolor{blush}", df[[z]]),
+    df[[y]] == 2 ~ paste("\\cellcolor{arylideyellow}", df[[z]]),
+    df[[y]] == 3 ~ paste("\\cellcolor{asparagus}", df[[z]]),
+    is.na(y) ~ "",
+    is.null(y) ~ "",
+    TRUE ~ ""
+  )
+
+  return(x)
+}
+
+
 
 
 RunMD <- function(x) {
@@ -75,7 +102,21 @@ RunMD <- function(x) {
 #----------------------------------------------------------
 
 hci <- haven::read_dta("input/textforscorecard.dta")
+
+
+#---- Row labels of table
 rl <- rows_lab()   # rows labels
+
+#---- colors of table (Table Values )
+f <- read_csv("static/table_conditions.csv")
+f$cond <- paste0("terc_", f$ori)
+
+
+tv <- apply(f, 1, color_con, df = hci)
+colnames(tv) <- f$ori
+tv <- as_tibble(tv)
+s <- hci[-names(tv)]
+s <- cbind(tv, hci[["wbcode"]])
 
 countries <- NULL
 countries <- c("ETH", "COL")
