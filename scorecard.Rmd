@@ -105,37 +105,8 @@ The following table summarizes the World Bank investments in Human Development f
 \begin{table}[H]
 \small
 \begin{tabular}{lcccc}
-\textbf{World Bank Investments in HD}           & \textbf{}                     & \textbf{}                   & \textbf{}                   & \textbf{} \\\hline
-\textbf{Indicator}                              & \textbf{HD}                   & \textbf{Edu}                & \textbf{HNP}                & \textbf{SPJ} \\\hline
-\cellcolor{iceberg}HD Portfolio                 & \cellcolor{iceberg}           & \cellcolor{iceberg}         & \cellcolor{iceberg}         & \cellcolor{iceberg} \\ \hline
-USD (million)                                   & 3,558                         & 300                         & 250                         & 3,008 \\
-Percentage of total                             & \cellcolor{asparagus}32       & \cellcolor{arylideyellow} 3 & \cellcolor{arylideyellow} 2 & \cellcolor{asparagus}27 \\
-Diff. with perc. for regional average           & +9                            & -3                          & -6                          & +18 \\
-Diff. with perc. for income group avg           & +4                            & -3                          & -9                          & +18 \\ \hline
-\cellcolor{iceberg}HD FY 20 Lending Program     & \cellcolor{iceberg}           & \cellcolor{iceberg}         & \cellcolor{iceberg}         & \cellcolor{iceberg} \\ \hline
-USD (million)                                   & 560                           & 60                          & 0                           & 500 \\
-Percentage of total                             & \cellcolor{asparagus} 100     & \cellcolor{asparagus} 10    & \cellcolor{blush} 0         & \cellcolor{asparagus}89.3 \\
-Diff. with perc. for regional average           & +44                           & -20                         & -9                          & +77 \\
-Diff. with perc. for income group avg           & +64                           & +2                          & -11                         & +73 \\ \hline
-\cellcolor{iceberg}HD Performance               & \cellcolor{iceberg}           & \cellcolor{iceberg}         & \cellcolor{iceberg}         & \cellcolor{iceberg} \\ \hline
-Average Development Outcome (DO)                & \cellcolor{arylideyellow} 3.3 & \cellcolor{blush} 3         & \cellcolor{blush}3          & \cellcolor{arylideyellow}3.5 \\
-Difference with DO for region                   & -0.2                          & -0.3                        & -0.57                       & -0.15 \\
-Difference with DO for income group             & -0.11                         & -0.34                       & -0.57                       & -0.06 \\
-Perc. Satisfactory DO                           & 100                           & 100                         & \ 100                       & 100 \\
-Average Implementation Progress (IP)            & \cellcolor{blush} 3           & \cellcolor{blush} 3         & \cellcolor{blush} 3         & \cellcolor{blush}3 \\
-Difference with IP for region                   & -0.32                         & -0.22                       & -0.34                       & 0.51 \\
-Difference with IP for income group             & -0.30                         & -0.23                       & -0.40                       & -0.36 \\
-Perc. Satisfactory IP                           & 100                           & 100                         & \ 100                       & 100 \\
-Disbursement ratio (DR)                         & \cellcolor{asparagus}54.5     & .                           & .                           & \cellcolor{asparagus}54.5 \\
-Difference with DR for region                   & 15.5                          & .                           & .                           & +2 \\
-Difference with DR for income group             & +10                           & .                           & .                           & -5 \\\hline
-\cellcolor{iceberg}Other indicators             & \cellcolor{iceberg}           & \cellcolor{iceberg}         & \cellcolor{iceberg}         & \cellcolor{iceberg} \\ \hline
-Average project size (PS) (USD mill.)           & \cellcolor{asparagus} 351     & \cellcolor{asparagus} 300   & \cellcolor{asparagus} 250   & \cellcolor{asparagus} 752 \\
-Difference with PS for region                   & +255                          & +293                        & 190                         & +664 \\
-Difference with PS for income group             & +277                          & +242                        & 178                         & +659 \\
-Perc. of portfolio that is co-TTL'd (CTT)       & \cellcolor{asparagus} 62      & \cellcolor{blush} 0         & \cellcolor{blush} 0         & \cellcolor{asparagus} 73 \\
-Diff. with CTT for region (perc. points)        & +36                           & -15                         & -31                         & +42\\
-Diff. with CTT income group (perc. points)      & +32                           & -21                         & -35                         & +37\\
+`r rl[[1]]` \\\hline
+`r rl[[2]]` & \cellcolor{iceberg} & \cellcolor{iceberg} & \cellcolor{iceberg} & \cellcolor{iceberg} \\ 
 \hline
  \multicolumn{5}{l}{Note: a) Pink indicates that the value is within the first tercile of the} \\
  \multicolumn{5}{l}{distribution for all the countries. Orange indicates that the value is } \\
