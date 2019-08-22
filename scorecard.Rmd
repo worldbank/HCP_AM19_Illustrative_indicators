@@ -105,12 +105,40 @@ The following table summarizes the World Bank investments in Human Development f
 \begin{table}[H]
 \small
 \begin{tabular}{lcccc}
-`r rl[[1]]` \\\hline
-`r rl[[2]]` & \cellcolor{iceberg} & \cellcolor{iceberg} & \cellcolor{iceberg} & \cellcolor{iceberg} \\ 
-\hline
- \multicolumn{5}{l}{Note: a) Pink indicates that the value is within the first tercile of the} \\
- \multicolumn{5}{l}{distribution for all the countries. Orange indicates that the value is } \\
- \multicolumn{5}{l}{is within the second tercile. Green indicates that it is within the third} \\
+`r rl[[1]]` \\ \hline
+`r rl[[2]]` \\ \hline
+`r rl[[3]]` \\ \hline
+`r rl[[4]]`  & `r hci[["hdportfolio"]]` & `r hci[["eduportfolio"]]` & `r hci[["hnpportfolio"]]` & `r hci[["spjportfolio"]]` \\ 
+`r rl[[5]]`  & `r hci[["hdportfolio_share"]]` & `r hci[["eduportfolio_share"]]` & `r hci[["hnpportfolio_share"]]` & `r hci[["spjportfolio_share"]]` \\ 
+`r rl[[6]]`  & `r hci[["hdportfolio_share_diffmr"]]` & `r hci[["eduportfolio_share_diffmr"]]` & `r hci[["hnpportfolio_share_diffmr"]]` & `r hci[["spjportfolio_share_diffmr"]]` \\ 
+`r rl[[7]]`  & `r hci[["hdportfolio_share_diffmi"]]` & `r hci[["eduportfolio_share_diffmi"]]` & `r hci[["hnpportfolio_share_diffmi"]]` & `r hci[["spjportfolio_share_diffmi"]]` \\ \hline
+`r rl[[8]]`  \\ \hline  
+`r rl[[9]]`  & `r hci[["pipeline_hd"]]` & `r hci[["pipeline_edu"]]` & `r hci[["pipeline_hnp"]]` & `r hci[["pipeline_spj"]]` \\  
+`r rl[[10]]` & `r hci[["pipeline_hd_share"]]` & `r hci[["pipeline_edu_share"]]` & `r hci[["pipeline_hnp_share"]]` & `r hci[["pipeline_spj_share"]]` \\ 
+`r rl[[11]]` & `r hci[["pipeline_hd_share_diffmr"]]` & `r hci[["pipeline_edu_share_diffmr"]]` & `r hci[["pipeline_hnp_share_diffmr"]]` & `r hci[["pipeline_spj_share_diffmr"]]` \\ 
+`r rl[[12]]` & `r hci[["pipeline_hd_share_diffmi"]]` & `r hci[["pipeline_edu_share_diffmi"]]` & `r hci[["pipeline_hnp_share_diffmi"]]` & `r hci[["pipeline_spj_share_diffmi"]]` \\ \hline
+`r rl[[13]]` \\ \hline
+`r rl[[14]]` & `r hci[["do_performance_hd"]]` & `r hci[["do_performance_edu"]]` & `r hci[["do_performance_hnp"]]` & `r hci[["do_performance_spj"]]` \\ 
+`r rl[[15]]` & `r hci[["do_performance_hd_diffmr"]]` & `r hci[["do_performance_edu_diffmr"]]` & `r hci[["do_performance_hnp_diffmr"]]` & `r hci[["do_performance_spj_diffmr"]]` \\ 
+`r rl[[16]]` & `r hci[["do_performance_hd_diffmi"]]` & `r hci[["do_performance_edu_diffmi"]]` & `r hci[["do_performance_hnp_diffmi"]]` & `r hci[["do_performance_spj_diffmi"]]` \\ 
+`r rl[[17]]` & `r hci[["percsatisfdo_hd"]]` & `r hci[["percsatisfdo_edu"]]` & `r hci[["percsatisfdo_hnp"]]` & `r hci[["percsatisfdo_spj"]]` \\ 
+`r rl[[18]]` & `r hci[["ip_performance_hd"]]` & `r hci[["ip_performance_edu"]]` & `r hci[["ip_performance_hnp"]]` & `r hci[["ip_performance_spj"]]` \\ 
+`r rl[[19]]` & `r hci[["ip_performance_hd_diffmr"]]` & `r hci[["ip_performance_edu_diffmr"]]` & `r hci[["ip_performance_hnp_diffmr"]]` & `r hci[["ip_performance_spj_diffmr"]]` \\ 
+`r rl[[20]]` & `r hci[["ip_performance_hd_diffmi"]]` & `r hci[["ip_performance_edu_diffmi"]]` & `r hci[["ip_performance_hnp_diffmi"]]` & `r hci[["ip_performance_spj_diffmi"]]` \\ 
+`r rl[[21]]` & `r hci[["percsatisfip_hd"]]` & `r hci[["percsatisfip_edu"]]` & `r hci[["percsatisfip_hnp"]]` & `r hci[["percsatisfip_spj"]]` \\ 
+`r rl[[22]]` & `r hci[["disburratio_hd"]]` & `r hci[["disburratio_edu"]]` & `r hci[["disburratio_hnp"]]` & `r hci[["disburratio_spj"]]` \\ 
+`r rl[[23]]` & `r hci[["disburratio_hd_diffmr"]]` & `r hci[["disburratio_edu_diffmr"]]` & `r hci[["disburratio_hnp_diffmr"]]` & `r hci[["disburratio_spj_diffmr"]]` \\ 
+`r rl[[24]]` & `r hci[["disburratio_hd_diffmi"]]` & `r hci[["disburratio_edu_diffmi"]]` & `r hci[["disburratio_hnp_diffmi"]]` & `r hci[["disburratio_spj_diffmi"]]` \\ \hline
+`r rl[[25]]` \\ \hline
+`r rl[[26]]` & `r hci[["avgsize_hd"]]` & `r hci[["avgsize_edu"]]` & `r hci[["avgsize_hnp"]]` & `r hci[["avgsize_spj"]]` \\ 
+`r rl[[27]]` & `r hci[["avgsize_hd_diffmr"]]` & `r hci[["avgsize_edu_diffmr"]]` & `r hci[["avgsize_hnp_diffmr"]]` & `r hci[["avgsize_spj_diffmr"]]` \\ 
+`r rl[[28]]` & `r hci[["avgsize_hd_diffmi"]]` & `r hci[["avgsize_edu_diffmi"]]` & `r hci[["avgsize_hnp_diffmi"]]` & `r hci[["avgsize_spj_diffmi"]]` \\ 
+`r rl[[29]]` & `r hci[["crossgpshare_hd"]]` & `r hci[["crossgpshare_edu"]]` & `r hci[["crossgpshare_hnp"]]` & `r hci[["crossgpshare_spj"]]` \\ 
+`r rl[[30]]` & `r hci[["crossgpshare_hd_diffmr"]]` & `r hci[["crossgpshare_edu_diffmr"]]` & `r hci[["crossgpshare_hnp_diffmr"]]` & `r hci[["crossgpshare_spj_diffmr"]]` \\ 
+`r rl[[31]]` & `r hci[["crossgpshare_hd_diffmi"]]` & `r hci[["crossgpshare_edu_diffmi"]]` & `r hci[["crossgpshare_hnp_diffmi"]]` & `r hci[["crossgpshare_spj_diffmi"]]` \\ \hline
+ \multicolumn{5}{l}{Note: a) \colorbox{blush}{Pink} indicates that the value is within the first tercile of the} \\
+ \multicolumn{5}{l}{distribution for all the countries. \colorbox{arylideyellow}{Orange} indicates that the value is } \\
+ \multicolumn{5}{l}{is within the second tercile. \colorbox{asparagus}{Green} indicates that it is within the third} \\
  \multicolumn{5}{l}{tercile. b) FY20 lending program includes only projects rated A, B and } \\
  \multicolumn{5}{l}{unrated. c) DO and IP are on a scale of 1 to 5 where 1 is Unsatisfactory } \\
  \multicolumn{5}{l}{and5 is Highly Satisfactory. d) Data as of July 15, 2019.} \\
