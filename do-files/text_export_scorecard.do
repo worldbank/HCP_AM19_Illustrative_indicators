@@ -87,6 +87,19 @@ replace wbcountrynameb="the Virgin Islands" if wbcountryname=="Virgin Islands (U
 replace wbcountryname="The Virgin Islands" if wbcountryname=="Virgin Islands (U.S.)"
 replace wbcountrynameb=wbcountryname if wbcountrynameb==""
 
+
+gen af_hcitarg = 45
+gen af_odtarg = 15
+gen af_lastspctarg = 30
+gen af_lastafrtarg = 83
+
+
+
+
+
+
+
+
 foreach var of varlist lastner_sec_f drm lastcpia_hr unregpop lasttime_nostu_rep lasttime_hlo_mf_rep dpohc wep hdportfolio_share eduportfolio_share hnpportfolio_share spjportfolio_share pipeline_hd_share pipeline_edu_share pipeline_hnp_share pipeline_spj_share do_performance_hd  do_performance_edu do_performance_hnp do_performance_spj ip_performance_hd  ip_performance_edu ip_performance_hnp ip_performance_spj disburratio_hd disburratio_edu disburratio_hnp disburratio_spj  avgsize_hd avgsize_edu avgsize_hnp avgsize_spj crossgpshare_hd crossgpshare_edu crossgpshare_hnp crossgpshare_spj{
      egen `var'_sdr=sd(`var') if year==2017, by(region)
 	 egen `var'_sdi=sd(`var') if year==2017, by(income)
