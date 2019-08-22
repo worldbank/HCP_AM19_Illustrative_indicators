@@ -69,6 +69,7 @@ color_cell <-  function(f, df) {
 
 RunMD <- function(x) {
   file_name <- paste0("scorecard_", x[["wbcode"]])
+  countrynamet <- x[["wbcountrynameb"]]
 
   result <-  tryCatch({
     rmarkdown::render(
