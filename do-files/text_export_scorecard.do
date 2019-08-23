@@ -334,7 +334,7 @@ gen lastod_text = ///
 			"In " + wbcountrynameb + ", data on the percentage of the population that practices open defecation do not exist. The average for the country's region is " + strofreal(round(lastod_mr,1)) + " percent and for its income group is " + strofreal(round(lastod_mr,1)) + " percent." )))) 
 	
 		   
-gen lasttfr_text = ///
+gen lasttfr_text  = ///
 	cond(lasttfr< lasttfr_mr & lasttfr<lasttfr_mi, "In " + wbcountrynameb + ", the total fertility rate is **" + strofreal(round(lasttfr,1.00)) + "**." ///
 	+ " This is lower than both the average for its region (" + strofreal(round(lasttfr_mr,1)) + ") and the average for its income group (" + strofreal(round(lasttfr_mi,1)) + ").", ///
 		cond(lasttfr> lasttfr_mr & lasttfr>lasttfr_mi,"In " + wbcountrynameb + ", the total fertility rate is **" + strofreal(round(lasttfr,1.00)) + "**." ///
