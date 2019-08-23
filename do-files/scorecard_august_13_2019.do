@@ -19,7 +19,7 @@ disp "`date'"
 //global charts "C:\Users\WB469563\OneDrive - WBG\Documents (zdebebe@worldbank.org)\OneDrive - WBG\Documents (zdebebe@worldbank.org)\Human Capital Project\HCP Africa\Scorecard\charts"
 
 use "input/scorecardanalysis_2019-08-13.dta", clear 
-graph set window fontface "Baskerville Old Face"
+graph set window fontface "Fourier"
 
 
 //use scorecardanalysis_2019-08-13.dta, clear
