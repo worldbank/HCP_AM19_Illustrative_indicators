@@ -12,10 +12,20 @@ set maxvar 32000
 
 *set up directory and filepath to database 
 
-local outputfilepath "C:\Users\WB469563\OneDrive - WBG\Documents (zdebebe@worldbank.org)\OneDrive - WBG\Documents (zdebebe@worldbank.org)\Human Capital Project\HCP Africa\Scorecard"
-global charts "C:\Users\WB469563\OneDrive - WBG\Documents (zdebebe@worldbank.org)\OneDrive - WBG\Documents (zdebebe@worldbank.org)\Human Capital Project\HCP Africa\Scorecard\charts"
 
-use scorecardanalysis.dta, clear
+global root "C:\Users\WB469563\OneDrive - WBG\Documents (zdebebe@worldbank.org)\OneDrive - WBG\Documents (zdebebe@worldbank.org)\Human Capital Project\CHI_AM19_scorecard"
+global charts "${root}/charts"
+local outputfilepath "${root}/input"
+cd "${root}"
+
+local date: disp %tdCY-m-D date("`c(current_date)'", "DMY")
+disp "`date'"
+
+use "input/scorecardanalysis.dta", clear 
+graph set window fontface "Fourier"
+
+
+
 
 //Preliminaries 
 
@@ -194,6 +204,22 @@ gen difdrmpred = drm-pdrm
 egen nm=rownonmiss(lny drm hci_mf health_ed_pc) //how many countries have nonmissing data for figure 2,3 and 4
 tab nm
 	
+replace  hcicountry=1 if (wbcountryname=="Tanzania" | wbcountryname=="Cambodia") //we have 64 hcp countries 
+	
+	
+///////////////////////////////////////////////for AFRICA			
+gen af_hci_mf_targ =0.45 //for graph line 	
+//gen hci_mf_100 = hci_mf*100
+gen af_hci_targ = 45 //for text 
+gen af_od_targ = 15
+gen af_lastspc_targ = 30
+gen af_lastafr_targ = 83
+
+
+gen dif_hci_targ = hci_mf_100 - af_hci_targ
+gen dif_od_targ = lastod - af_od_targ
+gen dif_lastspc_targ = lastspc - af_lastspc_targ
+gen dif_lastafr_targ = lastafr - af_lastafr_targ
 
 
 
@@ -291,11 +317,14 @@ xtile terc_crossgpshare_spj = crossgpshare_spj, nq(3)
 
 
 
+
 ****Keep only variables that are relevant for analysis***	
 *preserve
 *keep wbcode lastner_sec_f lastner_sec_f_mr lastner_sec_f_mi lastner_sec_f_sdr lastner_sec_f_sdm percsatisfip_hd percsatisfip_edu percsatisfip_hnp percsatisfip_spj percsatisfdo_hd percsatisfdo_edu percsatisfdo_hnp percsatisfdo_spj avgsize_hd avgsize_edu avgsize_hnp avgsize_spj hdportfolio eduportfolio hnpportfolio spjportfolio pipeline_hd pipeline_edu pipeline_hnp pipeline_spj terc_disburratio_spj terc_avgsize_hd terc_avgsize_edu terc_avgsize_hnp terc_avgsize_spj terc_crossgpshare_hd terc_crossgpshare_edu terc_crossgpshare_hnp terc_crossgpshare_spj terc_ip_performance_hd terc_ip_performance_edu terc_ip_performance_hnp terc_ip_performance_spj terc_disburratio_hd terc_disburratio_edu terc_disburratio_hnp terc_pipeline_hnp_share terc_pipeline_spj_share terc_do_performance_hd terc_do_performance_edu terc_do_performance_hnp terc_do_performance_spj terc_hdportfolio_share 	terc_eduportfolio_share terc_hnpportfolio_share terc_spjportfolio_share terc_pipeline_hd_share terc_pipeline_edu_share  hdportfolio_share_sdr hdportfolio_share_sdi eduportfolio_share_sdr eduportfolio_share_sdi hnpportfolio_share_sdr hnpportfolio_share_sdi spjportfolio_share_sdr spjportfolio_share_sdi pipeline_hd_share_sdr pipeline_hd_share_sdi pipeline_edu_share_sdr pipeline_edu_share_sdi pipeline_hnp_share_sdr pipeline_hnp_share_sdi pipeline_spj_share_sdr pipeline_spj_share_sdi do_performance_hd_sdr do_performance_hd_sdi do_performance_edu_sdr do_performance_edu_sdi do_performance_hnp_sdr do_performance_hnp_sdi do_performance_spj_sdr do_performance_spj_sdi ip_performance_hd_sdr ip_performance_hd_sdi ip_performance_edu_sdr ip_performance_edu_sdi ip_performance_hnp_sdr ip_performance_hnp_sdi ip_performance_spj_sdr ip_performance_spj_sdi disburratio_hd_sdr disburratio_hd_sdi disburratio_edu_sdr disburratio_edu_sdi disburratio_hnp_sdr disburratio_hnp_sdi disburratio_spj_sdr disburratio_spj_sdi avgsize_hd_sdr avgsize_hd_sdi avgsize_edu_sdr avgsize_edu_sdi avgsize_hnp_sdr avgsize_hnp_sdi avgsize_spj_sdi crossgpshare_hd_sdr crossgpshare_hd_sdi crossgpshare_edu_sdr crossgpshare_edu_sdi crossgpshare_hnp_sdr crossgpshare_hnp_sdi crossgpshare_spj_sdr crossgpshare_spj_sdi crossgpshare_spj_diffmi crossgpshare_hnp_diffmi crossgpshare_edu_diffmi crossgpshare_hd_diffmi crossgpshare_spj_diffmr crossgpshare_hnp_diffmr crossgpshare_edu_diffmr crossgpshare_hd_diffmr  avgsize_spj_diffmi avgsize_hnp_diffmi avgsize_edu_diffmi avgsize_hd_diffmi avgsize_spj_diffmr  avgsize_hnp_diffmr  avgsize_edu_diffmi  avgsize_hd_diffmi avgsize_spj_diffmr avgsize_hnp_diffmr  avgsize_edu_diffmr  avgsize_hd_diffmr  disburratio_hd_diffmi disburratio_edu_diffmi disburratio_hnp_diffmi disburratio_spj_diffmi disburratio_hd_diffmr disburratio_edu_diffmr disburratio_hnp_diffmr disburratio_spj_diffmr ip_performance_spj_diffmi ip_performance_hnp_diffmi ip_performance_edu_diffmi ip_performance_hd_diffmi  ip_performance_spj_diffmr ip_performance_hnp_diffmr  ip_performance_edu_diffmr  ip_performance_hd_diffmr do_performance_spj_diffmi do_performance_hnp_diffmi do_performance_edu_diffmi do_performance_hd_diffmi do_performance_spj_diffmr do_performance_hnp_diffmr do_performance_edu_diffmr do_performance_hd_diffmr pipeline_spj_share_diffmi  pipeline_hnp_share_diffmi  pipeline_edu_share_diffmi pipeline_hd_share_diffmi pipeline_spj_share_diffmr pipeline_hnp_share_diffmr  pipeline_edu_share_diffmr  pipeline_hd_share_diffmr  spjportfolio_share_diffmi hnpportfolio_share_diffmi hdportfolio_share_diffmr  eduportfolio_share_diffmr hnpportfolio_share_diffmr spjportfolio_share_diffmr hdportfolio_share_diffmi eduportfolio_share_diffmi wbcountrynameb wbregion wbincomegroup hci_mf_100 lastspc lastspc_mr lastspc_mi lastod lastod_mr lastod_mi lasttfr lasttfr_mr lasttfr_mi lastafr lastafr_mr lastafr_mi contracep contracep_mr contracep_mi wbl wbl_mr wbl_mi hcicountry edugov edugov_mr edugov_mi healthgov healthgov_mi healthgov_mr socprotgov socprotgov_mr socprotgov_mi difhcipred drm drm_mr drm_mi difdrmpred lastcpia_hr lastcpia_hr_mr lastcpia_hr_mi unregpop unregpop_mr unregpop_mi lasttime_nostu_rep lasttime_hlo_mf_rep dpohc wep hdportfolio_share eduportfolio_share hnpportfolio_share spjportfolio_share pipeline_hd_share pipeline_edu_share pipeline_hnp_share pipeline_spj_share do_performance_hd  do_performance_edu do_performance_hnp do_performance_spj ip_performance_hd  ip_performance_edu ip_performance_hnp ip_performance_spj disburratio_hd disburratio_edu disburratio_hnp disburratio_spj  avgsize_hd avgsize_edu avgsize_hnp avgsize_spj crossgpshare_hd crossgpshare_edu crossgpshare_hnp crossgpshare_spj 
 *save relevant_variables_3, replace
 *restore
+	
+
 	
 	
 gen intro_text  = "This note presents a snapshot of the country's commitment on the human capital agenda and the main actions being taken by the World Bank Group to support the government."
@@ -310,52 +339,101 @@ gen hci_text = ///
 	 + " the country two-pager on \boldblue{www.worldbank.org/humancapitalproject}")
 	 
 	 
+////////////////////////////////////////////
 gen lastspc_text = ///
-	cond(lastspc< lastspc_mr & lastspc<lastspc_mi, "In " + wbcountrynameb + "**" + strofreal(round(lastspc,1)) + " percent** of the population is covered by" ///
+	cond(lastspc< lastspc_mr & lastspc<lastspc_mi, "In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1)) + " percent** of the population is covered by" ///
 	+ " social safety net programs. This is lower than both the average for its region (" + strofreal(round(lastspc_mr,1)) + ") and the average for its income group (" + strofreal(round(lastspc_mi,1)) + ").", ///
 		cond(lastspc> lastspc_mr & lastspc>lastspc_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1))  + " percent** of the population is covered by" ///
 		+ " social safety net programs. This is higher than both the average for its region (" + strofreal(round(lastspc_mr,1)) + ") and the average for its income group (" + strofreal(round(lastspc_mi,1)) + ").", ///
 	   	cond(lastspc< lastspc_mr & lastspc>lastspc_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1))  + " percent** of the population is covered by" ///
 		+ " social safety net programs. This is lower than the average for its region (" + strofreal(round(lastspc_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastspc_mi,1)) + ").", ///
-		cond(lastspc< lastspc_mr & lastspc>lastspc_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1))  + " percent** of the population is covered by" ///
+		cond(lastspc> lastspc_mr & lastspc<lastspc_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1))  + " percent** of the population is covered by" ///
 		+ " social safety net programs. This is higher than the average for its region (" + strofreal(round(lastspc_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastspc_mi,1)) + ").", ///
-			"In " + wbcountrynameb + ",data on the percentage of the population that is covered by social safety nets do not exist. The average for the country's region is " + strofreal(round(lastspc_mr,1)) + " percent and for its income group is " + strofreal(round(lastspc_mr,1)) + " percent." )))) 
+		""))))	if lastspc!=.
 		
+replace lastspc_text="In " + wbcountrynameb + ///
+", data on the percentage of the population that is covered by social safety nets do not exist." + ///
+" The average for the country's region is " + strofreal(round(lastspc_mr,1)) + " percent and for its income group is " + strofreal(round(lastspc_mr,1)) + " percent." if lastspc==.
 
+replace lastspc_text = ///
+	cond(dif_lastspc_targ>1, "In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1)) + " percent** of the population is covered by" ///
+	+ " social safety net programs. This is higher than the Africa Human Capital Target for 2023 (" + strofreal(round(af_lastspc_targ,1)) + ").", ///
+		cond(dif_lastspc_targ<-1, "In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1)) + " percent** of the population is covered by" ///
+	+ " social safety net programs. This is lower than the Africa Human Capital Target for 2023 (" + strofreal(round(af_lastspc_targ,1)) + ").", ///
+	 "In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1)) + " percent** of the population is covered by" ///
+	+ " social safety net programs. This is roughly equal to the Africa Human Capital Target for 2023 (" + strofreal(round(af_lastspc_targ,1)) + ").")) if wbregion=="Sub-Saharan Africa" &  lastspc!=.
+
+//////////////////////////////////////////////	
 gen lastod_text = ///
 	cond(lastod< lastod_mr & lastod<lastod_mi, "In " + wbcountrynameb + ", **" + strofreal(round(lastod,1)) + " percent** of the population practices" ///
-	+ " open defecation. This is lower than both the average for its region (" + strofreal(round(lastod_mr,1)) + ") and the average for its income group (" + strofreal(round(lastod_mi,1)) + ".", ///
+	+ " open defecation. This is lower than both the average for its region (" + strofreal(round(lastod_mr,1)) + ") and the average for its income group (" + strofreal(round(lastod_mi,1)) + ").", ///
 		cond(lastod> lastod_mr & lastod>lastod_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastod,1))  + " percent** of the population practices" ///
 		+ " open defecation. This is higher than both the average for its region (" + strofreal(round(lastod_mr,1)) + ") and the average for its income group (" + strofreal(round(lastod_mi,1)) + ").", ///
 	   	cond(lastod< lastod_mr & lastod>lastod_mi,"In" + wbcountrynameb + ", **" + strofreal(round(lastod,1))  + " percent** of the population practices" ///
 		+ " open defecation. This is lower than the average for its region (" + strofreal(round(lastod_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastod_mi,1)) + ").", ///
-		cond(lastod< lastod_mr & lastod>lastod_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastod,1))  + " percent** of the population practices" ///
+		cond(lastod> lastod_mr & lastod<lastod_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastod,1))  + " percent** of the population practices" ///
 		+ " open defecation. This is higher than the average for its region (" + strofreal(round(lastod_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastod_mi,1)) + ").", ///
-			"In " + wbcountrynameb + ", data on the percentage of the population that practices open defecation do not exist. The average for the country's region is " + strofreal(round(lastod_mr,1)) + " percent and for its income group is " + strofreal(round(lastod_mr,1)) + " percent." )))) 
+		"")))) if lastod!=.
+		
+replace lastod_text="In " + wbcountrynameb + ///
+", data on the percentage of the population that practices open defecation do not exist." + ///
+" The average for the country's region is " + strofreal(round(lastod_mr,1)) + " percent and for its income group is " + strofreal(round(lastod_mr,1)) + " percent."  if lastod==.
+
+replace lastod_text= ///
+cond(dif_od_targ >1, "In " + wbcountrynameb + ", **" + strofreal(round(lastod,1)) + " percent** of the population practices" ///
+	+ " open defecation. This is higher than the Africa Human Capital Target for 2023 (" + strofreal(round(af_od_targ,1)) + ").", ///
+cond(dif_od_targ <-1, "In " + wbcountrynameb + ", **" + strofreal(round(lastod,1)) + " percent** of the population practices" ///
+	+ " open defecation. This is lower than the Africa Human Capital Target for 2023 (" + strofreal(round(af_od_targ,1)) + ").", ///
+    "In " + wbcountrynameb + ", **" + strofreal(round(lastod,1)) + " percent** of the population practices" ///
+	+ " open defecation. This is roughly equal to the Africa Human Capital Target for 2023 (" + strofreal(round(af_od_targ,1)) + ")."))  if wbregion=="Sub-Saharan Africa" & lastod!=.
 	
-		   
-gen lasttfr_text = ///
-	cond(lasttfr< lasttfr_mr & lasttfr<lasttfr_mi, "In " + wbcountrynameb + ", the total fertility rate is **" + strofreal(round(lasttfr,1.00)) + "**." ///
-	+ " This is lower than both the average for its region (" + strofreal(round(lasttfr_mr,1)) + ") and the average for its income group (" + strofreal(round(lasttfr_mi,1)) + ").", ///
-		cond(lasttfr> lasttfr_mr & lasttfr>lasttfr_mi,"In " + wbcountrynameb + ", the total fertility rate is **" + strofreal(round(lasttfr,1.00)) + "**." ///
-		+ " This is higher than both the average for its region (" + strofreal(round(lasttfr_mr,1)) + ") and the average for its income group (" + strofreal(round(lasttfr_mi,1)) + ").", ///
-	   	cond(lasttfr< lasttfr_mr & lasttfr>lasttfr_mi,"In " + wbcountrynameb + ", the total fertility rate is **" + strofreal(round(lasttfr,1.00)) + "**." ///
-		+ " This is lower than the average for its region (" + strofreal(round(lasttfr_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lasttfr_mi,1)) + ").", ///
-		cond(lasttfr< lasttfr_mr & lasttfr>lasttfr_mi,"In " + wbcountrynameb + ", the total fertility rate is **" + strofreal(round(lasttfr,1.00)) + "**." ///
-		+ " This is higher than the average for its region (" + strofreal(round(lasttfr_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lasttfr_mi,1)) + ").", ///
-			"In " + wbcountrynameb + ", data on the total fertility rate do not exist. The average for the country's region is " + strofreal(round(lasttfr_mr,1)) + " births per woman and for its income group is " + strofreal(round(lasttfr_mr,1)) + " births per woman." )))) 
-			
+///////////////////////////////////////////////////////
+
+
 
 gen lastafr_text = ///
 	cond(lastafr< lastafr_mr & lastafr<lastafr_mi, "In " + wbcountrynameb + ", there are **" + strofreal(round(lastafr,1)) + " births** per 1,000 women ages 15-19." ///
-	+ " This is lower than both the average for its region (" + strofreal(round(lastafr_mr,1)) + ")and the average for its income group (" + strofreal(round(lastafr_mi,1)) + ").", ///
+	+ " This is lower than both the average for its region (" + strofreal(round(lastafr_mr,1)) + ") and the average for its income group (" + strofreal(round(lastafr_mi,1)) + ").", ///
 		cond(lastafr> lastafr_mr & lastafr>lastafr_mi,"In " + wbcountrynameb + ", there are **" + strofreal(round(lastafr,1)) + " births** per 1,000 women ages 15-19." ///
 		+ " This is higher than both the average for its region (" + strofreal(round(lastafr_mr,1)) + ") and the average for its income group (" + strofreal(round(lastafr_mi,1)) + ").", ///
 	   	cond(lastafr< lastafr_mr & lastafr>lastafr_mi,"In " + wbcountrynameb + ", there are **" + strofreal(round(lastafr,1)) + " births** per 1,000 women ages 15-19." ///
 		+ " This is lower than the average for its region (" + strofreal(round(lastafr_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastafr_mi,1)) + ").", ///
-		cond(lastafr< lastafr_mr & lastafr>lastafr_mi,"In" + wbcountrynameb + ", there are **" + strofreal(round(lastafr,1)) + " births** per 1,000 women ages 15-19." ///
-		+ " This is higher than the average for its region" + strofreal(round(lastafr_mr,1)) + "but lower than the average for its income group " + strofreal(round(lastafr_mi,1)) + ".", ///
-			"In " + wbcountrynameb + ", data on the adolescent fertility rate do not exist. The average for the country's region is " + strofreal(round(lastafr_mr,1)) + " births per 1,000 women ages 15-19 and for its income group is " + strofreal(round(lastafr_mr,1)) + "." )))) 
+		cond(lastafr> lastafr_mr & lastafr<lastafr_mi,"In " + wbcountrynameb + ", there are **" + strofreal(round(lastafr,1)) + " births** per 1,000 women ages 15-19." ///
+		+ " This is higher than the average for its region (" + strofreal(round(lastafr_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastafr_mi,1)) + ").", ///
+		"")))) if lastafr!=.
+
+replace lastafr_text= "In " + wbcountrynameb + ///
+", data on the adolescent fertility rate do not exist." + ///
+" The average for the country's region is " + strofreal(round(lastafr_mr,1)) + " births per 1,000 women ages 15-19 and for its income group is " + strofreal(round(lastafr_mr,1)) + "." if lastafr==.
+ 
+replace lastafr_text= ///
+cond(dif_lastafr_targ>1, "In " + wbcountrynameb + ", there are **" + strofreal(round(lastafr,1)) + " births** per 1,000 women ages 15-19." ///
+	+ " This is higher than the Africa Human Capital Target for 2023 (" + strofreal(round(af_lastafr_targ,1)) +  ").", ///
+cond(dif_lastafr_targ<-1, "In " + wbcountrynameb + ", there are **" + strofreal(round(lastafr,1)) + " births** per 1,000 women ages 15-19." ///
+	+ " This is lower than the Africa Human Capital Target for 2023 (" + strofreal(round(af_lastafr_targ,1)) +  ").", ///
+    "In " + wbcountrynameb + ", there are **" + strofreal(round(lastafr,1)) + " births** per 1,000 women ages 15-19." ///
+	+ " This is roughly equal to the Africa Human Capital Target for 2023 (" + strofreal(round(af_lastafr_targ,1)) +  ").")) if  wbregion=="Sub-Saharan Africa" &  lastafr!=.
+
+/////////////////////////////////
+
+			   
+gen lasttfr_text = ///
+	cond(lasttfr< lasttfr_mr & lasttfr<lasttfr_mi, "In " + wbcountrynameb + ", the total fertility rate is **" + strofreal(round(lasttfr, 0.1)) + "**." ///
+	+ " This is lower than both the average for its region (" + strofreal(round(lasttfr_mr,0.1)) + ") and the average for its income group (" + strofreal(round(lasttfr_mi,0.1)) + ").", ///
+		cond(lasttfr> lasttfr_mr & lasttfr>lasttfr_mi,"In " + wbcountrynameb + ", the total fertility rate is **" + strofreal(round(lasttfr,0.1)) + "**." ///
+		+ " This is higher than both the average for its region (" + strofreal(round(lasttfr_mr,0.1)) + ") and the average for its income group (" + strofreal(round(lasttfr_mi,0.1)) + ").", ///
+	   	cond(lasttfr< lasttfr_mr & lasttfr>lasttfr_mi,"In " + wbcountrynameb + ", the total fertility rate is **" + strofreal(round(lasttfr,0.1)) + "**." ///
+		+ " This is lower than the average for its region (" + strofreal(round(lasttfr_mr,0.1)) + ") but higher than the average for its income group (" + strofreal(round(lasttfr_mi,0.1)) + ").", ///
+		cond(lasttfr> lasttfr_mr & lasttfr<lasttfr_mi,"In " + wbcountrynameb + ", the total fertility rate is **" + strofreal(round(lasttfr,0.1)) + "**." ///
+		+ " This is higher than the average for its region (" + strofreal(round(lasttfr_mr,0.1)) + ") but lower than the average for its income group (" + strofreal(round(lasttfr_mi,0.1)) + ").", ///
+		"")))) if lasttfr!=.
+		
+replace lasttfr_text= "In " + wbcountrynameb + ///
+", data on the total fertility rate do not exist." + ///
+" The average for the country's region is " + strofreal(round(lasttfr_mr,1)) + " births per woman and for its income group is " + strofreal(round(lasttfr_mr,1)) + " births per woman." if lasttfr==.
+///////////////////////////////
+  
+	
 
 
 gen contracep_text = ///
@@ -365,39 +443,64 @@ gen contracep_text = ///
 		+ "method. This is higher than both the average for its region (" + strofreal(round(contracep_mr,1)) + ") and the average for its income group (" + strofreal(round(contracep_mi,1)) + ").", ///
 	   	cond(contracep< contracep_mr & contracep>contracep_mi, "In " + wbcountrynameb + ", **" + strofreal(round(contracep,1)) + " percent** of women ages 15-49 uses some form of contraceptive " ///
 		+ "method. This is lower than the average for its region (" + strofreal(round(contracep_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(contracep_mi,1)) + ").", ///
-		cond(contracep< contracep_mr & contracep>contracep_mi, "In " + wbcountrynameb + ", **" + strofreal(round(contracep,1)) + " percent** of women ages 15-49 uses some form of contraceptive " ///
+		cond(contracep> contracep_mr & contracep<contracep_mi, "In " + wbcountrynameb + ", **" + strofreal(round(contracep,1)) + " percent** of women ages 15-49 uses some form of contraceptive " ///
 		+ "method. This is higher than the average for its region (" + strofreal(round(contracep_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(contracep_mi,1)) + ").", ///
-			"In " + wbcountrynameb + ", data on contraceptive methods do not exist. In the country's region, **" + strofreal(round(contracep_mr,1)) + " percent** of women ages 15-49 uses some form of contraceptive method, and in the country's income group, **" + strofreal(round(contracep_mr,1)) + " percent uses it." )))) 
+		"")))) if contracep!=.
+		
+		
+replace contracep_text= "In " + wbcountrynameb + ", data on contraceptive methods do not exist." + ///
+" In the country's region, **" + strofreal(round(contracep_mr,1)) + " percent** of women ages 15-49 uses some form of contraceptive method," + ///
+" and in the country's income group, **" + strofreal(round(contracep_mr,1)) + " percent uses it."  if contracep==.
+
+////////////////////////////////
 
 			
+			
+
 			
 gen wbl_text = ///
 	cond(wbl< wbl_mr & wbl<wbl_mi, "This index measures gender inequality in the law and identifies barriers to women's economic participation, and a larger value shows higher gender equity." ///
-	+ "In " + wbcountrynameb + ", the value is **" + strofreal(round(wbl,1)) + "** out of 100. This is lower than both the average for its region (" + strofreal(round(wbl_mr,1)) + ") and the average" ///
+	+ " In " + wbcountrynameb + ", the value is **" + strofreal(round(wbl,1)) + "** out of 100. This is lower than both the average for its region (" + strofreal(round(wbl_mr,1)) + ") and the average" ///
 	+ " for its income group (" + strofreal(round(wbl_mi,1)) + ").", /// 
 		cond(wbl> wbl_mr & wbl>wbl_mi,  "This index measures gender inequality in the law and identifies barriers to women's economic participation, and a larger value shows higher gender equity." ///
-		+ "In " + wbcountrynameb + ", the value is **" + strofreal(round(wbl,1)) + "** out of 100. This is higher than both the average for its region (" + strofreal(round(wbl_mr,1)) + ") and the average for its income group (" + strofreal(round(wbl_mi,1)) + ").", ///
+		+ " In " + wbcountrynameb + ", the value is **" + strofreal(round(wbl,1)) + "** out of 100. This is higher than both the average for its region (" + strofreal(round(wbl_mr,1)) + ") and the average for its income group (" + strofreal(round(wbl_mi,1)) + ").", ///
 		cond(wbl< wbl_mr & wbl>wbl_mi, "This index measures gender inequality in the law and identifies barriers to women's economic participation, and a larger value shows higher gender equity." /// 
-		+ "In " + wbcountrynameb +  ", the value is **"  + strofreal(round(wbl,1)) + "** out of 100. This is lower than the average for its region (" + strofreal(round(wbl_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(wbl_mi,1)) + ").", ///
-		cond(wbl< wbl_mr & wbl>wbl_mi, "This index measures gender inequality in the law and identifies barriers to women's economic participation, and a larger value shows higher gender equity." /// 
-		+ "In" + wbcountrynameb + ", the value is **" + strofreal(round(wbl,1)) + "** out of 100. This is higher than the average for its region" + strofreal(round(wbl_mr,1)) + "but lower than the average for its income group " + strofreal(round(wbl_mi,1)) + ".", ///
-			"In " + wbcountrynameb + ", data on the women, business and the law index do not exist. The average for the country's region is " + strofreal(round(wbl_mr,1)) + "and the average for its income group is " + strofreal(round(wbl_mr,1)) + "." )))) 
+		+ " In " + wbcountrynameb +  ", the value is **"  + strofreal(round(wbl,1)) + "** out of 100. This is lower than the average for its region (" + strofreal(round(wbl_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(wbl_mi,1)) + ").", ///
+		cond(wbl> wbl_mr & wbl<wbl_mi, "This index measures gender inequality in the law and identifies barriers to women's economic participation, and a larger value shows higher gender equity." /// 
+		+ " In " + wbcountrynameb + ", the value is **" + strofreal(round(wbl,1)) + "** out of 100. This is higher than the average for its region" + strofreal(round(wbl_mr,1)) + "but lower than the average for its income group " + strofreal(round(wbl_mi,1)) + ".", ///
+		"")))) if wbl!=.
+		
+		
+		
+replace wbl_text= "In " + wbcountrynameb + ///
+", data on the women, business and the law index do not exist." + ///
+" The average for the country's region is " + strofreal(round(wbl_mr,1)) + " and the average for its income group is " + strofreal(round(wbl_mr,1)) + "." if wbl==.
 
-			
-			
+//////////////////////////////////////
+
 
 gen lastner_sec_f_text = ///
-	cond(lastner_sec_f< lastner_sec_f_mr & lastner_sec_f<lastner_sec_f_mi, "In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of women of secondary-school age are enroled in school." ///
+	cond(lastner_sec_f< lastner_sec_f_mr & lastner_sec_f<lastner_sec_f_mi, "In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of girls of secondary-school age are enroled in secondary school." ///
 	+ " This is lower than both the average for its region (" + strofreal(round(lastner_sec_f_mr,1)) + ") and the average for its income group (" + strofreal(round(lastner_sec_f_mi,1)) + ").", ///
-		cond(lastner_sec_f> lastner_sec_f_mr & lastner_sec_f>lastner_sec_f_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of women of secondary-school age are enroled in school." ///
+		cond(lastner_sec_f> lastner_sec_f_mr & lastner_sec_f>lastner_sec_f_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of girls of secondary-school age are enroled in secondary school." ///
 		+ " This is higher than both the average for its region (" + strofreal(round(lastner_sec_f_mr,1)) + ") and the average for its income group (" + strofreal(round(lastner_sec_f_mi,1)) + ").", ///
-	   	cond(lastner_sec_f< lastner_sec_f_mr & lastner_sec_f>lastner_sec_f_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of women of secondary-school age are enroled in school." ///
+	   	cond(lastner_sec_f< lastner_sec_f_mr & lastner_sec_f>lastner_sec_f_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of girls of secondary-school age are enroled in secondary school." ///
 		+ " This is lower than the average for its region (" + strofreal(round(lastner_sec_f_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastner_sec_f_mi,1)) + ").", ///
-		cond(lastner_sec_f< lastner_sec_f_mr & lastner_sec_f>lastner_sec_f_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of women of secondary-school age are enroled in school." ///
+		cond(lastner_sec_f>lastner_sec_f_mr & lastner_sec_f<lastner_sec_f_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of girls of secondary-school age are enroled in secondary school." ///
 		+ " This is higher than the average for its region (" + strofreal(round(lastner_sec_f_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastner_sec_f_mi,1)) + ").", ///
-			"In " + wbcountrynameb + ", data on net enrolment rates in secondary school for women do not exist. The average for the country's region is **" + strofreal(round(lastner_sec_f_mr,1)) + "** percent of women of secondary-school age enroled in school, and the average for the country's income group is **"  + strofreal(round(lastner_sec_f_mr,1)) + "**percent." )))) 
-			
+		"")))) if lastner_sec_f!=.
+		
+		
+		
+replace lastner_sec_f_text= "In " + wbcountrynameb + ///
+", data on secondary net enrolment rates for girls do not exist." + ///
+" In its region **" + strofreal(round(lastner_sec_f_mr,1)) + ///
+"** percent of girls of secondary-school age are enroled in secondary school. The corresponding value for its income group is **"  + strofreal(round(lastner_sec_f_mr,1)) + "** percent." if lastner_sec_f==.
+ 
+ 
 
+			
+			
 ////////////////////////////////////
 gen hci_mem = ///
   cond(hcicountry == 1, "is",   ///
@@ -737,9 +840,9 @@ format %9.0fc unregpop_share_mi
 
 
 
+save "input/textforscorecard.dta", replace
 
 
-save "C:\Users\WB538904\OneDrive - WBG\CHI_AM19_scorecard\input\textforscorecard.dta", replace
 /////////////////////////////////////////////
 
 
