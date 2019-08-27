@@ -59,9 +59,10 @@ hci <- cbind(hci, tv)
 #   Create two-pagers
 #----------------------------------------------------------
 
-countries <- NULL
-countries <- c("ETH")
 countries <- c("ETH", "COL")
+countries <- c("ETH")
+countries <- c("COL")
+countries <- NULL
 if (length(countries) > 0) {
   hci <-  hci[hci[["wbcode"]]  %in% countries,]
 }
