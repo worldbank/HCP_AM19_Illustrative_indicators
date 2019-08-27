@@ -69,7 +69,7 @@ This scorecard presents a snapshot of the country's commitment to the human capi
 gr1 <- paste0("charts/all_mf_", x[["wbcode"]], ".pdf")
 knitr::include_graphics(gr1)
 ```
-\vspace{3mm}
+
 ```{r out.width = "100%", out.height="120%", fig.align = "right", echo=FALSE, strip.white=TRUE}
 gr2 <- paste0("charts/socsec_", x[["wbcode"]], ".pdf")
 knitr::include_graphics(gr2)

@@ -9,7 +9,7 @@ output:
     keep_tex: yes
     pandoc_args: ["-V", "classoption=twocolumn"]
 fontsize: 9.2pt
-geometry: "left=1.5cm,right=1.5cm,top=2.2cm,bottom=2.2cm"
+geometry: "left=1.5cm,right=1.5cm,top=2.2cm,bottom=2cm"
 header-includes:
   \usepackage{fancyhdr}
   \pagestyle{fancy}
@@ -69,7 +69,7 @@ This scorecard presents a snapshot of the country's commitment to the human capi
 gr1 <- paste0("charts/all_mf_", x[["wbcode"]], ".pdf")
 knitr::include_graphics(gr1)
 ```
-\vspace{3mm}
+
 ```{r out.width = "100%", out.height="120%", fig.align = "right", echo=FALSE, strip.white=TRUE}
 gr2 <- paste0("charts/socsec_", x[["wbcode"]], ".pdf")
 knitr::include_graphics(gr2)
@@ -153,8 +153,6 @@ The following table summarizes the World Bank's investments in Human Development
  \multicolumn{5}{l}{and 5 is Highly Satisfactory. d) Data as of July 15, 2019.} \\
 \end{tabular}
 \end{table}
-
-* **.** `r x[["edu_text"]]`
 
 * **Human Capital Policy Operations.** `r x[["dpohc_text"]]`
 
