@@ -71,9 +71,16 @@ RunMD <- function(x) {
   file_name <- paste0("scorecard_", x[["wbcode"]])
   countrynamet <- x[["wbcountrynameb"]]
 
+  if (x[["adminregion"]] == "SSA") {
+    input <- "scorecard_Africa.Rmd"
+  } else {
+    input <- "scorecard_row.Rmd"
+  }
+
   result <-  tryCatch({
     rmarkdown::render(
-      input = "scorecard.Rmd",
+      #input = "scorecard.Rmd",
+      input = input,
       #input = "test/test.Rmd",
       output_format = "pdf_document",
       output_file = paste0(file_name, ".pdf"),
