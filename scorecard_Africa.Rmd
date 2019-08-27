@@ -33,7 +33,7 @@ header-includes:
 \definecolor{bondiblue}{rgb}{0.0, 0.58, 0.71}
 \newcommand\boldblue[1]{\textcolor{bondiblue}{\textbf{#1}}}
 
-This scorecard presents a snapshot of the country's commitment to the human capital agenda and presents information on how the World Bank Group is supporting the government in the social sectors. 
+This scorecard presents a snapshot of the country's commitment to the human capital agenda and the World Bank Group's support for the social sectors. 
  
 
 ### \boldblue{I\small{NDICATORS ON THE AFRICA HUMAN CAPITAL PLAN}}###
@@ -58,7 +58,6 @@ This scorecard presents a snapshot of the country's commitment to the human capi
 
 
 ### \boldblue{D\small{OMESTIC RESOURCE USE AND MOBILIZATION}}###
-`r x[["hci_memt"]]`
 
 * **Health Spending.** `r x[["health_text"]]`
 
@@ -92,6 +91,8 @@ knitr::include_graphics(gr4)
 ```
 
 ### \boldblue{O\small{THER RELEVANT INDICATORS }}#####
+
+* **Human Capital Participation.** `r x[["hci_memt"]]`
 
 * **Building Human Capital.** `r x[["cpia_text"]]`
 
