@@ -72,5 +72,16 @@ if (length(countries) > 0) {
 
 y <- apply(hci, 1, RunMD)
 
+## Show countries with error
+e <- tibble::tibble(code = rep(NA, length(y)), m = rep(NA, length(y)))
+
+for (i in seq_along(y)) {
+  e[i,] <- c(y[[i]][[1]], y[[i]][[2]])
+}
+err <- e[(e$m == "error"),1]
+print(err, n = nrow(err))
+
+
+
 # Delete and copy files
 dc_files()
