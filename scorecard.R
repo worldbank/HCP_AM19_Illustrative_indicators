@@ -61,8 +61,11 @@ hci <- cbind(hci, tv)
 
 countries <- c("ETH", "COL")
 countries <- c("ETH")
-countries <- c("COL")
 countries <- NULL
+
+# three-page countries
+countries <- c("ABW", "AFG", "AND", "ARE", "ASM", "ATG", "AUS", "AUT", "BEL", "BHR", "BHS", "BLZ", "BMU", "BRB", "BRN", "CAN", "CHE", "CHI", "CUB", "CUW", "CYM", "CYP", "CZE", "DEU", "DMA", "DNK", "DZA", "ERI", "ESP", "FIN", "FRA", "FRO", "FSM", "GBR", "GIB", "GMB", "GNQ", "GRC", "GRD", "GRL", "GUM", "GUY", "HKG", "HTI", "IMN", "IRL", "IRN", "ISL", "ISR", "ITA", "JAM", "JPN", "KIR", "KNA", "KOR", "LBY", "LIE", "LUX", "MAC", "MAF", "MCO", "MDV", "MLT", "MNP", "NCL", "NLD", "NOR", "NRU", "NZL", "OMN", "PLW", "PNG", "PRI", "PRK", "PRT", "PRY", "PSE", "PYF", "QAT", "SGP", "SLB", "SMR", "STP", "SUR", "SWE", "SXM", "SYR", "TCA", "TKM", "TON", "TTO", "TUV", "USA", "UZB", "VCT", "VEN", "VGB", "VIR", "WSM", "YEM")
+
 if (length(countries) > 0) {
   hci <-  hci[hci[["wbcode"]]  %in% countries,]
 }

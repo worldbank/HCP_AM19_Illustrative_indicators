@@ -7,7 +7,7 @@ clear
 set more off
 
 
-global root "C:\Users\WB469563\OneDrive - WBG\Documents (zdebebe@worldbank.org)\OneDrive - WBG\Documents (zdebebe@worldbank.org)\Human Capital Project\CHI_AM19_scorecard"
+global root "C:\Users\WB538904\OneDrive - WBG\CHI_AM19_scorecard"
 global charts "${root}/charts"
 local outputfilepath "${root}/input"
 cd "${root}"
@@ -626,8 +626,8 @@ graph twoway ///
 (bar edugov_mi g, color(sky)) ///
 in `i' ,  xlabel(  2 "Health" 6 "Education" ) ylabel(0 (10)40) ///
 ytitle("% of Government Expenditure", size(medium)) title("{bf: Government Expenditure in the Social Sectors}" , size(large) pos(11) span) ///
-legend(label(1 "`ctry'") label(2 "`region'") label(3 "`income'")) legend(order(1 2 3) pos(5)) graphregion(fcolor(white)) ///
-graphregion(fcolor(white)) ysize(9) xsize(8) ///
+legend(label(1 "`ctry'") label(2 "`region'") label(3 "`income'")) legend(order(1 2 3) pos(5) col(2) row(1)) graphregion(fcolor(white)) ///
+graphregion(fcolor(white)) ysize(6) xsize(8) ///
 text(`hc' 1 "`hclabel'" `hr' 2 "`hrlabel'" `hi' 3 "`hilabel'" ///
 `ec' 5 "`eclabel'" `er' 6 "`erlabel'" `ei' 7 "`eilabel'") 
 graph export "$charts\socsec_`ctry'.pdf", replace
