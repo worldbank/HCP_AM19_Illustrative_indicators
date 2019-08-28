@@ -81,7 +81,9 @@ for (i in seq_along(y)) {
 err <- e[(e$m == "error"),1]
 print(err, n = nrow(err))
 
-
+err  <- as_vector(err)
+names(err) <- NULL
+err
 
 # Delete and copy files
 dc_files()
