@@ -69,7 +69,7 @@ color_cell <-  function(f, df) {
 
 RunMD <- function(x) {
   file_name <- paste0("scorecard_", x[["wbcode"]])
-  countrynamet <- x[["wbcountrynameb"]]
+  countrynamet <- x[["wbcountryname"]]
 
   if (x[["adminregion"]] == "SSA") {
     input <- "scorecard_Africa.Rmd"
