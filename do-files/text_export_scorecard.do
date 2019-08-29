@@ -12,8 +12,19 @@ set maxvar 32000
 
 *set up directory and filepath to database 
 
-
+if ( "`c(username)'" == "wb469563") {
 global root "C:\Users\WB469563\OneDrive - WBG\Documents (zdebebe@worldbank.org)\OneDrive - WBG\Documents (zdebebe@worldbank.org)\Human Capital Project\CHI_AM19_scorecard"
+}
+
+if ( "`c(username)'" == "wb384996") {
+	global root "c:\Users\wb384996\OneDrive - WBG\WorldBank\CHI_AM19_scorecard"
+}
+
+if ( "`c(username)'" == "wb538904") {
+	global root ""
+}
+
+
 global charts "${root}/charts"
 local outputfilepath "${root}/input"
 cd "${root}"
@@ -31,7 +42,7 @@ graph set window fontface "Fourier"
 
 gen wbcountrynameb=""
 replace wbcountrynameb="the Comoros" if wbcountryname=="Comoros"
-replace wbcountrynameb="the Democratic Republic of Congo" if wbcountryname=="Democratic Republic of Congo"
+replace wbcountrynameb="the Dem. Rep. of Congo" if wbcountryname=="Democratic Republic of Congo"
 replace wbcountryname="The Democratic Republic of Congo" if wbcountryname=="Democratic Republic of Congo"
 replace wbcountrynameb="the Republic of Congo" if wbcountryname=="Republic of Congo"
 replace wbcountryname="The Republic of Congo" if wbcountryname=="Republic of Congo"
@@ -45,8 +56,8 @@ replace wbcountrynameb="the Republic of Korea" if wbcountryname=="Republic of Ko
 replace wbcountryname="The Republic of Korea" if wbcountryname=="Republic of Korea"
 replace wbcountrynameb="the Kyrgyz Republic" if wbcountryname=="the Kyrgyz Republic"
 replace wbcountryname="The Kyrgyz Republic" if wbcountryname=="the Kyrgyz Republic"
-replace wbcountrynameb="Macedonia" if wbcountryname=="Macedonia, FYR"
-replace wbcountryname="The Former Yugoslav Republic (FYR) of Macedonia" if wbcountryname=="Macedonia, FYR"
+replace wbcountrynameb="North Macedonia" if wbcountryname=="Macedonia, FYR"
+replace wbcountryname="North Macedonia" if wbcountryname=="Macedonia, FYR"
 replace wbcountrynameb="the Netherlands" if wbcountryname=="Netherlands"
 replace wbcountryname="The Netherlands" if wbcountryname=="Netherlands"
 replace wbcountrynameb="the Philippines" if wbcountryname=="Philippines"
