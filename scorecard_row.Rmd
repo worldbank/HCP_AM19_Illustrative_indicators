@@ -50,14 +50,13 @@ This scorecard presents a snapshot of the country's commitment to the human capi
 
 * **Contraceptive Prevalence.** `r x[["contracep_text"]]`
 
-* **Social Protection Coverage** `r x[["lastspc_text"]]`
+* **Social Protection Coverage.** `r x[["lastspc_text"]]`
 
 * **Open Defecation.** `r x[["lastod_text"]]`
 
 
 
 ### \boldblue{D\small{OMESTIC RESOURCE USE AND MOBILIZATION}}###
-`r x[["hci_memt"]]`
 
 * **Health Spending.** `r x[["health_text"]]`
 
@@ -92,15 +91,17 @@ knitr::include_graphics(gr4)
 
 ### \boldblue{O\small{THER RELEVANT INDICATORS }}#####
 
+* **Human Capital Project.** `r x[["hci_memt"]]`
+
 * **Building Human Capital.** `r x[["cpia_text"]]`
 
-* **Identification** `r x[["ident_text"]]`
+* **Identification.** `r x[["ident_text"]]`
 
-* **Statistical Data on Human Capital** `r x[["stat_text"]]`
+* **Statistical Data on Human Capital.** `r x[["stat_text"]]`
 
 ### \boldblue{H\small{OW IS THE WORLD BANK SUPPORTING THE EFFORT?}}#####
 
-The following table summarizes the World Bank's investments in Human Development for Ethiopia, including measures of volume, performance, and other relevant indicators.
+The following table summarizes the World Bank's investments in Human Development for `r countrynameb`, including measures of volume, performance, and other relevant indicators.
 
 \definecolor{asparagus}{RGB}{3, 158, 115}
 \definecolor{blush}{RGB}{204 121 167}
@@ -155,7 +156,7 @@ The following table summarizes the World Bank's investments in Human Development
 
 
 \noindent\rule{9cm}{0.4pt}
-This scorecard is intended to be a conversation starter on where a country is on various aspects of human capital development and the state of the World Bank's support in the social sectors. The choice of indicators is, to a large extent, driven by what is most relevant for the two Regions with the lowest HCI scores (Africa and South Asia). As such, not all the indicators included here are relevant for each country. The scorecard should be complemented with other more context specific indicators.
+This scorecard is intended to be a conversation starter on where a country is on various aspects of human capital development and the state of the World Bank's support in the social sectors. The choice of indicators is, to a large extent, driven by what is most relevant for the two regions with the lowest HCI scores (Sub-Saharan Africa and South Asia). As such, not all the indicators included here are relevant for each country. The scorecard should be complemented with other more context specific indicators.
 &nbsp;
 
 The sources of data for the different indicators include: the Human Capital Project, the World Development Indicators, and the World Bank's internal system to monitor investments.
