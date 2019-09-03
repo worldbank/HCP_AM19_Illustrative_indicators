@@ -42,15 +42,15 @@ graph set window fontface "Fourier"
 
 gen wbcountrynameb=""
 replace wbcountrynameb="the Comoros" if wbcountryname=="Comoros"
-replace wbcountrynameb="the Dem. Rep. of Congo" if wbcountryname=="Democratic Republic of Congo"
+replace wbcountrynameb="the DRC" if wbcountryname=="Democratic Republic of Congo"
 replace wbcountryname="The Democratic Republic of Congo" if wbcountryname=="Democratic Republic of Congo"
 replace wbcountrynameb="the Republic of Congo" if wbcountryname=="Republic of Congo"
 replace wbcountryname="The Republic of Congo" if wbcountryname=="Republic of Congo"
-replace wbcountrynameb="the Arab Republic of Egypt" if wbcountryname=="Arab Republic of Egypt"
+replace wbcountrynameb="Egypt" if wbcountryname=="Arab Republic of Egypt"
 replace wbcountryname="The Arab Republic of Egypt" if wbcountryname=="Arab Republic of Egypt"
 replace wbcountrynameb="the Gambia" if wbcode=="GMB"
 replace wbcountryname="The Gambia" if wbcode=="GMB"
-replace wbcountrynameb="the Islamic Republic of Iran" if wbcountryname=="Islamic Republic of Iran"
+replace wbcountrynameb="Iran" if wbcountryname=="Islamic Republic of Iran"
 replace wbcountryname=" The Islamic Republic of Iran" if wbcountryname=="Islamic Republic of Iran"
 replace wbcountrynameb="the Republic of Korea" if wbcountryname=="Republic of Korea"
 replace wbcountryname="The Republic of Korea" if wbcountryname=="Republic of Korea"
@@ -82,17 +82,17 @@ replace wbcountrynameb="the Republic of Yemen" if wbcountryname=="Republic of Ye
 replace wbcountryname="The Republic of Yemen" if wbcountryname=="Republic of Yemen"
 
 
-replace wbcountrynameb="the Central African Republic" if wbcountryname=="Central African Republic"
+replace wbcountrynameb="CAR" if wbcountryname=="Central African Republic"
 replace wbcountryname="The Central African Republic" if wbcountryname=="Central African Republic"
 replace wbcountrynameb="the Democratic People's Republic of Korea" if wbcountryname=="Democratic People's Republic of Korea"
 replace wbcountryname="The Democratic People's Republic of Korea" if wbcountryname=="Democratic People's Republic of Korea"
-replace wbcountrynameb="the Federated States of Micronesia" if wbcountryname=="Federated States of Micronesia"
+replace wbcountrynameb="Micronesia" if wbcountryname=="Federated States of Micronesia"
 replace wbcountryname="The Federated States of Micronesia" if wbcountryname=="Federated States of Micronesia"
 replace wbcountrynameb="Hong Kong" if wbcountryname=="Hong Kong SAR, China"
 replace wbcountryname="Hong Kong" if wbcountryname=="Hong Kong SAR, China"
 replace wbcountrynameb="the Isle of Man" if wbcountryname=="Isle of Man"
 replace wbcountryname="The Isle of Man" if wbcountryname=="Isle of Man"
-replace wbcountrynameb="the Lao People's Democratic Republic" if wbcountryname=="Lao PDR"
+replace wbcountrynameb="the Lao PDR" if wbcountryname=="Lao PDR"
 replace wbcountryname="The Lao People's Democratic Republic" if wbcountryname=="Lao PDR"
 replace wbcountrynameb="Macao" if wbcountryname=="Macao SAR, China"
 replace wbcountryname="Macao" if wbcountryname=="Macao SAR, China"
@@ -100,7 +100,7 @@ replace wbcountrynameb="the Marshall Islands" if wbcountryname=="Marshall Island
 replace wbcountryname="The Marshall Islands" if wbcountryname=="Marshall Islands"
 replace wbcountrynameb="the Northern Mariana Islands" if wbcountryname=="Northern Mariana Islands"
 replace wbcountryname="The Northern Mariana Islands" if wbcountryname=="Northern Mariana Islands"
-replace wbcountrynameb="the Syrian Arab Republic" if wbcountryname=="Syrian Arab Republic"
+replace wbcountrynameb="Syria" if wbcountryname=="Syrian Arab Republic"
 replace wbcountryname="The Syrian Arab Republic" if wbcountryname=="Syrian Arab Republic"
 replace wbcountrynameb="Venezuela" if wbcountryname=="Venezuela, RB"
 replace wbcountryname="Venezuela" if wbcountryname=="Venezuela, RB"
@@ -352,14 +352,14 @@ gen hci_text = ///
 	 
 ////////////////////////////////////////////
 gen lastspc_text = ///
-	cond(lastspc< lastspc_mr & lastspc<lastspc_mi, "In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1)) + " percent** of the population is covered by" ///
-	+ " social safety net programs. This is lower than both the average for its region (" + strofreal(round(lastspc_mr,1)) + ") and the average for its income group (" + strofreal(round(lastspc_mi,1)) + ").", ///
-		cond(lastspc> lastspc_mr & lastspc>lastspc_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1))  + " percent** of the population is covered by" ///
-		+ " social safety net programs. This is higher than both the average for its region (" + strofreal(round(lastspc_mr,1)) + ") and the average for its income group (" + strofreal(round(lastspc_mi,1)) + ").", ///
-	   	cond(lastspc< lastspc_mr & lastspc>lastspc_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1))  + " percent** of the population is covered by" ///
-		+ " social safety net programs. This is lower than the average for its region (" + strofreal(round(lastspc_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastspc_mi,1)) + ").", ///
-		cond(lastspc> lastspc_mr & lastspc<lastspc_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1))  + " percent** of the population is covered by" ///
-		+ " social safety net programs. This is higher than the average for its region (" + strofreal(round(lastspc_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastspc_mi,1)) + ").", ///
+	cond(lastspc< lastspc_mr & lastspc<lastspc_mi, "In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1)) + " percent** of the poorest quintile is covered by" ///
+	+ " social safety nets. This is lower than both the average for its region (" + strofreal(round(lastspc_mr,1)) + ") and the average for its income group (" + strofreal(round(lastspc_mi,1)) + ").", ///
+		cond(lastspc> lastspc_mr & lastspc>lastspc_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1))  + " percent** of the poorest quintile is covered by" ///
+		+ " social safety nets. This is higher than both the average for its region (" + strofreal(round(lastspc_mr,1)) + ") and the average for its income group (" + strofreal(round(lastspc_mi,1)) + ").", ///
+	   	cond(lastspc< lastspc_mr & lastspc>lastspc_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1))  + " percent** of the poorest quintile is covered by" ///
+		+ " social safety nets. This is lower than the average for its region (" + strofreal(round(lastspc_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastspc_mi,1)) + ").", ///
+		cond(lastspc> lastspc_mr & lastspc<lastspc_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1))  + " percent** of the poorest quintile is covered by" ///
+		+ " social safety nets. This is higher than the average for its region (" + strofreal(round(lastspc_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastspc_mi,1)) + ").", ///
 		""))))	if lastspc!=.
 		
 replace lastspc_text="In " + wbcountrynameb + ///
@@ -367,13 +367,24 @@ replace lastspc_text="In " + wbcountrynameb + ///
 " The average for the country's region is " + strofreal(round(lastspc_mr,1)) + " percent and for its income group is " + strofreal(round(lastspc_mr,1)) + " percent." if lastspc==.
 
 replace lastspc_text = ///
-	cond(dif_lastspc_targ>1, "In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1)) + " percent** of the population is covered by" ///
-	+ " social safety net programs. This is higher than the Africa Human Capital Target for 2023 (" + strofreal(round(af_lastspc_targ,1)) + ").", ///
-		cond(dif_lastspc_targ<-1, "In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1)) + " percent** of the population is covered by" ///
-	+ " social safety net programs. This is lower than the Africa Human Capital Target for 2023 (" + strofreal(round(af_lastspc_targ,1)) + ").", ///
-	 "In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1)) + " percent** of the population is covered by" ///
-	+ " social safety net programs. This is roughly equal to the Africa Human Capital Target for 2023 (" + strofreal(round(af_lastspc_targ,1)) + ").")) if wbregion=="Sub-Saharan Africa" &  lastspc!=.
+	cond(dif_lastspc_targ>1, "In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1)) + " percent** of the poorest quintile is covered by" ///
+	+ " social safety nets. This is higher than the Africa Human Capital Target for 2023 (" + strofreal(round(af_lastspc_targ,1)) + ").", ///
+		cond(dif_lastspc_targ<-1, "In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1)) + " percent** of the poorest quintile is covered by" ///
+	+ " social safety nets. This is lower than the Africa Human Capital Target for 2023 (" + strofreal(round(af_lastspc_targ,1)) + ").", ///
+	 "In " + wbcountrynameb + ", **" + strofreal(round(lastspc,1)) + " percent** of the poorest quintile is covered by" ///
+	+ " social safety nets. This is roughly equal to the Africa Human Capital Target for 2023 (" + strofreal(round(af_lastspc_targ,1)) + ").")) if wbregion=="Sub-Saharan Africa" &  lastspc!=.
 
+	
+		
+replace lastspc_text="In " + wbcountrynameb + ///
+", data on the percentage of the population that is covered by social safety nets do not exist." + ///
+" The Africa Human Capital target for 2023 is " + strofreal(round(af_lastspc_targ,1)) + " percent." if  wbregion=="Sub-Saharan Africa" & lastspc==. 
+
+	
+
+	
+	
+	
 //////////////////////////////////////////////	
 gen lastod_text = ///
 	cond(lastod< lastod_mr & lastod<lastod_mi, "In " + wbcountrynameb + ", **" + strofreal(round(lastod,1)) + " percent** of the population practices" ///
@@ -397,6 +408,13 @@ cond(dif_od_targ <-1, "In " + wbcountrynameb + ", **" + strofreal(round(lastod,1
 	+ " open defecation. This is lower than the Africa Human Capital Target for 2023 (" + strofreal(round(af_od_targ,1)) + ").", ///
     "In " + wbcountrynameb + ", **" + strofreal(round(lastod,1)) + " percent** of the population practices" ///
 	+ " open defecation. This is roughly equal to the Africa Human Capital Target for 2023 (" + strofreal(round(af_od_targ,1)) + ")."))  if wbregion=="Sub-Saharan Africa" & lastod!=.
+	
+	
+		
+replace lastod_text="In " + wbcountrynameb + ///
+", data on the percentage of the population that practices open defecation do not exist." + ///
+" The Africa Human Capital target for 2023 is " + strofreal(round(af_od_targ,1)) + " percent." if wbregion=="Sub-Saharan Africa" & lastod==.
+	
 	
 ///////////////////////////////////////////////////////
 
@@ -424,18 +442,24 @@ cond(dif_lastafr_targ<-1, "In " + wbcountrynameb + ", there are **" + strofreal(
 	+ " This is lower than the Africa Human Capital Target for 2023 (" + strofreal(round(af_lastafr_targ,1)) +  ").", ///
     "In " + wbcountrynameb + ", there are **" + strofreal(round(lastafr,1)) + " births** per 1,000 women ages 15-19." ///
 	+ " This is roughly equal to the Africa Human Capital Target for 2023 (" + strofreal(round(af_lastafr_targ,1)) +  ").")) if  wbregion=="Sub-Saharan Africa" &  lastafr!=.
+	
+replace lastafr_text= "In " + wbcountrynameb + ///
+", data on the adolescent fertility rate do not exist." + ///
+" The Africa Human Capital target for 2023 is " + strofreal(round(af_lastafr_targ,1)) + " births per 1,000 women ages 15-19."  if wbregion=="Sub-Saharan Africa"  & lastafr==.
+	
+	
 
 /////////////////////////////////
 
 			   
 gen lasttfr_text = ///
-	cond(lasttfr< lasttfr_mr & lasttfr<lasttfr_mi, "In " + wbcountrynameb + ", the total fertility rate is **" + strofreal(round(lasttfr, 0.1)) + "**." ///
+	cond(lasttfr< lasttfr_mr & lasttfr<lasttfr_mi, "In " + wbcountrynameb + ", the total fertility rate is **" + strofreal(round(lasttfr, 0.1)) + "** births per woman." ///
 	+ " This is lower than both the average for its region (" + strofreal(round(lasttfr_mr,0.1)) + ") and the average for its income group (" + strofreal(round(lasttfr_mi,0.1)) + ").", ///
-		cond(lasttfr> lasttfr_mr & lasttfr>lasttfr_mi,"In " + wbcountrynameb + ", the total fertility rate is **" + strofreal(round(lasttfr,0.1)) + "**." ///
+		cond(lasttfr> lasttfr_mr & lasttfr>lasttfr_mi,"In " + wbcountrynameb + ", the total fertility rate is **" + strofreal(round(lasttfr,0.1)) + "** births per woman." ///
 		+ " This is higher than both the average for its region (" + strofreal(round(lasttfr_mr,0.1)) + ") and the average for its income group (" + strofreal(round(lasttfr_mi,0.1)) + ").", ///
-	   	cond(lasttfr< lasttfr_mr & lasttfr>lasttfr_mi,"In " + wbcountrynameb + ", the total fertility rate is **" + strofreal(round(lasttfr,0.1)) + "**." ///
+	   	cond(lasttfr< lasttfr_mr & lasttfr>lasttfr_mi,"In " + wbcountrynameb + ", the total fertility rate is **" + strofreal(round(lasttfr,0.1)) + "** births per woman." ///
 		+ " This is lower than the average for its region (" + strofreal(round(lasttfr_mr,0.1)) + ") but higher than the average for its income group (" + strofreal(round(lasttfr_mi,0.1)) + ").", ///
-		cond(lasttfr> lasttfr_mr & lasttfr<lasttfr_mi,"In " + wbcountrynameb + ", the total fertility rate is **" + strofreal(round(lasttfr,0.1)) + "**." ///
+		cond(lasttfr> lasttfr_mr & lasttfr<lasttfr_mi,"In " + wbcountrynameb + ", the total fertility rate is **" + strofreal(round(lasttfr,0.1)) + "** births per woman." ///
 		+ " This is higher than the average for its region (" + strofreal(round(lasttfr_mr,0.1)) + ") but lower than the average for its income group (" + strofreal(round(lasttfr_mi,0.1)) + ").", ///
 		"")))) if lasttfr!=.
 		
@@ -470,14 +494,14 @@ replace contracep_text= "In " + wbcountrynameb + ", data on contraceptive method
 
 			
 gen wbl_text = ///
-	cond(wbl< wbl_mr & wbl<wbl_mi, "This index measures gender inequality in the law and identifies barriers to women's economic participation, and a larger value shows higher gender equity." ///
+	cond(wbl< wbl_mr & wbl<wbl_mi, "This index measures gender equality in the law (how the economic decisions women make are affected by the law), with a larger value showing higher gender equality." ///
 	+ " In " + wbcountrynameb + ", the value is **" + strofreal(round(wbl,1)) + "** out of 100. This is lower than both the average for its region (" + strofreal(round(wbl_mr,1)) + ") and the average" ///
 	+ " for its income group (" + strofreal(round(wbl_mi,1)) + ").", /// 
-		cond(wbl> wbl_mr & wbl>wbl_mi,  "This index measures gender inequality in the law and identifies barriers to women's economic participation, and a larger value shows higher gender equity." ///
+		cond(wbl> wbl_mr & wbl>wbl_mi,  "This index measures gender equality in the law (how the economic decisions women make are affected by the law), with a larger value showing higher gender equality." ///
 		+ " In " + wbcountrynameb + ", the value is **" + strofreal(round(wbl,1)) + "** out of 100. This is higher than both the average for its region (" + strofreal(round(wbl_mr,1)) + ") and the average for its income group (" + strofreal(round(wbl_mi,1)) + ").", ///
-		cond(wbl< wbl_mr & wbl>wbl_mi, "This index measures gender inequality in the law and identifies barriers to women's economic participation, and a larger value shows higher gender equity." /// 
+		cond(wbl< wbl_mr & wbl>wbl_mi, "This index measures gender equality in the law (how the economic decisions women make are affected by the law), with a larger value showing higher gender equality." /// 
 		+ " In " + wbcountrynameb +  ", the value is **"  + strofreal(round(wbl,1)) + "** out of 100. This is lower than the average for its region (" + strofreal(round(wbl_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(wbl_mi,1)) + ").", ///
-		cond(wbl> wbl_mr & wbl<wbl_mi, "This index measures gender inequality in the law and identifies barriers to women's economic participation, and a larger value shows higher gender equity." /// 
+		cond(wbl> wbl_mr & wbl<wbl_mi, "This index measures gender equality in the law (how the economic decisions women make are affected by the law), with a larger value showing higher gender equality." /// 
 		+ " In " + wbcountrynameb + ", the value is **" + strofreal(round(wbl,1)) + "** out of 100. This is higher than the average for its region" + strofreal(round(wbl_mr,1)) + "but lower than the average for its income group " + strofreal(round(wbl_mi,1)) + ".", ///
 		"")))) if wbl!=.
 		
@@ -603,13 +627,13 @@ replace effic = ///
  
  
 gen eff_text = " The HCI in " + wbcountrynameb + ///
-" is **" + effic + "** than what would be predicted for its level of per capita spending on the social sectors." if health_ed_sp_pc!=. & hci_mf!=.
+" is **" + effic + "** than what would be predicted for its level of per capita government spending on the social sectors." if health_ed_sp_pc!=. & hci_mf!=.
 
 replace eff_text = " The HCI in " + wbcountrynameb + ///
-" is **" + effic + "** than what would be predicted for its level of per capita spending on health and education." if health_ed_sp_pc==. & hci_mf!=. & health_ed_pc!=.
+" is **" + effic + "** than what would be predicted for its level of per capita government spending on health and education." if health_ed_sp_pc==. & hci_mf!=. & health_ed_pc!=.
 
 replace eff_text="Given the lack of data, it is not possible to predict if the HCI in " + wbcountrynameb + ///
-" is higher or lower than what would be predicted for its level of per capita spending."  if (difhcipred==. | difhcipred1==. | hci_mf==.)
+" is higher or lower than what would be predicted for its level of per capita government spending."  if (difhcipred==. | difhcipred1==. | hci_mf==.)
 
 /////////////////////////////////////////
 
@@ -694,9 +718,9 @@ replace ident_text="In " + wbcountrynameb + ///
 
 
 gen stat_text= "In " + wbcountrynameb + ///
-", the latest available data on stunting rates is from " ///
+", the latest available data point on stunting rate is from " ///
 + strofreal(round(lasttime_nostu_rep,1)) + ///
-". Similarly, the last available data point on Harmonized Learning Outcomes is from " ///
+". Similarly, the latest available data point on Harmonized Learning Outcomes is from " ///
 + strofreal(round(lasttime_hlo_mf_rep,1)) + "."
 
 replace stat_text="In " + wbcountrynameb + ///
@@ -706,15 +730,17 @@ if lasttime_nostu_rep==. & lasttime_hlo_mf_rep==.
   
 replace stat_text="In " + wbcountrynameb + ///
 ", data on stunting rate are unavailable after year 2000." + ///
-" The last available data point on Harmonized Learning Outcomes is from " ///
+" The latest available data point on Harmonized Learning Outcomes is from " ///
 + strofreal(round(lasttime_hlo_mf_rep,1)) + "." ///
 if lasttime_nostu_rep==. & lasttime_hlo_mf_rep!=.
 
 replace stat_text="In " + wbcountrynameb + ///
 ", data on Harmonized Learning Outcomes are unavailable after year 2000." + ///
-" The last available data point on stunting rate is from " ///
+" The latest available data point on stunting rate is from " ///
 + strofreal(round(lasttime_nostu_rep,1)) + "." ///
 if lasttime_nostu_rep!=. & lasttime_hlo_mf_rep==.
+
+///////////////////////////////////////////////////////////////////
 
 gen dpohc_text= ///
          cond(dpohc==1,                 /* 
