@@ -188,7 +188,7 @@ local date "05-28-2019"
                              (scatter onesvec lastodcomp if wbcode=="`ctry'" & year==2017 & lastodcomp>`=scalar(r(r1))' & lastodcomp<=`=scalar(r(r2))', msize(huge) msymbol(solid) mlc(black)  mfcolor(orangebrown)) /// 							 
                              (scatter onesvec lastodcomp if wbcode=="`ctry'" & year==2017 & lastodcomp>`=scalar(r(r2))' & lastodcomp<=100, msize(huge) msymbol(solid) mlc(black) mfcolor(turquoise)) /// 
 		                      ,xline(`=scalar(r(r1))', lwidth(thick) lcolor(black) lpattern(solid) ) xline(`=scalar(r(r2))', lwidth(thick) lcolor(black) lpattern(solid))  ///
-							legend(off) title("{bf:Percentage that does not practice Open Defecation}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large)) graphregion(fcolor(white)) 
+							legend(off) title("{bf:Percentage that does not Practice Open Defecation}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large)) graphregion(fcolor(white)) 
 							 graph save lastodcomp_`ctry', replace
 
 														 _pctile lasttfr if year==2017, p(33 66)
@@ -221,7 +221,7 @@ local date "05-28-2019"
                              (scatter onesvec contracep if wbcode=="`ctry'" & year==2017 & contracep>`=scalar(r(r1))' & contracep<=`=scalar(r(r2))', msize(huge) msymbol(solid) mlc(black)  mfcolor(orangebrown)) /// 							 
                              (scatter onesvec contracep if wbcode=="`ctry'" & year==2017 & contracep>`=scalar(r(r2))' & contracep<=100, msize(huge) msymbol(solid) mlc(black) mfcolor(turquoise)) /// 
 		                      ,xline(`=scalar(r(r1))', lwidth(thick) lcolor(black) lpattern(solid) ) xline(`=scalar(r(r2))', lwidth(thick) lcolor(black) lpattern(solid))  ///
-							legend(off) title("{bf:Contraceptive prevalence (any methods)}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large)) graphregion(fcolor(white)) 
+							legend(off) title("{bf:Contraceptive Prevalence (Any Methods)}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large)) graphregion(fcolor(white)) 
 							 graph save contracep_`ctry', replace
 
 							 												 _pctile wbl if year==2017, p(33 66)
@@ -254,7 +254,7 @@ local date "05-28-2019"
                              (scatter onesvec ner if wbcode=="`ctry'" & year==2017 & ner>`=scalar(r(r1))' & ner<=`=scalar(r(r2))', msize(huge) msymbol(solid) mlc(black)  mfcolor(orangebrown)) /// 							 
                              (scatter onesvec ner if wbcode=="`ctry'" & year==2017 & ner>`=scalar(r(r2))' & ner<=100, msize(huge) msymbol(solid) mlc(black) mfcolor(turquoise)) /// 
 		                      ,xline(`=scalar(r(r1))', lwidth(thick) lcolor(black) lpattern(solid) ) xline(`=scalar(r(r2))', lwidth(thick) lcolor(black) lpattern(solid))  ///
-							legend(off) title("{bf:Net enrollment rate, lower secondary}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large))  graphregion(fcolor(white)) 
+							legend(off) title("{bf:Net Enrollment Rate, Lower Secondary}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large))  graphregion(fcolor(white)) 
 							 graph save ner_`ctry', replace
 
 							 							 _pctile lastspc if year==2017, p(33 66)
@@ -265,7 +265,7 @@ local date "05-28-2019"
                              (scatter onesvec lastspc if wbcode=="`ctry'" & year==2017 & lastspc>`=scalar(r(r1))' & lastspc<=`=scalar(r(r2))', msize(huge) msymbol(solid) mlc(black)  mfcolor(orangebrown)) /// 							 
                              (scatter onesvec lastspc if wbcode=="`ctry'" & year==2017 & lastspc>`=scalar(r(r2))' & lastspc<=100, msize(huge) msymbol(solid) mlc(black) mfcolor(turquoise)) /// 
 		                      ,xline(`=scalar(r(r1))', lwidth(thick) lcolor(black) lpattern(solid) ) xline(`=scalar(r(r2))', lwidth(thick) lcolor(black) lpattern(solid))  ///
-							legend(off) title("{bf:Social Protection Coverage}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large))  graphregion(fcolor(white)) 
+							legend(off) title("{bf:Social Protection Coverage of the Poorest Quintile}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large))  graphregion(fcolor(white)) 
 							 graph save lastspc_`ctry', replace
 							 
 							 							 _pctile lastner_sec_f if year==2017, p(33 66)
@@ -286,7 +286,7 @@ local date "05-28-2019"
 	
 	graph combine hci_`gender'_`ctry'.gph wbl_`ctry'.gph  lastner_sec_f_`ctry'.gph lasttfr_`ctry'.gph  ///
 	lastafr_`ctry'.gph contracep_`ctry'.gph  lastspc_`ctry'.gph lastodcomp_`ctry'.gph  ///
-	, colfirst rows(8) cols(1) ysize(8) xsize(5) graphregion(margin(l=22 r=22)) graphregion(margin(zero)) title("{bf: Key Indicators on Human Capital}" /// 
+	, colfirst rows(8) cols(1) ysize(8) xsize(5) graphregion(margin(l=22 r=22)) graphregion(margin(zero)) title("{bf: 1. Key Indicators on Human Capital}" /// 
 	, size(large) suffix color(black) linegap(3)) graphregion(fcolor(white)) /// 
 	note("{it:- Large circle=`country' ; small circles=other countries.}" ///
 	"{it:- Vertical lines separate terciles of the distribution.}" /// 
@@ -359,7 +359,7 @@ local date "05-28-2019"
                              (scatter onesvec lastodcomp if wbcode=="`ctry'" & year==2017 & lastodcomp>`=scalar(r(r1))' & lastodcomp<=`=scalar(r(r2))', msize(huge) msymbol(solid) mlc(black)  mfcolor(orangebrown)) /// 							 
                              (scatter onesvec lastodcomp if wbcode=="`ctry'" & year==2017 & lastodcomp>`=scalar(r(r2))' & lastodcomp<=100, msize(huge) msymbol(solid) mlc(black) mfcolor(turquoise)) /// 
 		                      ,xline(85, lwidth(thick) lcolor(black) lpattern(solid) )  ///
-							legend(off) title("{bf:Percentage that does not practice Open Defecation}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large)) graphregion(fcolor(white)) 
+							legend(off) title("{bf:Percentage that does not Practice Open Defecation}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large)) graphregion(fcolor(white)) 
 							 graph save lastodcomp_`ctry', replace
 
 														 _pctile lasttfr if year==2017, p(33 66)
@@ -391,7 +391,7 @@ local date "05-28-2019"
 							 (scatter onesvec contracep if wbcode=="`ctry'" & year==2017 & contracep>0 & contracep<=`=scalar(r(r1))', msize(huge) msymbol(solid)  mlc(black) mfcolor(reddish)) ///							 
                              (scatter onesvec contracep if wbcode=="`ctry'" & year==2017 & contracep>`=scalar(r(r1))' & contracep<=`=scalar(r(r2))', msize(huge) msymbol(solid) mlc(black)  mfcolor(orangebrown)) /// 							 
                              (scatter onesvec contracep if wbcode=="`ctry'" & year==2017 & contracep>`=scalar(r(r2))' & contracep<=100, msize(huge) msymbol(solid) mlc(black) mfcolor(turquoise)) /// 
-		                      , legend(off) title("{bf:Contraceptive prevalence (any methods)}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large)) graphregion(fcolor(white)) 
+		                      , legend(off) title("{bf:Contraceptive Prevalence (Any Methods)}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large)) graphregion(fcolor(white)) 
 							 graph save contracep_`ctry', replace
 
 							 												 _pctile wbl if year==2017, p(33 66)
@@ -421,7 +421,7 @@ local date "05-28-2019"
 							 (scatter onesvec ner if wbcode=="`ctry'" & year==2017 & ner>0 & ner<=`=scalar(r(r1))', msize(huge) msymbol(solid)  mlc(black) mfcolor(reddish)) ///							 
                              (scatter onesvec ner if wbcode=="`ctry'" & year==2017 & ner>`=scalar(r(r1))' & ner<=`=scalar(r(r2))', msize(huge) msymbol(solid) mlc(black)  mfcolor(orangebrown)) /// 							 
                              (scatter onesvec ner if wbcode=="`ctry'" & year==2017 & ner>`=scalar(r(r2))' & ner<=100, msize(huge) msymbol(solid) mlc(black) mfcolor(turquoise)) /// 
-							, legend(off) title("{bf:Net enrollment rate, lower secondary}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large))  graphregion(fcolor(white)) 
+							, legend(off) title("{bf:Net Enrollment Rate, Lower Secondary}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large))  graphregion(fcolor(white)) 
 							 graph save ner_`ctry', replace
 
 							
@@ -433,7 +433,7 @@ local date "05-28-2019"
                              (scatter onesvec lastspc if wbcode=="`ctry'" & year==2017 & lastspc>`=scalar(r(r1))' & lastspc<=`=scalar(r(r2))', msize(huge) msymbol(solid) mlc(black)  mfcolor(orangebrown)) /// 							 
                              (scatter onesvec lastspc if wbcode=="`ctry'" & year==2017 & lastspc>`=scalar(r(r2))' & lastspc<=100, msize(huge) msymbol(solid) mlc(black) mfcolor(turquoise)) /// 
 		                      ,xline(30, lwidth(thick) lcolor(black) lpattern(solid) )  ///
-							legend(off) title("{bf:Social Protection Coverage}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large))  graphregion(fcolor(white)) 
+							legend(off) title("{bf:Social Protection Coverage of the Poorest Quintile}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large))  graphregion(fcolor(white)) 
 							 graph save lastspc_`ctry', replace
 							 
 							 							 _pctile lastner_sec_f if year==2017, p(33 66)
@@ -461,7 +461,7 @@ local date "05-28-2019"
 	note("", size (small))
 	graph save women_`gender'_`ctry', replace
 
-	graph combine context_`gender'_`ctry'.gph women_`gender'_`ctry'.gph, colfirst rows(2) cols(1) ysize(8) xsize(5) graphregion(margin(l=22 r=22)) graphregion(margin(zero)) title("{bf:Human Capital Context}" /// 
+	graph combine context_`gender'_`ctry'.gph women_`gender'_`ctry'.gph, colfirst rows(2) cols(1) ysize(8) xsize(5) graphregion(margin(l=22 r=22)) graphregion(margin(zero)) title("{bf: 1. Human Capital Context}" /// 
 	, size(large) suffix color(black) linegap(3)) graphregion(fcolor(white)) /// 
 	note("{it:- Large circle=`country' ; small circles=other countries.}" ///
 	"{it:- Vertical lines refer to regional targets.}" /// 
@@ -487,7 +487,7 @@ local date "05-28-2019"
 	restore
 //////////////////////////////////////////////////////////////////////////////////////END
 
-exit
+
 
 
 
@@ -562,7 +562,7 @@ graph twoway ///
 (bar socprotgov_mr k, color(turquoise)) ///
 (bar socprotgov_mi l, color(sky)) ///
 in `i',  xlabel(  2 "Health" 6 "Education" 10 "Social Protection") ylabel(0 (10)40) ///
-ytitle("% of Government Expenditure", size(medium)) title("{bf: Government Expenditure in the Social Sectors}" , size(large) pos(11) span) ///
+ytitle("% of Government Expenditure", size(medium)) title("{bf: 2. Government Expenditure on the Social Sectors}" , size(large) span) ///
 legend(label(1 "`ctry'") label(2 "`region'") label(3 "`income'")) legend(order(1 2 3) pos(5)col(3) row(1)) graphregion(fcolor(white)) ///
 graphregion(fcolor(white)) ysize(6) xsize(8) ///
 text(`hc' 1 "`hclabel'" `hr' 2 "`hrlabel'" `hi' 3 "`hilabel'" ///
@@ -625,7 +625,7 @@ graph twoway ///
 (bar edugov_mr f, color(turquoise)) ///
 (bar edugov_mi g, color(sky)) ///
 in `i' ,  xlabel(  2 "Health" 6 "Education" ) ylabel(0 (10)40) ///
-ytitle("% of Government Expenditure", size(medium)) title("{bf: Government Expenditure in the Social Sectors}" , size(large) pos(11) span) ///
+ytitle("% of Government Expenditure", size(medium)) title("{bf: 2. Government Expenditure on the Social Sectors}" , size(large) span) ///
 legend(label(1 "`ctry'") label(2 "`region'") label(3 "`income'")) legend(order(1 2 3) pos(5) col(2) row(1)) graphregion(fcolor(white)) ///
 graphregion(fcolor(white)) ysize(6) xsize(8) ///
 text(`hc' 1 "`hclabel'" `hr' 2 "`hrlabel'" `hi' 3 "`hilabel'" ///
@@ -656,7 +656,7 @@ twoway ///
 (scatter hci_mf log_health_ed_pc if wbcode=="`ctry'" , mlabel(wbcountryname) mcolor(green) msymbol(solid) mlabcolor(green) mlabpos(9) mlabsize(medium)) ///
 (lfit hci_mf log_health_ed_pc , lcolor (sky) lpattern(solid)) ///
 , legend(off) xtitle(Log Spending Per Capita in Health and Education, size(large)) ytitle(HCI, size(large)) ///
-title(Spending in Health and Education and HCI, size(vlarge)) xsize(6) ysize(4) ///
+title("3. Spending on Health and Education and HCI", size(vlarge)) xsize(6) ysize(4) ///
 note("{it: - A selection of 146 countries in the regression are displayed.}" , size(medium) color(gray))
 graph export "$charts\efficiency_`ctry'.pdf", replace
 graph save "$charts\efficiency_`ctry'", replace
@@ -677,8 +677,8 @@ twoway ///
 (scatter hci_mf log_health_ed_sp_pc if wbcode=="`ctry'" , mlabel(wbcountryname) mcolor(green) msymbol(solid)  mlabcolor(green) mlabpos(9) mlabsize(medium)) ///
 (lfit hci_mf log_health_ed_sp_pc , lcolor (sky) lpattern(solid)) ///
 , legend(off) xtitle(Log Spending Per Capita in Social Sectors, size(large)) ytitle(HCI, size(large)) ///
-title(Spending in Social Sectors and HCI, size(vlarge)) xsize(6) ysize(4) ///
-note("{it: - A selection of 101 countries in the regression are displayed.}" , size(medium) color(gray))
+title("3. Spending on Social Sectors and HCI", size(vlarge)) xsize(6) ysize(4) ///
+note("{it: - A selection out of 101 countries in the regression are displayed.}" , size(medium) color(gray))
 graph export "$charts\efficiency_`ctry'.pdf", replace
 graph save "$charts\efficiency_`ctry'", replace
 }
@@ -699,7 +699,7 @@ twoway ///
 (scatter drm lny  if drm<25 & show2==1, mlcolor(gray) mfcolor(white) msymbol(circle) mlabel(wbcountryname) mlabcolor(gray) mlabpos(9) mlabsize(medium)) ///
 (scatter drm lny  if drm<25 &  wbcode=="`ctry'" , mlabel(wbcountryname) mcolor(green)  msymbol(solid)  mlabcolor(green) mlabpos(9) mlabsize(medium)) ///
 ,legend(off) xtitle(Log GDP Per Capita at PPP, size(large)) ytitle(Tax Collection as % GDP, size(large)) ///
-title(Domestic Resource Mobilization and GDP, size(vlarge)) xsize(6) ysize(4) ///
+title("4. Domestic Resource Mobilization", size(vlarge)) xsize(6) ysize(4) ///
 note("{it: - A selection of countries are displayed.}" ///
 "{it:- Countries with DRM greater than 25% of GDP are excluded.}" , size(medium) color(gray))
 graph export "$charts\drm_`ctry'.pdf", replace
