@@ -21,7 +21,7 @@ if ( "`c(username)'" == "wb384996") {
 }
 
 if ( "`c(username)'" == "wb538904") {
-	global root ""
+	global root "C:\Users\WB538904\OneDrive - WBG\CHI_AM19_scorecard"
 }
 
 
