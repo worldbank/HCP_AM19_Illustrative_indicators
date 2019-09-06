@@ -504,13 +504,13 @@ replace wbl_text= "In " + wbcountrynameb + ///
 
 
 gen lastner_sec_f_text = ///
-	cond(lastner_sec_f< lastner_sec_f_mr & lastner_sec_f<lastner_sec_f_mi, "In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of girls of secondary-school age are enroled in secondary school." ///
+	cond(lastner_sec_f< lastner_sec_f_mr & lastner_sec_f<lastner_sec_f_mi, "In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of girls of secondary-school age are enrolled in secondary school." ///
 	+ " This is lower than both the average for its region (" + strofreal(round(lastner_sec_f_mr,1)) + ") and the average for its income group (" + strofreal(round(lastner_sec_f_mi,1)) + ").", ///
-		cond(lastner_sec_f> lastner_sec_f_mr & lastner_sec_f>lastner_sec_f_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of girls of secondary-school age are enroled in secondary school." ///
+		cond(lastner_sec_f> lastner_sec_f_mr & lastner_sec_f>lastner_sec_f_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of girls of secondary-school age are enrolled in secondary school." ///
 		+ " This is higher than both the average for its region (" + strofreal(round(lastner_sec_f_mr,1)) + ") and the average for its income group (" + strofreal(round(lastner_sec_f_mi,1)) + ").", ///
-	   	cond(lastner_sec_f< lastner_sec_f_mr & lastner_sec_f>lastner_sec_f_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of girls of secondary-school age are enroled in secondary school." ///
+	   	cond(lastner_sec_f< lastner_sec_f_mr & lastner_sec_f>lastner_sec_f_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of girls of secondary-school age are enrolled in secondary school." ///
 		+ " This is lower than the average for its region (" + strofreal(round(lastner_sec_f_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastner_sec_f_mi,1)) + ").", ///
-		cond(lastner_sec_f>lastner_sec_f_mr & lastner_sec_f<lastner_sec_f_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of girls of secondary-school age are enroled in secondary school." ///
+		cond(lastner_sec_f>lastner_sec_f_mr & lastner_sec_f<lastner_sec_f_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of girls of secondary-school age are enrolled in secondary school." ///
 		+ " This is higher than the average for its region (" + strofreal(round(lastner_sec_f_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastner_sec_f_mi,1)) + ").", ///
 		"")))) if lastner_sec_f!=.
 		
@@ -519,7 +519,7 @@ gen lastner_sec_f_text = ///
 replace lastner_sec_f_text= "In " + wbcountrynameb + ///
 ", data on secondary net enrolment rates for girls do not exist." + ///
 " In its region **" + strofreal(round(lastner_sec_f_mr,1)) + ///
-"** percent of girls of secondary-school age are enroled in secondary school. The corresponding value for its income group is **"  + strofreal(round(lastner_sec_f_mr,1)) + "** percent." if lastner_sec_f==.
+"** percent of girls of secondary-school age are enrolled in secondary school. The corresponding value for its income group is **"  + strofreal(round(lastner_sec_f_mr,1)) + "** percent." if lastner_sec_f==.
  
  
 

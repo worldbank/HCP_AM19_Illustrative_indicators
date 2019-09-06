@@ -147,10 +147,10 @@ The following table summarizes the World Bank's investments in Human Development
 `r rl[[31]]` & `r x[["crossgpshare_hd_diffmi"]]` & `r x[["crossgpshare_edu_diffmi"]]` & `r x[["crossgpshare_hnp_diffmi"]]` & `r x[["crossgpshare_spj_diffmi"]]` \\ \hline
  \multicolumn{5}{l}{Note: a) \colorbox{blush}{Pink} indicates that the value is within the first tercile of the} \\
  \multicolumn{5}{l}{distribution for all the countries. \colorbox{arylideyellow}{Orange} indicates that the value is } \\
- \multicolumn{5}{l}{is within the second tercile. \colorbox{asparagus}{Green} indicates that it is within the third} \\
- \multicolumn{5}{l}{tercile. b) FY20 lending program includes only projects rated A, B and } \\
- \multicolumn{5}{l}{unrated. c) DO and IP are on a scale of 1 to 6 where 1 is Highly Unsatisfactory } \\
- \multicolumn{5}{l}{and 6 is Highly Satisfactory. d) Data as of September 5, 2019.} \\
+ \multicolumn{5}{l}{within the second tercile. \colorbox{asparagus}{Green} indicates that it is within the third} \\
+ \multicolumn{5}{l}{tercile. b) FY20 lending program includes only projects rated A and B. c) DO and IP are } \\
+ \multicolumn{5}{l}{on a scale of 1 to 6 where 1 is Highly Unsatisfactory and 6 is Highly Satisfactory. d( Data) } \\
+ \multicolumn{5}{l}{as of September 5, 2019.} \\
 \end{tabular}
 \end{table}
 
