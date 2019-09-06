@@ -28,6 +28,8 @@ header-includes:
   \usepackage[fontsize=8.7pt]{scrextend}
   \usepackage{float}
   \usepackage[utf8]{inputenc}
+  \usepackage{caption}
+  \captionsetup[table]{position=bottom}
 ---
 
 \definecolor{bondiblue}{rgb}{0.0, 0.58, 0.71}
@@ -55,7 +57,6 @@ This scorecard presents a snapshot of the country's commitment to the human capi
 * **Women, Business and the Law Index.** `r x[["wbl_text"]]` 
 
 * **Net Enrolment Rate in Secondary School.** `r x[["lastner_sec_f_text"]]`
-
 
 ### \boldblue{D\small{OMESTIC RESOURCE USE AND MOBILIZATION}}###
 
@@ -145,19 +146,15 @@ The following table summarizes the World Bank's investments in Human Development
 `r rl[[29]]` & `r x[["crossgpshare_hd"]]` & `r x[["crossgpshare_edu"]]` & `r x[["crossgpshare_hnp"]]` & `r x[["crossgpshare_spj"]]` \\ 
 `r rl[[30]]` & `r x[["crossgpshare_hd_diffmr"]]` & `r x[["crossgpshare_edu_diffmr"]]` & `r x[["crossgpshare_hnp_diffmr"]]` & `r x[["crossgpshare_spj_diffmr"]]` \\ 
 `r rl[[31]]` & `r x[["crossgpshare_hd_diffmi"]]` & `r x[["crossgpshare_edu_diffmi"]]` & `r x[["crossgpshare_hnp_diffmi"]]` & `r x[["crossgpshare_spj_diffmi"]]` \\ \hline
- \multicolumn{5}{l}{Note: a) \colorbox{blush}{Pink} indicates that the value is within the first tercile of the} \\
- \multicolumn{5}{l}{distribution for all the countries. \colorbox{arylideyellow}{Orange} indicates that the value is } \\
- \multicolumn{5}{l}{is within the second tercile. \colorbox{asparagus}{Green} indicates that it is within the third} \\
- \multicolumn{5}{l}{tercile. b) FY20 lending program includes only projects rated A, B and } \\
- \multicolumn{5}{l}{unrated. c) DO and IP are on a scale of 1 to 6 where 1 is Highly Unsatisfactory } \\
- \multicolumn{5}{l}{and 6 is Highly Satisfactory. d) Data as of September 5, 2019.} \\
 \end{tabular}
+\caption*{Note: a) \colorbox{blush}{Pink} indicates that the value is within the first tercile of the distribution for all the countries. \colorbox{arylideyellow}{Orange} indicates that the value is within the second tercile. \colorbox{asparagus}{Green} indicates that it is within the third tercile. b) FY20 lending program includes only projects rated A and B. c) DO and IP are on a scale of 1 to 6 where 1 is Highly Unsatisfactory and 6 is Highly Satisfactory. d) Data as of September 5, 2019.}
 \end{table}
 
 * **Human Capital Policy Operations.** `r x[["dpohc_text"]]`
 
 * **Women's Empowerment Project.** `r x[["wep_text"]]`
 
+\vspace{-3mm}
 \noindent\rule{9cm}{0.4pt}
 This scorecard is intended to be a conversation starter on where a country is on various aspects of human capital development and the state of the World Bank's support in the social sectors. The list of indicators presented here is not exhaustive and should be complemented with more context specific variables. Most of the indicators are related to the Africa Human Capital Plan.
 &nbsp;
