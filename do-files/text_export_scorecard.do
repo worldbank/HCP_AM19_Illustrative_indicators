@@ -554,7 +554,7 @@ gen edu_comp_mrmi = ///
 */ "This is higher than  the average for its region (" + strofreal(round(edugov_mr,0.1)) + ") but lower than the average for its income group (" + strofreal(round(edugov_mi,0.1)) + ").", /*        
 */ "")))) if edugov!=.
 
-gen edu_text="" + wbcountryname + /// we still need to specify for missing data cases
+gen edu_text="" + wbcountrynameb + /// we still need to specify for missing data cases
 " spends **" + strofreal(round(edugov,0.1)) + ///
 " percent** of its government budget on education. "  /// 
 + edu_comp_mrmi + ""
@@ -578,7 +578,7 @@ gen health_comp_mrmi = ///
 */ "This is higher than  the average for its region (" + strofreal(round(healthgov_mr,0.1)) + ") but lower than the average for its income group (" + strofreal(round(healthgov_mi,0.1)) + ").", /*        
 */ "")))) if healthgov!=.
 
-gen health_text="" + wbcountryname + ///
+gen health_text="" + wbcountrynameb + ///
 " spends **" + strofreal(round(healthgov,0.1)) + ///
 " percent** of its government budget on health. "  ///
 + health_comp_mrmi + ""
@@ -602,7 +602,7 @@ gen socprot_comp_mrmi = ///
 */ "This is higher than  the average for its region (" + strofreal(round(socprotgov_mr,0.1)) + ") but lower than the average for its income group (" + strofreal(round(socprotgov_mi,0.1)) + ").", /*        
 */ "")))) if socprotgov!=.
 
-gen socprot_text="" + wbcountryname + ///
+gen socprot_text="" + wbcountrynameb + ///
 " spends **" + strofreal(round(socprotgov,0.1)) + ///
 " percent** of its government budget on social protection. "  ///
 + socprot_comp_mrmi + ""
@@ -758,20 +758,6 @@ gen wep_text= ///
 
 
 
-replace hdportfolio_share = hdportfolio_share *100
-replace eduportfolio_share = eduportfolio_share *100
-replace hnpportfolio_share = hnpportfolio_share *100
-replace spjportfolio_share = spjportfolio_share *100
-
-replace hdportfolio_share_diffmr = hdportfolio_share_diffmr *100
-replace eduportfolio_share_diffmr = eduportfolio_share_diffmr *100
-replace hnpportfolio_share_diffmr = hnpportfolio_share_diffmr *100
-replace spjportfolio_share_diffmr = spjportfolio_share_diffmr *100
-
-replace hdportfolio_share_diffmi = hdportfolio_share_diffmi *100
-replace eduportfolio_share_diffmi = eduportfolio_share_diffmi *100
-replace hnpportfolio_share_diffmi = hnpportfolio_share_diffmi *100
-replace spjportfolio_share_diffmi = spjportfolio_share_diffmi *100
 
 replace pipeline_hd_share = pipeline_hd_share *100
 replace pipeline_edu_share = pipeline_edu_share *100
