@@ -109,11 +109,26 @@ RunMD <- function(x) {
 # Delete and copy files --------------------------------------------------------
 
 dc_files <- function() {
-  pdf_file <- list.files(pattern = "scorecard_.+\\.pdf$")
-  x <- file.copy(from = pdf_file, to = "output", overwrite = TRUE)
 
-  pdf_file <- pdf_file[x]
-  file.remove(pdf_file)
+  # check if region folder exists
+  reg_dir <- hci %>%
+    count(wbregion) %>%
+    transmute(dir = paste0("output/", wbregion),
+              dir_e = dir.exists(dir))
+
+  lapply(reg_dir$dir[!reg_dir$dir_e], dir.create, showWarnings = FALSE)
+
+  # copy PDFs
+  x <- hci %>%
+    transmute(file = paste0("scorecard_", wbcode ,".pdf"),
+              dir = paste0("output/", wbregion))
+
+
+  purrr::map2(x$file, x$dir, ~file.copy(from = .x,
+                                        to = .y,
+                                        overwrite = TRUE))
+
+  file.remove(x$file)
 
   #--------- copy failed log files
 
@@ -140,4 +155,15 @@ chg_fmt <- function(x, digits = 2, fmt = "f", b = ",") {
   ifelse(is.na(x), ".",
          formatC(x, digits = digits, format = fmt,  big.mark = b))
 }
+
+
+
+
+
+
+
+
+pdf_file <- paste0("output/scorecard_", x[["wbcode"]] ,".pdf")
+to <- paste0("output/", x[["wbregion"]])
+file.copy(from = pdf_file, to = to, overwrite = TRUE)
 
