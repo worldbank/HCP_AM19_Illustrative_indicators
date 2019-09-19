@@ -124,7 +124,7 @@ dc_files <- function() {
               dir = paste0("output/", wbregion))
 
 
-  purrr::map2(x$file, x$dir, ~file.copy(from = .x,
+  map2(x$file, x$dir, ~file.copy(from = .x,
                                         to = .y,
                                         overwrite = TRUE))
 
@@ -157,13 +157,4 @@ chg_fmt <- function(x, digits = 2, fmt = "f", b = ",") {
 }
 
 
-
-
-
-
-
-
-pdf_file <- paste0("output/scorecard_", x[["wbcode"]] ,".pdf")
-to <- paste0("output/", x[["wbregion"]])
-file.copy(from = pdf_file, to = to, overwrite = TRUE)
 
