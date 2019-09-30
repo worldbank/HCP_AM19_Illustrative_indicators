@@ -32,7 +32,7 @@ cd "${root}"
 local date: disp %tdCY-m-D date("`c(current_date)'", "DMY")
 disp "`date'"
 
-use "input/scorecardanalysis.dta", clear 
+use "input/scorecardanalysis_2019-08-13.dta", clear 
 graph set window fontface "Fourier"
 
 
@@ -343,7 +343,7 @@ gen intro_text  = "This note presents a snapshot of the country's commitment on 
 gen hci_text = ///
   cond(hci_mf_100 != ., "In " + wbcountrynameb + " the productivity as a future worker" ///
   + " of a child born today is **" + strofreal(round(hci_mf_100,1)) + " percent**" ///
-  + " as much as it could be. The HCI has three components: survival to age 5, health, and education." ///
+  + " as much as it could be. The country ranks **" + strofreal(round(hcirank,1)) + " out of 157** in the global HCI." ///
   + " For more information on human capital outcomes and the HCI, please see the country two-pager on \boldblue{www.worldbank.org/humancapitalproject}",   ///
      "In " + wbcountrynameb + " there are no enough data to calculate the productivity as a future worker of a child born today." ///
 	 + " The HCI has three components: survival to age 5, health, and education. For more information on human capital outcomes and the HCI, please see" ///

@@ -150,7 +150,7 @@ The following table summarizes the World Bank's investments in Human Development
 \caption*{Note: a) \colorbox{blush}{Pink} indicates that the value is within the first tercile of the distribution for all the countries. \colorbox{arylideyellow}{Orange} indicates that the value is within the second tercile. \colorbox{asparagus}{Green} indicates that it is within the third tercile. b) FY20 lending program includes only projects rated A and B. c) DO and IP are on a scale of 1 to 6 where 1 is Highly Unsatisfactory and 6 is Highly Satisfactory. d) Data as of September 5, 2019.}
 \end{table}
 
-* **Human Capital Policy Operations.** `r x[["dpohc_text"]]`
+* **HC Development Policy Operations.** `r x[["dpohc_text"]]`
 
 * **Women's Empowerment Project.** `r x[["wep_text"]]`
 

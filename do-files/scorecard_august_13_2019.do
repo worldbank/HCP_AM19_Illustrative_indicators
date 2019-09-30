@@ -290,7 +290,7 @@ local date "05-28-2019"
 	, size(large) suffix color(black) linegap(3)) graphregion(fcolor(white)) /// 
 	note("{it:- Large circle=`country' ; small circles=other countries.}" ///
 	"{it:- Vertical lines separate terciles of the distribution.}" /// 
-	"{it:- Pink/light blue=1st tercile; orange/gray=2nd tercile; green/blue=3rd tercile}" ///
+	"{it:- Pink/light blue=1st tercile; orange/gray=2nd tercile; green/blue=3rd tercile.}" ///
 	, size (small))
     graph export "$charts\all_`gender'_`ctry'.pdf", replace
     graph save "$charts\all_`gender'_`ctry'", replace
@@ -465,7 +465,7 @@ local date "05-28-2019"
 	, size(large) suffix color(black) linegap(3)) graphregion(fcolor(white)) /// 
 	note("{it:- Large circle=`country' ; small circles=other countries.}" ///
 	"{it:- Vertical lines refer to regional targets.}" /// 
-	"{it:- Pink/light blue=1st tercile; orange/gray=2nd tercile; green/blue=3rd tercile}" ///
+	"{it:- Pink/light blue=1st tercile; orange/gray=2nd tercile; green/blue=3rd tercile.}" ///
 	, size (small))
     graph export "$charts\all_`gender'_`ctry'.pdf", replace
     graph save "$charts\all_`gender'_`ctry'", replace
