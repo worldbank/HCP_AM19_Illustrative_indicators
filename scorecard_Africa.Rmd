@@ -99,8 +99,6 @@ knitr::include_graphics(gr4)
 
 * **Identification.** `r x[["ident_text"]]`
 
-* **Statistical Data on Human Capital.** `r x[["stat_text"]]`
-
 ### \boldblue{H\small{OW IS THE WORLD BANK SUPPORTING THE EFFORT?}}#####
 
 The following table summarizes the World Bank's investments in Human Development for `r x[['wbcountrynameb']]`, including measures of volume, performance, and other relevant indicators.
