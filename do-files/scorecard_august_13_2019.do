@@ -290,7 +290,7 @@ local date "05-28-2019"
 	, size(large) suffix color(black) linegap(3)) graphregion(fcolor(white)) /// 
 	note("{it:- Large circle=`country' ; small circles=other countries.}" ///
 	"{it:- Vertical lines separate terciles of the distribution.}" /// 
-	"{it:- Pink/light blue=1st tercile; orange/gray=2nd tercile; green/blue=3rd tercile}" ///
+	"{it:- Pink/light blue=1st tercile; orange/gray=2nd tercile; green/blue=3rd tercile.}" ///
 	, size (small))
     graph export "$charts\all_`gender'_`ctry'.pdf", replace
     graph save "$charts\all_`gender'_`ctry'", replace
@@ -465,7 +465,7 @@ local date "05-28-2019"
 	, size(large) suffix color(black) linegap(3)) graphregion(fcolor(white)) /// 
 	note("{it:- Large circle=`country' ; small circles=other countries.}" ///
 	"{it:- Vertical lines refer to regional targets.}" /// 
-	"{it:- Pink/light blue=1st tercile; orange/gray=2nd tercile; green/blue=3rd tercile}" ///
+	"{it:- Pink/light blue=1st tercile; orange/gray=2nd tercile; green/blue=3rd tercile.}" ///
 	, size (small))
     graph export "$charts\all_`gender'_`ctry'.pdf", replace
     graph save "$charts\all_`gender'_`ctry'", replace
@@ -637,6 +637,67 @@ graph save "$charts\socsec_`ctry'", replace
 
 restore
 
+
+//COUNTRIES WITHOUT EDU SPENDING 
+
+preserve
+keep if (edugov==. | edugov_mi==. | edugov_mr==.) ///
+& (socprotgov!=. & socprotgov_mi!=. & socprotgov_mr!=. ///
+& healthgov!=. & healthgov_mr!=. & healthgov_mi!=.)
+
+local x=4
+forvalues i=1/`x' {
+local ctry=wbcode in `i'
+local region=wbregion in `i'
+local income=wbincomegroup in `i'
+
+qui sum healthgov in `i'
+local hc=r(mean)+2 in `i' //locate where to display
+local hclabel: disp %4.1fc round(r(mean),.1)  // option 1
+
+qui sum healthgov_mr in `i'
+local hr=r(mean)+2 in `i' //locate where to display
+local hrlabel: disp %4.1fc round(r(mean),.1)  // option 1
+
+qui sum healthgov_mi in `i'
+local hi=r(mean)+2 in `i' //locate where to display
+local hilabel: disp %4.1fc round(r(mean),.1)  // option 1
+
+qui sum socprotgov in `i'
+local spjgovc=r(mean)+2 in `i' //locate where to display
+local spjgovclabel: disp %4.1fc round(r(mean),.1)  // option 1
+
+qui sum socprotgov_mr in `i'
+local spjgovr=r(mean)+2 in `i' //locate where to display
+local spjgovrlabel: disp %4.1fc round(r(mean),.1)  // option 1
+
+qui sum socprotgov_mi in `i'
+local spjgovi=r(mean)+2 in `i' //locate where to display
+local spjgovilabel: disp %4.1fc round(r(mean),.1)  // option 1
+
+
+graph twoway ///
+(bar healthgov a, color(reddish)) ///
+(bar healthgov_mr b, color(turquoise)) ///
+(bar  healthgov_mi c, color(sky)) ///
+(bar x d) ///
+(bar socprotgov e, color(reddish)) ///
+(bar socprotgov_mr f, color(turquoise)) ///
+(bar socprotgov_mi g, color(sky)) ///
+in `i' ,  xlabel(  2 "Health" 6 "Social Protection" ) ylabel(0 (10)40) ///
+ytitle("% of Government Expenditure", size(medium)) title("{bf: 2. Government Expenditure on Health & Social Protection}" , size(large) span) ///
+legend(label(1 "`ctry'") label(2 "`region'") label(3 "`income'")) legend(order(1 2 3) pos(5) col(2) row(1)) graphregion(fcolor(white)) ///
+graphregion(fcolor(white)) ysize(6) xsize(8) ///
+text(`hc' 1 "`hclabel'" `hr' 2 "`hrlabel'" `hi' 3 "`hilabel'" ///
+`ec' 5 "`spjgovclabel'" `er' 6 "`spjgovrlabel'" `ei' 7 "`spjgovilabel'") 
+graph export "$charts\socsec_`ctry'.pdf", replace
+graph save "$charts\socsec_`ctry'", replace
+}
+
+
+
+
+restore
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 

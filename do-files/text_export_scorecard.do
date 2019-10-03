@@ -12,8 +12,19 @@ set maxvar 32000
 
 *set up directory and filepath to database 
 
-
+if ( "`c(username)'" == "wb469563") {
 global root "C:\Users\WB469563\OneDrive - WBG\Documents (zdebebe@worldbank.org)\OneDrive - WBG\Documents (zdebebe@worldbank.org)\Human Capital Project\CHI_AM19_scorecard"
+}
+
+if ( "`c(username)'" == "wb384996") {
+	global root "c:\Users\wb384996\OneDrive - WBG\WorldBank\CHI_AM19_scorecard"
+}
+
+if ( "`c(username)'" == "wb538904") {
+	global root "C:\Users\WB538904\OneDrive - WBG\CHI_AM19_scorecard"
+}
+
+
 global charts "${root}/charts"
 local outputfilepath "${root}/input"
 cd "${root}"
@@ -21,7 +32,7 @@ cd "${root}"
 local date: disp %tdCY-m-D date("`c(current_date)'", "DMY")
 disp "`date'"
 
-use "input/scorecardanalysis.dta", clear 
+use "input/scorecardanalysis_2019-08-13.dta", clear 
 graph set window fontface "Fourier"
 
 
@@ -332,7 +343,7 @@ gen intro_text  = "This note presents a snapshot of the country's commitment on 
 gen hci_text = ///
   cond(hci_mf_100 != ., "In " + wbcountrynameb + " the productivity as a future worker" ///
   + " of a child born today is **" + strofreal(round(hci_mf_100,1)) + " percent**" ///
-  + " as much as it could be. The HCI has three components: survival to age 5, health, and education." ///
+  + " as much as it could be. The country ranks **" + strofreal(round(hcirank,1)) + " out of 157** in the global HCI." ///
   + " For more information on human capital outcomes and the HCI, please see the country two-pager on \boldblue{www.worldbank.org/humancapitalproject}",   ///
      "In " + wbcountrynameb + " there are no enough data to calculate the productivity as a future worker of a child born today." ///
 	 + " The HCI has three components: survival to age 5, health, and education. For more information on human capital outcomes and the HCI, please see" ///
@@ -504,13 +515,13 @@ replace wbl_text= "In " + wbcountrynameb + ///
 
 
 gen lastner_sec_f_text = ///
-	cond(lastner_sec_f< lastner_sec_f_mr & lastner_sec_f<lastner_sec_f_mi, "In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of girls of secondary-school age are enroled in secondary school." ///
+	cond(lastner_sec_f< lastner_sec_f_mr & lastner_sec_f<lastner_sec_f_mi, "In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of girls of secondary-school age are enrolled in secondary school." ///
 	+ " This is lower than both the average for its region (" + strofreal(round(lastner_sec_f_mr,1)) + ") and the average for its income group (" + strofreal(round(lastner_sec_f_mi,1)) + ").", ///
-		cond(lastner_sec_f> lastner_sec_f_mr & lastner_sec_f>lastner_sec_f_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of girls of secondary-school age are enroled in secondary school." ///
+		cond(lastner_sec_f> lastner_sec_f_mr & lastner_sec_f>lastner_sec_f_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of girls of secondary-school age are enrolled in secondary school." ///
 		+ " This is higher than both the average for its region (" + strofreal(round(lastner_sec_f_mr,1)) + ") and the average for its income group (" + strofreal(round(lastner_sec_f_mi,1)) + ").", ///
-	   	cond(lastner_sec_f< lastner_sec_f_mr & lastner_sec_f>lastner_sec_f_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of girls of secondary-school age are enroled in secondary school." ///
+	   	cond(lastner_sec_f< lastner_sec_f_mr & lastner_sec_f>lastner_sec_f_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of girls of secondary-school age are enrolled in secondary school." ///
 		+ " This is lower than the average for its region (" + strofreal(round(lastner_sec_f_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastner_sec_f_mi,1)) + ").", ///
-		cond(lastner_sec_f>lastner_sec_f_mr & lastner_sec_f<lastner_sec_f_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of girls of secondary-school age are enroled in secondary school." ///
+		cond(lastner_sec_f>lastner_sec_f_mr & lastner_sec_f<lastner_sec_f_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastner_sec_f,1)) + " percent** of girls of secondary-school age are enrolled in secondary school." ///
 		+ " This is higher than the average for its region (" + strofreal(round(lastner_sec_f_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastner_sec_f_mi,1)) + ").", ///
 		"")))) if lastner_sec_f!=.
 		
@@ -519,7 +530,7 @@ gen lastner_sec_f_text = ///
 replace lastner_sec_f_text= "In " + wbcountrynameb + ///
 ", data on secondary net enrolment rates for girls do not exist." + ///
 " In its region **" + strofreal(round(lastner_sec_f_mr,1)) + ///
-"** percent of girls of secondary-school age are enroled in secondary school. The corresponding value for its income group is **"  + strofreal(round(lastner_sec_f_mr,1)) + "** percent." if lastner_sec_f==.
+"** percent of girls of secondary-school age are enrolled in secondary school. The corresponding value for its income group is **"  + strofreal(round(lastner_sec_f_mr,1)) + "** percent." if lastner_sec_f==.
  
  
 
@@ -543,7 +554,7 @@ gen edu_comp_mrmi = ///
 */ "This is higher than  the average for its region (" + strofreal(round(edugov_mr,0.1)) + ") but lower than the average for its income group (" + strofreal(round(edugov_mi,0.1)) + ").", /*        
 */ "")))) if edugov!=.
 
-gen edu_text="" + wbcountryname + /// we still need to specify for missing data cases
+gen edu_text="" + wbcountrynameb + /// we still need to specify for missing data cases
 " spends **" + strofreal(round(edugov,0.1)) + ///
 " percent** of its government budget on education. "  /// 
 + edu_comp_mrmi + ""
@@ -567,7 +578,7 @@ gen health_comp_mrmi = ///
 */ "This is higher than  the average for its region (" + strofreal(round(healthgov_mr,0.1)) + ") but lower than the average for its income group (" + strofreal(round(healthgov_mi,0.1)) + ").", /*        
 */ "")))) if healthgov!=.
 
-gen health_text="" + wbcountryname + ///
+gen health_text="" + wbcountrynameb + ///
 " spends **" + strofreal(round(healthgov,0.1)) + ///
 " percent** of its government budget on health. "  ///
 + health_comp_mrmi + ""
@@ -591,7 +602,7 @@ gen socprot_comp_mrmi = ///
 */ "This is higher than  the average for its region (" + strofreal(round(socprotgov_mr,0.1)) + ") but lower than the average for its income group (" + strofreal(round(socprotgov_mi,0.1)) + ").", /*        
 */ "")))) if socprotgov!=.
 
-gen socprot_text="" + wbcountryname + ///
+gen socprot_text="" + wbcountrynameb + ///
 " spends **" + strofreal(round(socprotgov,0.1)) + ///
 " percent** of its government budget on social protection. "  ///
 + socprot_comp_mrmi + ""
@@ -747,20 +758,6 @@ gen wep_text= ///
 
 
 
-replace hdportfolio_share = hdportfolio_share *100
-replace eduportfolio_share = eduportfolio_share *100
-replace hnpportfolio_share = hnpportfolio_share *100
-replace spjportfolio_share = spjportfolio_share *100
-
-replace hdportfolio_share_diffmr = hdportfolio_share_diffmr *100
-replace eduportfolio_share_diffmr = eduportfolio_share_diffmr *100
-replace hnpportfolio_share_diffmr = hnpportfolio_share_diffmr *100
-replace spjportfolio_share_diffmr = spjportfolio_share_diffmr *100
-
-replace hdportfolio_share_diffmi = hdportfolio_share_diffmi *100
-replace eduportfolio_share_diffmi = eduportfolio_share_diffmi *100
-replace hnpportfolio_share_diffmi = hnpportfolio_share_diffmi *100
-replace spjportfolio_share_diffmi = spjportfolio_share_diffmi *100
 
 replace pipeline_hd_share = pipeline_hd_share *100
 replace pipeline_edu_share = pipeline_edu_share *100

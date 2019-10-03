@@ -13,33 +13,33 @@ rows_lab <- function(){
     "\\textbf{Indicator} & \\textbf{HD} & \\textbf{Edu} & \\textbf{HNP} & \\textbf{SPJ}",
     "\\cellcolor{iceberg}HD Portfolio & \\cellcolor{iceberg} & \\cellcolor{iceberg} & \\cellcolor{iceberg} & \\cellcolor{iceberg}",
     "USD (million)",
-    "Percentage of total",
-    "Diff. with perc. for regional average",
-    "Diff. with perc. for income group avg",
+    "\\textbf{\\% of total}",
+    "Diff. from regional average \\%",
+    "Diff. from income group avg \\%",
     "\\cellcolor{iceberg}HD FY 20 Lending Program & \\cellcolor{iceberg} & \\cellcolor{iceberg} & \\cellcolor{iceberg} & \\cellcolor{iceberg}",
     "USD (million)",
-    "Percentage of total",
-    "Diff. with perc. for regional average",
-    "Diff. with perc. for income group avg",
+    "\\textbf{\\% of total}",
+    "Diff. from regional average \\%",
+    "Diff. from income group avg \\%",
     "\\cellcolor{iceberg}HD Performance & \\cellcolor{iceberg} & \\cellcolor{iceberg} & \\cellcolor{iceberg} & \\cellcolor{iceberg}",
-    "Average Development Outcome (DO)",
-    "Difference with DO for region",
-    "Difference with DO for income group",
-    "Perc. Satisfactory DO",
-    "Average Implementation Progress (IP)",
-    "Difference with IP for region",
-    "Difference with IP for income group",
-    "Perc. Satisfactory IP",
-    "Disbursement ratio (DR)",
-    "Difference with DR for region",
-    "Difference with DR for income group",
+    "\\textbf{Average Development Outcome}",
+    "Diff. from regional average \\%",
+    "Diff. from income group avg \\%",
+    "\\% Satisfactory DO",
+    "\\textbf{Average Implementation Progress}",
+    "Diff. from regional average \\%",
+    "Diff. from income group avg \\%",
+    "\\% Satisfactory IP",
+    "\\textbf{Disbursement ratio}",
+    "Diff. from regional average \\%",
+    "Diff. from income group avg \\%",
     "\\cellcolor{iceberg}Other indicators & \\cellcolor{iceberg} & \\cellcolor{iceberg} & \\cellcolor{iceberg} & \\cellcolor{iceberg}",
-    "Average project size (PS) (USD mill.)",
-    "Difference with PS for region",
-    "Difference with PS for income group",
-    "Perc. of portfolio that is co-TTL'd (CTT)",
-    "Diff. with CTT for region (perc. points)",
-    "Diff. with CTT income group (perc. points)"
+    "\\textbf{Average project size (USD mill.)}",
+    "Diff. from regional average \\%",
+    "Diff. from income group avg \\%",
+    "\\textbf{\\% of portfolio that is co-TTL'd}",
+    "Diff. from regional average \\%",
+    "Diff. from income group avg \\%"
   )
   return(x)
 }
@@ -69,7 +69,7 @@ color_cell <-  function(f, df) {
 
 RunMD <- function(x) {
   file_name <- paste0("scorecard_", x[["wbcode"]])
-  countrynamet <- x[["wbcountrynameb"]]
+  countrynamet <- x[["wbcountryname"]]
 
   if (x[["adminregion"]] == "SSA") {
     input <- "scorecard_Africa.Rmd"
@@ -109,11 +109,26 @@ RunMD <- function(x) {
 # Delete and copy files --------------------------------------------------------
 
 dc_files <- function() {
-  pdf_file <- list.files(pattern = "scorecard_.+\\.pdf$")
-  x <- file.copy(from = pdf_file, to = "output", overwrite = TRUE)
 
-  pdf_file <- pdf_file[x]
-  file.remove(pdf_file)
+  # check if region folder exists
+  reg_dir <- hci %>%
+    count(wbregion) %>%
+    transmute(dir = paste0("output/", wbregion),
+              dir_e = dir.exists(dir))
+
+  lapply(reg_dir$dir[!reg_dir$dir_e], dir.create, showWarnings = FALSE)
+
+  # copy PDFs
+  x <- hci %>%
+    transmute(file = paste0("scorecard_", wbcode ,".pdf"),
+              dir = paste0("output/", wbregion))
+
+
+  map2(x$file, x$dir, ~file.copy(from = .x,
+                                        to = .y,
+                                        overwrite = TRUE))
+
+  file.remove(x$file)
 
   #--------- copy failed log files
 
@@ -140,4 +155,6 @@ chg_fmt <- function(x, digits = 2, fmt = "f", b = ",") {
   ifelse(is.na(x), ".",
          formatC(x, digits = digits, format = fmt,  big.mark = b))
 }
+
+
 

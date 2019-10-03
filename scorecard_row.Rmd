@@ -28,6 +28,8 @@ header-includes:
   \usepackage[fontsize=8.7pt]{scrextend}
   \usepackage{float}
   \usepackage[utf8]{inputenc}
+  \usepackage{caption}
+  \captionsetup[table]{position=bottom} 
 ---
 
 \definecolor{bondiblue}{rgb}{0.0, 0.58, 0.71}
@@ -53,8 +55,6 @@ This scorecard presents a snapshot of the country's commitment to the human capi
 * **Social Protection Coverage.** `r x[["lastspc_text"]]`
 
 * **Open Defecation.** `r x[["lastod_text"]]`
-
-
 
 ### \boldblue{D\small{OMESTIC RESOURCE USE AND MOBILIZATION}}###
 
@@ -97,11 +97,11 @@ knitr::include_graphics(gr4)
 
 * **Identification.** `r x[["ident_text"]]`
 
-* **Statistical Data on Human Capital.** `r x[["stat_text"]]`
+
 
 ### \boldblue{H\small{OW IS THE WORLD BANK SUPPORTING THE EFFORT?}}#####
 
-The following table summarizes the World Bank's investments in Human Development for `r countrynameb`, including measures of volume, performance, and other relevant indicators.
+The following table summarizes the World Bank's investments in Human Development for `r x[['wbcountrynameb']]`, including measures of volume, performance, and other relevant indicators.
 
 \definecolor{asparagus}{RGB}{3, 158, 115}
 \definecolor{blush}{RGB}{204 121 167}
@@ -129,31 +129,25 @@ The following table summarizes the World Bank's investments in Human Development
 `r rl[[14]]` & `r x[["do_performance_hd"]]` & `r x[["do_performance_edu"]]` & `r x[["do_performance_hnp"]]` & `r x[["do_performance_spj"]]` \\ 
 `r rl[[15]]` & `r x[["do_performance_hd_diffmr"]]` & `r x[["do_performance_edu_diffmr"]]` & `r x[["do_performance_hnp_diffmr"]]` & `r x[["do_performance_spj_diffmr"]]` \\ 
 `r rl[[16]]` & `r x[["do_performance_hd_diffmi"]]` & `r x[["do_performance_edu_diffmi"]]` & `r x[["do_performance_hnp_diffmi"]]` & `r x[["do_performance_spj_diffmi"]]` \\ 
-`r rl[[17]]` & `r x[["percsatisfdo_hd"]]` & `r x[["percsatisfdo_edu"]]` & `r x[["percsatisfdo_hnp"]]` & `r x[["percsatisfdo_spj"]]` \\ 
+`r rl[[17]]` & `r x[["percsatisfdo_hd"]]` & `r x[["percsatisfdo_edu"]]` & `r x[["percsatisfdo_hnp"]]` & `r x[["percsatisfdo_spj"]]` \\  \hline
 `r rl[[18]]` & `r x[["ip_performance_hd"]]` & `r x[["ip_performance_edu"]]` & `r x[["ip_performance_hnp"]]` & `r x[["ip_performance_spj"]]` \\ 
 `r rl[[19]]` & `r x[["ip_performance_hd_diffmr"]]` & `r x[["ip_performance_edu_diffmr"]]` & `r x[["ip_performance_hnp_diffmr"]]` & `r x[["ip_performance_spj_diffmr"]]` \\ 
 `r rl[[20]]` & `r x[["ip_performance_hd_diffmi"]]` & `r x[["ip_performance_edu_diffmi"]]` & `r x[["ip_performance_hnp_diffmi"]]` & `r x[["ip_performance_spj_diffmi"]]` \\ 
-`r rl[[21]]` & `r x[["percsatisfip_hd"]]` & `r x[["percsatisfip_edu"]]` & `r x[["percsatisfip_hnp"]]` & `r x[["percsatisfip_spj"]]` \\ 
+`r rl[[21]]` & `r x[["percsatisfip_hd"]]` & `r x[["percsatisfip_edu"]]` & `r x[["percsatisfip_hnp"]]` & `r x[["percsatisfip_spj"]]` \\  \hline
 `r rl[[22]]` & `r x[["disburratio_hd"]]` & `r x[["disburratio_edu"]]` & `r x[["disburratio_hnp"]]` & `r x[["disburratio_spj"]]` \\ 
 `r rl[[23]]` & `r x[["disburratio_hd_diffmr"]]` & `r x[["disburratio_edu_diffmr"]]` & `r x[["disburratio_hnp_diffmr"]]` & `r x[["disburratio_spj_diffmr"]]` \\ 
 `r rl[[24]]` & `r x[["disburratio_hd_diffmi"]]` & `r x[["disburratio_edu_diffmi"]]` & `r x[["disburratio_hnp_diffmi"]]` & `r x[["disburratio_spj_diffmi"]]` \\ \hline
 `r rl[[25]]` \\ \hline
 `r rl[[26]]` & `r x[["avgsize_hd"]]` & `r x[["avgsize_edu"]]` & `r x[["avgsize_hnp"]]` & `r x[["avgsize_spj"]]` \\ 
 `r rl[[27]]` & `r x[["avgsize_hd_diffmr"]]` & `r x[["avgsize_edu_diffmr"]]` & `r x[["avgsize_hnp_diffmr"]]` & `r x[["avgsize_spj_diffmr"]]` \\ 
-`r rl[[28]]` & `r x[["avgsize_hd_diffmi"]]` & `r x[["avgsize_edu_diffmi"]]` & `r x[["avgsize_hnp_diffmi"]]` & `r x[["avgsize_spj_diffmi"]]` \\ 
+`r rl[[28]]` & `r x[["avgsize_hd_diffmi"]]` & `r x[["avgsize_edu_diffmi"]]` & `r x[["avgsize_hnp_diffmi"]]` & `r x[["avgsize_spj_diffmi"]]` \\  \hline
 `r rl[[29]]` & `r x[["crossgpshare_hd"]]` & `r x[["crossgpshare_edu"]]` & `r x[["crossgpshare_hnp"]]` & `r x[["crossgpshare_spj"]]` \\ 
 `r rl[[30]]` & `r x[["crossgpshare_hd_diffmr"]]` & `r x[["crossgpshare_edu_diffmr"]]` & `r x[["crossgpshare_hnp_diffmr"]]` & `r x[["crossgpshare_spj_diffmr"]]` \\ 
 `r rl[[31]]` & `r x[["crossgpshare_hd_diffmi"]]` & `r x[["crossgpshare_edu_diffmi"]]` & `r x[["crossgpshare_hnp_diffmi"]]` & `r x[["crossgpshare_spj_diffmi"]]` \\ \hline
- \multicolumn{5}{l}{Note: a) \colorbox{blush}{Pink} indicates that the value is within the first tercile of the} \\
- \multicolumn{5}{l}{distribution for all the countries. \colorbox{arylideyellow}{Orange} indicates that the value is } \\
- \multicolumn{5}{l}{is within the second tercile. \colorbox{asparagus}{Green} indicates that it is within the third} \\
- \multicolumn{5}{l}{tercile. b) FY20 lending program includes only projects rated A, B and } \\
- \multicolumn{5}{l}{unrated. c) DO and IP are on a scale of 1 to 5 where 1 is Unsatisfactory } \\
- \multicolumn{5}{l}{and 5 is Highly Satisfactory. d) Data as of July 15, 2019.} \\
 \end{tabular}
+\caption*{Note: a) \colorbox{blush}{Pink} indicates that the value is within the first tercile of the distribution for all the countries. \colorbox{arylideyellow}{Orange} indicates that the value is within the second tercile. \colorbox{asparagus}{Green} indicates that it is within the third tercile. b) FY20 lending program includes only projects rated A and B. c) DO and IP are on a scale of 1 to 6 where 1 is Highly Unsatisfactory and 6 is Highly Satisfactory. d) Data as of September 30, 2019.}
+\vspace{-10mm}
 \end{table}
-
-
 
 \noindent\rule{9cm}{0.4pt}
 This scorecard is intended to be a conversation starter on where a country is on various aspects of human capital development and the state of the World Bank's support in the social sectors. The choice of indicators is, to a large extent, driven by what is most relevant for the two regions with the lowest HCI scores (Sub-Saharan Africa and South Asia). As such, not all the indicators included here are relevant for each country. The scorecard should be complemented with other more context specific indicators.
@@ -163,5 +157,3 @@ The sources of data for the different indicators include: the Human Capital Proj
 &nbsp;
 
 For more information, please contact the Human Capital Project team: HCP_Team@worldbank.org 
-
-
