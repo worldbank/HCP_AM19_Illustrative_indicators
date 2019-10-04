@@ -7,7 +7,20 @@ clear
 set more off
 
 
-global root "C:\Users\WB538904\OneDrive - WBG\CHI_AM19_scorecard"
+
+if ( "`c(username)'" == "wb469563") {
+global root "C:\Users\WB469563\OneDrive - WBG\Documents (zdebebe@worldbank.org)\OneDrive - WBG\Documents (zdebebe@worldbank.org)\Human Capital Project\CHI_AM19_scorecard"
+}
+
+if ( "`c(username)'" == "wb384996") {
+	global root "c:\Users\wb384996\OneDrive - WBG\WorldBank\CHI_AM19_scorecard"
+}
+
+if ( "`c(username)'" == "wb538904") {
+	global root "C:\Users\WB538904\OneDrive - WBG\CHI_AM19_scorecard"
+}
+
+
 global charts "${root}/charts"
 local outputfilepath "${root}/input"
 cd "${root}"
@@ -15,21 +28,26 @@ cd "${root}"
 local date: disp %tdCY-m-D date("`c(current_date)'", "DMY")
 disp "`date'"
 
-//local outputfilepath "C:\Users\WB469563\OneDrive - WBG\Documents (zdebebe@worldbank.org)\OneDrive - WBG\Documents (zdebebe@worldbank.org)\Human Capital Project\HCP Africa\Scorecard"
-//global charts "C:\Users\WB469563\OneDrive - WBG\Documents (zdebebe@worldbank.org)\OneDrive - WBG\Documents (zdebebe@worldbank.org)\Human Capital Project\HCP Africa\Scorecard\charts"
 
-use "input/scorecardanalysis_2019-08-13.dta", clear 
+
+use "input/scorecardanalysis_2019-10-03.dta", clear 
 graph set window fontface "Fourier"
 
 
-//use scorecardanalysis_2019-08-13.dta, clear
+//use scorecardanalysis_2019-10-03.dta, clear
 //graph set window fontface "Baskerville Old Face"
 set scheme plotplainblind, permanently
 
 
 //Preliminaries 
 
-foreach var of varlist lastner_sec_f drm lastcpia_hr unregpop lasttime_nostu_rep lasttime_hlo_mf_rep dpohc wep hdportfolio_share eduportfolio_share hnpportfolio_share spjportfolio_share pipeline_hd_share pipeline_edu_share pipeline_hnp_share pipeline_spj_share do_performance_hd  do_performance_edu do_performance_hnp do_performance_spj ip_performance_hd  ip_performance_edu ip_performance_hnp ip_performance_spj disburratio_hd disburratio_edu disburratio_hnp disburratio_spj  avgsize_hd avgsize_edu avgsize_hnp avgsize_spj crossgpshare_hd crossgpshare_edu crossgpshare_hnp crossgpshare_spj{
+foreach var of varlist lastner_sec_f drm lastcpia_hr unregpop lasttime_nostu_rep ///
+lasttime_hlo_mf_rep dpohc wep hdportfolio_share eduportfolio_share hnpportfolio_share ///
+ spjportfolio_share pipeline_hd_share pipeline_edu_share pipeline_hnp_share ///
+ pipeline_spj_share do_performance_hd  do_performance_edu do_performance_hnp ///
+ do_performance_spj ip_performance_hd  ip_performance_edu ip_performance_hnp ///
+ ip_performance_spj disburratio_hd disburratio_edu disburratio_hnp disburratio_spj ///
+ avgsize_hd avgsize_edu avgsize_hnp avgsize_spj crossgpshare_hd crossgpshare_edu crossgpshare_hnp crossgpshare_spj {
      egen `var'_sdr=sd(`var') if year==2017, by(region)
 	 egen `var'_sdi=sd(`var') if year==2017, by(income)
 	 }
@@ -39,7 +57,17 @@ gen hci_mf_100= hci_mf*100
 
 
 foreach gender in mf {
-foreach var of varlist lastner_sec_f hci_`gender' tnep_`gender' nostu_`gender' asr_`gender' psurv_`gender' test_`gender' eyrs_`gender' lastod lastodcomp lasttfr lastafr contracep wbl unregpop_share unregpopcomp lastspc ner drm lastcpia_hr unregpop lasttime_nostu_rep lasttime_hlo_mf_rep dpohc wep hdportfolio_share eduportfolio_share hnpportfolio_share spjportfolio_share pipeline_hd_share pipeline_edu_share pipeline_hnp_share pipeline_spj_share do_performance_hd  do_performance_edu do_performance_hnp do_performance_spj ip_performance_hd  ip_performance_edu ip_performance_hnp ip_performance_spj disburratio_hd disburratio_edu disburratio_hnp disburratio_spj  avgsize_hd avgsize_edu avgsize_hnp avgsize_spj crossgpshare_hd crossgpshare_edu crossgpshare_hnp crossgpshare_spj{
+foreach var of varlist lastner_sec_f hci_`gender' tnep_`gender' nostu_`gender' ///
+asr_`gender' psurv_`gender' test_`gender' eyrs_`gender' lastod lastodcomp ///
+lasttfr lastafr contracep wbl unregpop_share unregpopcomp lastspc ner drm ///
+lastcpia_hr unregpop lasttime_nostu_rep lasttime_hlo_mf_rep dpohc wep ///
+hdportfolio_share eduportfolio_share hnpportfolio_share spjportfolio_share ///
+pipeline_hd_share pipeline_edu_share pipeline_hnp_share pipeline_spj_share ///
+do_performance_hd  do_performance_edu do_performance_hnp do_performance_spj ///
+ip_performance_hd  ip_performance_edu ip_performance_hnp ip_performance_spj ///
+disburratio_hd disburratio_edu disburratio_hnp disburratio_spj  avgsize_hd ///
+avgsize_edu avgsize_hnp avgsize_spj crossgpshare_hd crossgpshare_edu crossgpshare_hnp crossgpshare_spj ///
+lastnm_water_basic_plus lastnm_sanit_basic_plus lastnm_hygiene_basic lastnm_road_traff lastnm_clean_fuel lastnm_electric {
      egen `var'_mr=mean(`var') if year==2017, by(region)
 	 egen `var'_mi=mean(`var') if year==2017, by(income)
 	 }
@@ -154,7 +182,7 @@ gen dif_lastafr_targ = lastafr - af_lastafr_targ
 preserve 
 keep if wbregion!="Sub-Saharan Africa"
 
-local x=169
+local x=1
 forvalues i=1/`x' {
 local ctry=wbcode in `i'
 local region=wbregion in `i'
@@ -279,14 +307,91 @@ local date "05-28-2019"
 							legend(off) title("{bf:Female Net Enrollment Rate for Secondary School}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large)) graphregion(fcolor(white)) 
 							 graph save lastner_sec_f_`ctry', replace
 	 
-		
+		                     
+							 			 
+							 _pctile lastnm_sanit_basic_plus if year==2017, p(33 66)
+                             twoway (scatter onesvec lastnm_sanit_basic_plus if year==2017 & lastnm_sanit_basic_plus>0 & lastnm_sanit_basic_plus<=`=scalar(r(r1))', msymbol(Oh) msize(large) mcolor(reddish)) /// 
+                             (scatter onesvec lastnm_sanit_basic_plus if year==2017 & lastnm_sanit_basic_plus>`=scalar(r(r1))' & lastnm_sanit_basic_plus<=`=scalar(r(r2))', msymbol(Oh) msize(large)  mcolor(orangebrown)) /// 							 
+                             (scatter onesvec lastnm_sanit_basic_plus if year==2017 & lastnm_sanit_basic_plus>`=scalar(r(r2))' & lastnm_sanit_basic_plus<=100, msymbol(Oh) msize(large)  mcolor(turquoise)) ///							 
+							 (scatter onesvec lastnm_sanit_basic_plus if wbcode=="`ctry'" & year==2017 & lastnm_sanit_basic_plus>0 & lastnm_sanit_basic_plus<=`=scalar(r(r1))', msize(huge) msymbol(solid)  mlc(black) mfcolor(reddish)) ///							 
+                             (scatter onesvec lastnm_sanit_basic_plus if wbcode=="`ctry'" & year==2017 & lastnm_sanit_basic_plus>`=scalar(r(r1))' & lastnm_sanit_basic_plus<=`=scalar(r(r2))', msize(huge) msymbol(solid) mlc(black)  mfcolor(orangebrown)) /// 							 
+                             (scatter onesvec lastnm_sanit_basic_plus if wbcode=="`ctry'" & year==2017 & lastnm_sanit_basic_plus>`=scalar(r(r2))' & lastnm_sanit_basic_plus<=100, msize(huge) msymbol(solid) mlc(black) mfcolor(turquoise)) /// 
+		                      ,xline(`=scalar(r(r1))', lwidth(thick) lcolor(black) lpattern(solid) ) xline(`=scalar(r(r2))', lwidth(thick) lcolor(black) lpattern(solid))  ///
+							legend(off) title("{bf: Percent Using at Least Basic Sanitation Services }", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large))  graphregion(fcolor(white)) 
+							 graph save lastnm_sanit_basic_plus_`ctry', replace
+
+
+							 							 
+							 _pctile lastnm_hygiene_basic if year==2017, p(33 66)
+                             twoway (scatter onesvec lastnm_hygiene_basic if year==2017 & lastnm_hygiene_basic>0 & lastnm_hygiene_basic<=`=scalar(r(r1))', msymbol(Oh) msize(large) mcolor(reddish)) /// 
+                             (scatter onesvec lastnm_hygiene_basic if year==2017 & lastnm_hygiene_basic>`=scalar(r(r1))' & lastnm_hygiene_basic<=`=scalar(r(r2))', msymbol(Oh) msize(large)  mcolor(orangebrown)) /// 							 
+                             (scatter onesvec lastnm_hygiene_basic if year==2017 & lastnm_hygiene_basic>`=scalar(r(r2))' & lastnm_hygiene_basic<=100, msymbol(Oh) msize(large)  mcolor(turquoise)) ///							 
+							 (scatter onesvec lastnm_hygiene_basic if wbcode=="`ctry'" & year==2017 & lastnm_hygiene_basic>0 & lastnm_hygiene_basic<=`=scalar(r(r1))', msize(huge) msymbol(solid)  mlc(black) mfcolor(reddish)) ///							 
+                             (scatter onesvec lastnm_hygiene_basic if wbcode=="`ctry'" & year==2017 & lastnm_hygiene_basic>`=scalar(r(r1))' & lastnm_hygiene_basic<=`=scalar(r(r2))', msize(huge) msymbol(solid) mlc(black)  mfcolor(orangebrown)) /// 							 
+                             (scatter onesvec lastnm_hygiene_basic if wbcode=="`ctry'" & year==2017 & lastnm_hygiene_basic>`=scalar(r(r2))' & lastnm_hygiene_basic<=100, msize(huge) msymbol(solid) mlc(black) mfcolor(turquoise)) /// 
+		                      ,xline(`=scalar(r(r1))', lwidth(thick) lcolor(black) lpattern(solid) ) xline(`=scalar(r(r2))', lwidth(thick) lcolor(black) lpattern(solid))  ///
+							legend(off) title("{bf: Percent with Basic Handwashing Facilities }", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large))  graphregion(fcolor(white)) 
+							 graph save lastnm_hygiene_basic_`ctry', replace
+
+
+	 							 
+							 _pctile lastnm_water_basic_plus if year==2017, p(33 66)
+                             twoway (scatter onesvec lastnm_water_basic_plus if year==2017 & lastnm_water_basic_plus>0 & lastnm_water_basic_plus<=`=scalar(r(r1))', msymbol(Oh) msize(large) mcolor(reddish)) /// 
+                             (scatter onesvec lastnm_water_basic_plus if year==2017 & lastnm_water_basic_plus>`=scalar(r(r1))' & lastnm_water_basic_plus<=`=scalar(r(r2))', msymbol(Oh) msize(large)  mcolor(orangebrown)) /// 							 
+                             (scatter onesvec lastnm_water_basic_plus if year==2017 & lastnm_water_basic_plus>`=scalar(r(r2))' & lastnm_water_basic_plus<=100, msymbol(Oh) msize(large)  mcolor(turquoise)) ///							 
+							 (scatter onesvec lastnm_water_basic_plus if wbcode=="`ctry'" & year==2017 & lastnm_water_basic_plus>0 & lastnm_water_basic_plus<=`=scalar(r(r1))', msize(huge) msymbol(solid)  mlc(black) mfcolor(reddish)) ///							 
+                             (scatter onesvec lastnm_water_basic_plus if wbcode=="`ctry'" & year==2017 & lastnm_water_basic_plus>`=scalar(r(r1))' & lastnm_water_basic_plus<=`=scalar(r(r2))', msize(huge) msymbol(solid) mlc(black)  mfcolor(orangebrown)) /// 							 
+                             (scatter onesvec lastnm_water_basic_plus if wbcode=="`ctry'" & year==2017 & lastnm_water_basic_plus>`=scalar(r(r2))' & lastnm_water_basic_plus<=100, msize(huge) msymbol(solid) mlc(black) mfcolor(turquoise)) /// 
+		                      ,xline(`=scalar(r(r1))', lwidth(thick) lcolor(black) lpattern(solid) ) xline(`=scalar(r(r2))', lwidth(thick) lcolor(black) lpattern(solid))  ///
+							legend(off) title("{bf:Percent Using at Least Basic Drinking Water Services}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large))  graphregion(fcolor(white)) 
+							 graph save lastnm_water_basic_plus_`ctry', replace
+
+	  
+	 							 
+							 _pctile lastnm_clean_fuel  if year==2017, p(33 66)
+                             twoway (scatter onesvec lastnm_clean_fuel  if year==2017 & lastnm_clean_fuel >0 & lastnm_clean_fuel <=`=scalar(r(r1))', msymbol(Oh) msize(large) mcolor(reddish)) /// 
+                             (scatter onesvec lastnm_clean_fuel  if year==2017 & lastnm_clean_fuel >`=scalar(r(r1))' & lastnm_clean_fuel <=`=scalar(r(r2))', msymbol(Oh) msize(large)  mcolor(orangebrown)) /// 							 
+                             (scatter onesvec lastnm_clean_fuel  if year==2017 & lastnm_clean_fuel >`=scalar(r(r2))' & lastnm_clean_fuel <=100, msymbol(Oh) msize(large)  mcolor(turquoise)) ///							 
+							 (scatter onesvec lastnm_clean_fuel  if wbcode=="`ctry'" & year==2017 & lastnm_clean_fuel >0 & lastnm_clean_fuel <=`=scalar(r(r1))', msize(huge) msymbol(solid)  mlc(black) mfcolor(reddish)) ///							 
+                             (scatter onesvec lastnm_clean_fuel  if wbcode=="`ctry'" & year==2017 & lastnm_clean_fuel >`=scalar(r(r1))' & lastnm_clean_fuel <=`=scalar(r(r2))', msize(huge) msymbol(solid) mlc(black)  mfcolor(orangebrown)) /// 							 
+                             (scatter onesvec lastnm_clean_fuel  if wbcode=="`ctry'" & year==2017 & lastnm_clean_fuel >`=scalar(r(r2))' & lastnm_clean_fuel <=100, msize(huge) msymbol(solid) mlc(black) mfcolor(turquoise)) /// 
+		                      ,xline(`=scalar(r(r1))', lwidth(thick) lcolor(black) lpattern(solid) ) xline(`=scalar(r(r2))', lwidth(thick) lcolor(black) lpattern(solid))  ///
+							legend(off) title("{bf: Percent Using Clean Cooking Fuel}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large))  graphregion(fcolor(white)) 
+							 graph save lastnm_clean_fuel_`ctry', replace
+
+									 
+							 _pctile lastnm_electric if year==2017, p(33 66)
+                             twoway (scatter onesvec lastnm_electric if year==2017 & lastnm_electric>0 & lastnm_electric<=`=scalar(r(r1))', msymbol(Oh) msize(large) mcolor(reddish)) /// 
+                             (scatter onesvec lastnm_electric if year==2017 & lastnm_electric>`=scalar(r(r1))' & lastnm_electric<=`=scalar(r(r2))', msymbol(Oh) msize(large)  mcolor(orangebrown)) /// 							 
+                             (scatter onesvec lastnm_electric if year==2017 & lastnm_electric>`=scalar(r(r2))' & lastnm_electric<=100, msymbol(Oh) msize(large)  mcolor(turquoise)) ///							 
+							 (scatter onesvec lastnm_electric if wbcode=="`ctry'" & year==2017 & lastnm_electric>0 & lastnm_electric<=`=scalar(r(r1))', msize(huge) msymbol(solid)  mlc(black) mfcolor(reddish)) ///							 
+                             (scatter onesvec lastnm_electric if wbcode=="`ctry'" & year==2017 & lastnm_electric>`=scalar(r(r1))' & lastnm_electric<=`=scalar(r(r2))', msize(huge) msymbol(solid) mlc(black)  mfcolor(orangebrown)) /// 							 
+                             (scatter onesvec lastnm_electric if wbcode=="`ctry'" & year==2017 & lastnm_electric>`=scalar(r(r2))' & lastnm_electric<=100, msize(huge) msymbol(solid) mlc(black) mfcolor(turquoise)) /// 
+		                      ,xline(`=scalar(r(r1))', lwidth(thick) lcolor(black) lpattern(solid) ) xline(`=scalar(r(r2))', lwidth(thick) lcolor(black) lpattern(solid))  ///
+							legend(off) title("{bf: Percent with Access to Electricity}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large))  graphregion(fcolor(white)) 
+							 graph save lastnm_electric_`ctry', replace
+
+	 							 
+							 _pctile lastnm_road_traff if year==2017, p(33 66)
+                             twoway (scatter onesvec lastnm_road_traff if year==2017 & lastnm_road_traff>0 & lastnm_road_traff<=`=scalar(r(r1))', msymbol(Oh) msize(large) mcolor(turquoise)) /// 
+                             (scatter onesvec lastnm_road_traff if year==2017 & lastnm_road_traff>`=scalar(r(r1))' & lastnm_road_traff<=`=scalar(r(r2))', msymbol(Oh) msize(large)  mcolor(orangebrown)) /// 							 
+                             (scatter onesvec lastnm_road_traff if year==2017 & lastnm_road_traff>`=scalar(r(r2))' & lastnm_road_traff<=50, msymbol(Oh) msize(large)  mcolor(reddish)) ///							 
+							 (scatter onesvec lastnm_road_traff if wbcode=="`ctry'" & year==2017 & lastnm_road_traff>0 & lastnm_road_traff<=`=scalar(r(r1))', msize(huge) msymbol(solid)  mlc(black) mfcolor(turquoise)) ///							 
+                             (scatter onesvec lastnm_road_traff if wbcode=="`ctry'" & year==2017 & lastnm_road_traff>`=scalar(r(r1))' & lastnm_road_traff<=`=scalar(r(r2))', msize(huge) msymbol(solid) mlc(black)  mfcolor(orangebrown)) /// 							 
+                             (scatter onesvec lastnm_road_traff if wbcode=="`ctry'" & year==2017 & lastnm_road_traff>`=scalar(r(r2))' & lastnm_road_traff<=50, msize(huge) msymbol(solid) mlc(black) mfcolor(reddish)) /// 
+		                      ,xline(`=scalar(r(r1))', lwidth(thick) lcolor(black) lpattern(solid) ) xline(`=scalar(r(r2))', lwidth(thick) lcolor(black) lpattern(solid))  ///
+							legend(off) title("{bf:Road Traffic Deaths per 100k}", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large))  graphregion(fcolor(white)) 
+							 graph save lastnm_road_traff_`ctry', replace
+
 		
 	// Tall version of slider graph 
 	
 	
 	graph combine hci_`gender'_`ctry'.gph wbl_`ctry'.gph  lastner_sec_f_`ctry'.gph lasttfr_`ctry'.gph  ///
 	lastafr_`ctry'.gph contracep_`ctry'.gph  lastspc_`ctry'.gph lastodcomp_`ctry'.gph  ///
-	, colfirst rows(8) cols(1) ysize(8) xsize(5) graphregion(margin(l=22 r=22)) graphregion(margin(zero)) title("{bf: 1. Key Indicators on Human Capital}" /// 
+	lastnm_sanit_basic_plus_`ctry'.gph lastnm_hygiene_basic_`ctry'.gph lastnm_water_basic_plus_`ctry'.gph ///
+	lastnm_clean_fuel_`ctry'.gph lastnm_electric_`ctry'.gph lastnm_road_traff_`ctry'.gph ///
+	, colfirst rows(14) cols(1) ysize(12) xsize(5) graphregion(margin(l=22 r=22)) graphregion(margin(zero)) title("{bf: 1. Key Indicators on Human Capital}" /// 
 	, size(large) suffix color(black) linegap(3)) graphregion(fcolor(white)) /// 
 	note("{it:- Large circle=`country' ; small circles=other countries.}" ///
 	"{it:- Vertical lines separate terciles of the distribution.}" /// 
@@ -309,6 +414,7 @@ local date "05-28-2019"
 	}
 	}
 	
+	exit
 	
 	
 	
@@ -497,14 +603,14 @@ local date "05-28-2019"
 
 	
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-*********************GRAPH FOR EXPEDNTURE IN SOCIAL SECTORS using % of Government Expenditure******
+*********************GRAPH FOR EXPEDNTURE IN SOCIAL SECTORS using % of GDP******
 //Figure 2.	
 //COUNTRIES WITH SPJ SPENDING 
 
 preserve //droping observations for sample with and without SPJ spending
-keep if socprotgov!=. & socprotgov_mi!=. & socprotgov_mr!=. ///
-& edugov!=. & edugov_mi!=. & edugov_mr!=. ///
-& healthgov!=. & healthgov_mr!=. & healthgov_mi!=.
+keep if lastnm_all_soc_ass_pctgdp!=. & lastnm_all_soc_ass_pctgdp_mi!=. & lastnm_all_soc_ass_pctgdp_mr!=. ///
+& lastnm_exp_total_percgdp_raw!=. & lastnm_exp_total_percgdp_raw_mi!=. & lastnm_exp_total_percgdp_raw_mr!=. ///
+& lastnm_domphegdp!=. & lastnm_domphegdp_mr!=. & lastnm_domphegdp_mi!=.
 
 		
 local x=110
@@ -513,56 +619,56 @@ local ctry=wbcode in `i'
 local region=wbregion in `i'
 local income=wbincomegroup in `i'
 
-qui sum healthgov in `i'
+qui sum lastnm_domphegdp in `i'
 local hc=r(mean)+2 in `i' //locate where to display
 local hclabel: disp %4.1fc round(r(mean),.1)  // option 1
 
-qui sum healthgov_mr in `i'
+qui sum lastnm_domphegdp_mr in `i'
 local hr=r(mean)+2 in `i' //locate where to display
 local hrlabel: disp %4.1fc round(r(mean),.1)  // option 1
 
-qui sum healthgov_mi in `i'
+qui sum lastnm_domphegdp_mi in `i'
 local hi=r(mean)+2 in `i' //locate where to display
 local hilabel: disp %4.1fc round(r(mean),.1)  // option 1
 
-qui sum edugov in `i'
+qui sum lastnm_exp_total_percgdp_raw in `i'
 local ec=r(mean)+2 in `i' //locate where to display
 local eclabel: disp %4.1fc round(r(mean),.1)  // option 1
 
-qui sum edugov_mr in `i'
+qui sum lastnm_exp_total_percgdp_raw_mr in `i'
 local er=r(mean)+2 in `i' //locate where to display
 local erlabel: disp %4.1fc round(r(mean),.1)  // option 1
 
-qui sum edugov_mi in `i'
+qui sum lastnm_exp_total_percgdp_raw_mi in `i'
 local ei=r(mean)+2 in `i' //locate where to display
 local eilabel: disp %4.1fc round(r(mean),.1)  // option 1
 
-qui sum socprotgov in `i'
+qui sum lastnm_all_soc_ass_pctgdp in `i'
 local sc=r(mean)+2 in `i' //locate where to display
 local sclabel: disp %4.1fc round(r(mean),.1)  // option 1
 
-qui sum socprotgov_mr in `i'
+qui sum lastnm_all_soc_ass_pctgdp_mr in `i'
 local sr=r(mean)+2 in `i' //locate where to display
 local srlabel: disp %4.1fc round(r(mean),.1)  // option 1
 
-qui sum socprotgov_mi in `i'
+qui sum lastnm_all_soc_ass_pctgdp_mi in `i'
 local si=r(mean)+2 in `i' //locate where to display
 local silabel: disp %4.1fc round(r(mean),.1)  // option 1
 
 graph twoway ///
-(bar healthgov a, color(reddish)) ///
-(bar healthgov_mr b, color(turquoise)) ///
-(bar  healthgov_mi c, color(sky)) ///
+(bar lastnm_domphegdp a, color(reddish)) ///
+(bar lastnm_domphegdp_mr b, color(turquoise)) ///
+(bar  lastnm_domphegdp_mi c, color(sky)) ///
 (bar x d) ///
-(bar edugov e, color(reddish)) ///
-(bar edugov_mr f, color(turquoise)) ///
-(bar edugov_mi g, color(sky)) ///
+(bar lastnm_exp_total_percgdp_raw e, color(reddish)) ///
+(bar lastnm_exp_total_percgdp_raw_mr f, color(turquoise)) ///
+(bar lastnm_exp_total_percgdp_raw_mi g, color(sky)) ///
 (bar y h) ///
-(bar socprotgov j, color(reddish)) ///
-(bar socprotgov_mr k, color(turquoise)) ///
-(bar socprotgov_mi l, color(sky)) ///
+(bar lastnm_all_soc_ass_pctgdp j, color(reddish)) ///
+(bar lastnm_all_soc_ass_pctgdp_mr k, color(turquoise)) ///
+(bar lastnm_all_soc_ass_pctgdp_mi l, color(sky)) ///
 in `i',  xlabel(  2 "Health" 6 "Education" 10 "Social Protection") ylabel(0 (10)40) ///
-ytitle("% of Government Expenditure", size(medium)) title("{bf: 2. Government Expenditure on the Social Sectors}" , size(large) span) ///
+ytitle("% of GDP", size(medium)) title("{bf: 2. Government Expenditure on the Social Sectors}" , size(large) span) ///
 legend(label(1 "`ctry'") label(2 "`region'") label(3 "`income'")) legend(order(1 2 3) pos(5)col(3) row(1)) graphregion(fcolor(white)) ///
 graphregion(fcolor(white)) ysize(6) xsize(8) ///
 text(`hc' 1 "`hclabel'" `hr' 2 "`hrlabel'" `hi' 3 "`hilabel'" ///
@@ -579,9 +685,9 @@ restore
 //COUNTRIES WITHOUT SPJ SPENDING 
 
 preserve
-keep if (socprotgov==. | socprotgov_mi==. | socprotgov_mr==.) ///
-& (edugov!=. & edugov_mi!=. & edugov_mr!=. ///
-& healthgov!=. & healthgov_mr!=. & healthgov_mi!=.)
+keep if (lastnm_all_soc_ass_pctgdp==. | lastnm_all_soc_ass_pctgdp_mi==. | lastnm_all_soc_ass_pctgdp_mr==.) ///
+& (lastnm_exp_total_percgdp_raw!=. & lastnm_exp_total_percgdp_raw_mi!=. & lastnm_exp_total_percgdp_raw_mr!=. ///
+& lastnm_domphegdp!=. & lastnm_domphegdp_mr!=. & lastnm_domphegdp_mi!=.)
 
 
 
@@ -591,41 +697,41 @@ local ctry=wbcode in `i'
 local region=wbregion in `i'
 local income=wbincomegroup in `i'
 
-qui sum healthgov in `i'
+qui sum lastnm_domphegdp in `i'
 local hc=r(mean)+2 in `i' //locate where to display
 local hclabel: disp %4.1fc round(r(mean),.1)  // option 1
 
-qui sum healthgov_mr in `i'
+qui sum lastnm_domphegdp_mr in `i'
 local hr=r(mean)+2 in `i' //locate where to display
 local hrlabel: disp %4.1fc round(r(mean),.1)  // option 1
 
-qui sum healthgov_mi in `i'
+qui sum lastnm_domphegdp_mi in `i'
 local hi=r(mean)+2 in `i' //locate where to display
 local hilabel: disp %4.1fc round(r(mean),.1)  // option 1
 
-qui sum edugov in `i'
+qui sum lastnm_exp_total_percgdp_raw in `i'
 local ec=r(mean)+2 in `i' //locate where to display
 local eclabel: disp %4.1fc round(r(mean),.1)  // option 1
 
-qui sum edugov_mr in `i'
+qui sum lastnm_exp_total_percgdp_raw_mr in `i'
 local er=r(mean)+2 in `i' //locate where to display
 local erlabel: disp %4.1fc round(r(mean),.1)  // option 1
 
-qui sum edugov_mi in `i'
+qui sum lastnm_exp_total_percgdp_raw_mi in `i'
 local ei=r(mean)+2 in `i' //locate where to display
 local eilabel: disp %4.1fc round(r(mean),.1)  // option 1
 
 
 graph twoway ///
-(bar healthgov a, color(reddish)) ///
-(bar healthgov_mr b, color(turquoise)) ///
-(bar  healthgov_mi c, color(sky)) ///
+(bar lastnm_domphegdp a, color(reddish)) ///
+(bar lastnm_domphegdp_mr b, color(turquoise)) ///
+(bar  lastnm_domphegdp_mi c, color(sky)) ///
 (bar x d) ///
-(bar edugov e, color(reddish)) ///
-(bar edugov_mr f, color(turquoise)) ///
-(bar edugov_mi g, color(sky)) ///
+(bar lastnm_exp_total_percgdp_raw e, color(reddish)) ///
+(bar lastnm_exp_total_percgdp_raw_mr f, color(turquoise)) ///
+(bar lastnm_exp_total_percgdp_raw_mi g, color(sky)) ///
 in `i' ,  xlabel(  2 "Health" 6 "Education" ) ylabel(0 (10)40) ///
-ytitle("% of Government Expenditure", size(medium)) title("{bf: 2. Government Expenditure on the Social Sectors}" , size(large) span) ///
+ytitle("% of GDP", size(medium)) title("{bf: 2. Government Expenditure on the Social Sectors}" , size(large) span) ///
 legend(label(1 "`ctry'") label(2 "`region'") label(3 "`income'")) legend(order(1 2 3) pos(5) col(2) row(1)) graphregion(fcolor(white)) ///
 graphregion(fcolor(white)) ysize(6) xsize(8) ///
 text(`hc' 1 "`hclabel'" `hr' 2 "`hrlabel'" `hi' 3 "`hilabel'" ///
@@ -641,9 +747,9 @@ restore
 //COUNTRIES WITHOUT EDU SPENDING 
 
 preserve
-keep if (edugov==. | edugov_mi==. | edugov_mr==.) ///
-& (socprotgov!=. & socprotgov_mi!=. & socprotgov_mr!=. ///
-& healthgov!=. & healthgov_mr!=. & healthgov_mi!=.)
+keep if (lastnm_exp_total_percgdp_raw==. | lastnm_exp_total_percgdp_raw_mi==. | lastnm_exp_total_percgdp_raw_mr==.) ///
+& (lastnm_all_soc_ass_pctgdp!=. & lastnm_all_soc_ass_pctgdp_mi!=. & lastnm_all_soc_ass_pctgdp_mr!=. ///
+& lastnm_domphegdp!=. & lastnm_domphegdp_mr!=. & lastnm_domphegdp_mi!=.)
 
 local x=4
 forvalues i=1/`x' {
@@ -651,41 +757,41 @@ local ctry=wbcode in `i'
 local region=wbregion in `i'
 local income=wbincomegroup in `i'
 
-qui sum healthgov in `i'
+qui sum lastnm_domphegdp in `i'
 local hc=r(mean)+2 in `i' //locate where to display
 local hclabel: disp %4.1fc round(r(mean),.1)  // option 1
 
-qui sum healthgov_mr in `i'
+qui sum lastnm_domphegdp_mr in `i'
 local hr=r(mean)+2 in `i' //locate where to display
 local hrlabel: disp %4.1fc round(r(mean),.1)  // option 1
 
-qui sum healthgov_mi in `i'
+qui sum lastnm_domphegdp_mi in `i'
 local hi=r(mean)+2 in `i' //locate where to display
 local hilabel: disp %4.1fc round(r(mean),.1)  // option 1
 
-qui sum socprotgov in `i'
+qui sum lastnm_all_soc_ass_pctgdp in `i'
 local spjgovc=r(mean)+2 in `i' //locate where to display
 local spjgovclabel: disp %4.1fc round(r(mean),.1)  // option 1
 
-qui sum socprotgov_mr in `i'
+qui sum lastnm_all_soc_ass_pctgdp_mr in `i'
 local spjgovr=r(mean)+2 in `i' //locate where to display
 local spjgovrlabel: disp %4.1fc round(r(mean),.1)  // option 1
 
-qui sum socprotgov_mi in `i'
+qui sum lastnm_all_soc_ass_pctgdp_mi in `i'
 local spjgovi=r(mean)+2 in `i' //locate where to display
 local spjgovilabel: disp %4.1fc round(r(mean),.1)  // option 1
 
 
 graph twoway ///
-(bar healthgov a, color(reddish)) ///
-(bar healthgov_mr b, color(turquoise)) ///
-(bar  healthgov_mi c, color(sky)) ///
+(bar lastnm_domphegdp a, color(reddish)) ///
+(bar lastnm_domphegdp_mr b, color(turquoise)) ///
+(bar  lastnm_domphegdp_mi c, color(sky)) ///
 (bar x d) ///
-(bar socprotgov e, color(reddish)) ///
-(bar socprotgov_mr f, color(turquoise)) ///
-(bar socprotgov_mi g, color(sky)) ///
+(bar lastnm_all_soc_ass_pctgdp e, color(reddish)) ///
+(bar lastnm_all_soc_ass_pctgdp_mr f, color(turquoise)) ///
+(bar lastnm_all_soc_ass_pctgdp_mi g, color(sky)) ///
 in `i' ,  xlabel(  2 "Health" 6 "Social Protection" ) ylabel(0 (10)40) ///
-ytitle("% of Government Expenditure", size(medium)) title("{bf: 2. Government Expenditure on Health & Social Protection}" , size(large) span) ///
+ytitle("% of GDP", size(medium)) title("{bf: 2. Government Expenditure on Health & Social Protection}" , size(large) span) ///
 legend(label(1 "`ctry'") label(2 "`region'") label(3 "`income'")) legend(order(1 2 3) pos(5) col(2) row(1)) graphregion(fcolor(white)) ///
 graphregion(fcolor(white)) ysize(6) xsize(8) ///
 text(`hc' 1 "`hclabel'" `hr' 2 "`hrlabel'" `hi' 3 "`hilabel'" ///
