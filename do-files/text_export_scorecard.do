@@ -32,7 +32,7 @@ cd "${root}"
 local date: disp %tdCY-m-D date("`c(current_date)'", "DMY")
 disp "`date'"
 
-use "input/scorecardanalysis_2019-08-13.dta", clear 
+use "input/scorecardanalysis_2019-10-03.dta", clear 
 graph set window fontface "Fourier"
 
 
