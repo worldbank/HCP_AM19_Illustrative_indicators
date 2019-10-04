@@ -756,13 +756,13 @@ local ctry=wbcode in `i'
 local region=wbregion in `i'
 
 twoway ///
-(scatter drm lny if drm<25, mcolor(white) msize(vsmall) msymbol(circle)) ///
-(scatter drm lny  if drm<25 & show2==1, mlcolor(gray) mfcolor(white) msymbol(circle) mlabel(wbcountryname) mlabcolor(gray) mlabpos(9) mlabsize(medium)) ///
-(scatter drm lny  if drm<25 &  wbcode=="`ctry'" , mlabel(wbcountryname) mcolor(green)  msymbol(solid)  mlabcolor(green) mlabpos(9) mlabsize(medium)) ///
+(scatter drm lny if drm<33, mcolor(white) msize(vsmall) msymbol(circle)) ///
+(scatter drm lny  if drm<33 & show2==1, mlcolor(gray) mfcolor(white) msymbol(circle) mlabel(wbcountryname) mlabcolor(gray) mlabpos(9) mlabsize(medium)) ///
+(scatter drm lny  if drm<33 &  wbcode=="`ctry'" , mlabel(wbcountryname) mcolor(green)  msymbol(solid)  mlabcolor(green) mlabpos(9) mlabsize(medium)) ///
 ,legend(off) xtitle(Log GDP Per Capita at PPP, size(large)) ytitle(Tax Collection as % GDP, size(large)) ///
 title("4. Domestic Resource Mobilization", size(vlarge)) xsize(6) ysize(4) ///
 note("{it: - A selection of countries are displayed.}" ///
-"{it:- Countries with DRM greater than 25% of GDP are excluded.}" , size(medium) color(gray))
+"{it:- Countries with DRM greater than 33% of GDP are excluded.}" , size(medium) color(gray))
 graph export "$charts\drm_`ctry'.pdf", replace
 graph save "$charts\drm_`ctry'", replace
 }

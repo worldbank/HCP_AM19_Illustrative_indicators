@@ -18,7 +18,7 @@ header-includes:
   \usepackage{graphicx}
   \usepackage{eurosym}
   \usepackage{booktabs,xcolor}
-  \rhead{Africa Human Capital Project - \today}
+  \rhead{Human Capital Project - \today}
   \rfoot[C]{\includegraphics[width=2cm]{static/footer3.png}}
   \fancypagestyle{plain}{\pagestyle{fancy}}
   \pagenumbering{gobble}

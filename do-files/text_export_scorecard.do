@@ -556,7 +556,7 @@ gen edu_comp_mrmi = ///
 
 gen edu_text="" + wbcountrynameb + /// we still need to specify for missing data cases
 " spends **" + strofreal(round(edugov,0.1)) + ///
-" percent** of its government budget on education. "  /// 
+" percent** of its GDP on education. "  /// 
 + edu_comp_mrmi + ""
 
 replace edu_text="In " + wbcountrynameb + ///
@@ -580,7 +580,7 @@ gen health_comp_mrmi = ///
 
 gen health_text="" + wbcountrynameb + ///
 " spends **" + strofreal(round(healthgov,0.1)) + ///
-" percent** of its government budget on health. "  ///
+" percent** of its GDP on health. "  ///
 + health_comp_mrmi + ""
 
 replace health_text="In " + wbcountrynameb + ///
@@ -604,7 +604,7 @@ gen socprot_comp_mrmi = ///
 
 gen socprot_text="" + wbcountrynameb + ///
 " spends **" + strofreal(round(socprotgov,0.1)) + ///
-" percent** of its government budget on social protection. "  ///
+" percent** of its GDP on social protection. "  ///
 + socprot_comp_mrmi + ""
 
 replace socprot_text="In " + wbcountrynameb + ///
