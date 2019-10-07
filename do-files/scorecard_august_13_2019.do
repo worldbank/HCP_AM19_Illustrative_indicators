@@ -182,7 +182,7 @@ gen dif_lastafr_targ = lastafr - af_lastafr_targ
 preserve 
 keep if wbregion!="Sub-Saharan Africa"
 
-local x=1
+local x=169
 forvalues i=1/`x' {
 local ctry=wbcode in `i'
 local region=wbregion in `i'
@@ -412,7 +412,7 @@ local date "05-28-2019"
 	}
 	}
 	
-	exit
+	
 	
 	
 	
