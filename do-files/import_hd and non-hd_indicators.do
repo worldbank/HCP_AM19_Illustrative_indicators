@@ -98,7 +98,7 @@ gen lastyearcpia_hr=lastnm_cpia_hr_y
 
 
 foreach j of varlist lastnm_electric lastnm_clean_fuel lastnm_road_traff lastnm_hygiene_basic lastnm_water_basic_plus lastnm_sanit_basic_plus ///
-lastnm_tfr lastnm_afr lastnm_contra lastnm_spc lastnm_odcomp lastnm_ner_sec_f lastnm_drm lastnm_cpia_hr { //turn missing if earlier than 2005
+lasttfr lastafr contracep lastspc lastodcomp lastner_sec_f drm lastcpia_hr { //turn missing if earlier than 2005
 replace `j'=. if `j'_y<2005
 
 }
