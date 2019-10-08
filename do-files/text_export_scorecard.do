@@ -121,7 +121,13 @@ gen af_lastafrtarg = 83
 
 
 
-foreach var of varlist lastner_sec_f drm lastcpia_hr unregpop lasttime_nostu_rep lasttime_hlo_mf_rep dpohc wep hdportfolio_share eduportfolio_share hnpportfolio_share spjportfolio_share pipeline_hd_share pipeline_edu_share pipeline_hnp_share pipeline_spj_share do_performance_hd  do_performance_edu do_performance_hnp do_performance_spj ip_performance_hd  ip_performance_edu ip_performance_hnp ip_performance_spj disburratio_hd disburratio_edu disburratio_hnp disburratio_spj  avgsize_hd avgsize_edu avgsize_hnp avgsize_spj crossgpshare_hd crossgpshare_edu crossgpshare_hnp crossgpshare_spj{
+foreach var of varlist lastner_sec_f drm lastcpia_hr unregpop lasttime_nostu_rep ///
+lasttime_hlo_mf_rep dpohc wep hdportfolio_share eduportfolio_share hnpportfolio_share ///
+spjportfolio_share pipeline_hd_share pipeline_edu_share pipeline_hnp_share pipeline_spj_share ///
+do_performance_hd  do_performance_edu do_performance_hnp do_performance_spj ip_performance_hd  ///
+ip_performance_edu ip_performance_hnp ip_performance_spj disburratio_hd disburratio_edu ///
+disburratio_hnp disburratio_spj  avgsize_hd avgsize_edu avgsize_hnp avgsize_spj crossgpshare_hd ///
+crossgpshare_edu crossgpshare_hnp crossgpshare_spj {
      egen `var'_sdr=sd(`var') if year==2017, by(region)
 	 egen `var'_sdi=sd(`var') if year==2017, by(income)
 	 }
@@ -131,7 +137,16 @@ gen hci_mf_100= hci_mf*100
 
 
 foreach gender in mf {
-foreach var of varlist lastner_sec_f hci_`gender' tnep_`gender' nostu_`gender' asr_`gender' psurv_`gender' test_`gender' eyrs_`gender' lastod lastodcomp lasttfr lastafr contracep wbl unregpop_share unregpopcomp lastspc ner drm lastcpia_hr unregpop lasttime_nostu_rep lasttime_hlo_mf_rep dpohc wep hdportfolio_share eduportfolio_share hnpportfolio_share spjportfolio_share pipeline_hd_share pipeline_edu_share pipeline_hnp_share pipeline_spj_share do_performance_hd  do_performance_edu do_performance_hnp do_performance_spj ip_performance_hd  ip_performance_edu ip_performance_hnp ip_performance_spj disburratio_hd disburratio_edu disburratio_hnp disburratio_spj  avgsize_hd avgsize_edu avgsize_hnp avgsize_spj crossgpshare_hd crossgpshare_edu crossgpshare_hnp crossgpshare_spj{
+foreach var of varlist lastner_sec_f hci_`gender' tnep_`gender' nostu_`gender' asr_`gender' ///
+psurv_`gender' test_`gender' eyrs_`gender' lastod lastodcomp lasttfr lastafr contracep wbl ///
+unregpop_share unregpopcomp lastspc ner drm lastcpia_hr unregpop lasttime_nostu_rep ///
+lasttime_hlo_mf_rep dpohc wep hdportfolio_share eduportfolio_share hnpportfolio_share ///
+spjportfolio_share pipeline_hd_share pipeline_edu_share pipeline_hnp_share pipeline_spj_share ///
+do_performance_hd  do_performance_edu do_performance_hnp do_performance_spj ip_performance_hd  ///
+ip_performance_edu ip_performance_hnp ip_performance_spj disburratio_hd disburratio_edu ///
+disburratio_hnp disburratio_spj  avgsize_hd avgsize_edu avgsize_hnp avgsize_spj crossgpshare_hd ///
+crossgpshare_edu crossgpshare_hnp crossgpshare_spj ///
+lastnm_water_basic_plus lastnm_sanit_basic_plus lastnm_hygiene_basic lastnm_road_traff lastnm_clean_fuel lastnm_electric {
      egen `var'_mr=mean(`var') if year==2017, by(region)
 	 egen `var'_mi=mean(`var') if year==2017, by(income)
 	 }
@@ -325,8 +340,12 @@ xtile terc_crossgpshare_hnp = crossgpshare_hnp, nq(3)
 xtile terc_crossgpshare_spj = crossgpshare_spj, nq(3)
 	
 
-
-
+/// round so we dont end up with > when indeed the same value in the text
+foreach j of varlist lastnm_water_basic_plus lastnm_sanit_basic_plus lastnm_hygiene_basic lastnm_road_traff lastnm_clean_fuel lastnm_electric ///
+ lastnm_water_basic_plus_mr lastnm_sanit_basic_plus_mr lastnm_hygiene_basic_mr lastnm_road_traff_mr lastnm_clean_fuel_mr lastnm_electric_mr ///
+ lastnm_water_basic_plus_mi lastnm_sanit_basic_plus_mi lastnm_hygiene_basic_mi lastnm_road_traff_mi lastnm_clean_fuel_mi lastnm_electric_mi {
+replace `j'=round(`j',1)
+}
 
 
 ****Keep only variables that are relevant for analysis***	
@@ -533,6 +552,206 @@ replace lastner_sec_f_text= "In " + wbcountrynameb + ///
 "** percent of girls of secondary-school age are enrolled in secondary school. The corresponding value for its income group is **"  + strofreal(round(lastner_sec_f_mr,1)) + "** percent." if lastner_sec_f==.
  
  
+ ////////////////////////////////////////////
+gen road_traff_text = ///
+	cond(lastnm_road_traff< lastnm_road_traff_mr & lastnm_road_traff<lastnm_road_traff_mi, "In " + wbcountrynameb + ", for every 100,000 population **" + strofreal(round(lastnm_road_traff,1)) + " people** die due to road traffic injury" ///
+	+ ". This is lower than both the average for its region (" + strofreal(round(lastnm_road_traff_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_road_traff_mi,1)) + ").", ///
+		cond(lastnm_road_traff> lastnm_road_traff_mr & lastnm_road_traff>lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 population **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
+		+ ". This is higher than both the average for its region (" + strofreal(round(lastnm_road_traff_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_road_traff_mi,1)) + ").", ///
+	   	cond(lastnm_road_traff< lastnm_road_traff_mr & lastnm_road_traff>lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 population **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
+		+ ". This is lower than the average for its region (" + strofreal(round(lastnm_road_traff_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastnm_road_traff_mi,1)) + ").", ///
+		cond(lastnm_road_traff> lastnm_road_traff_mr & lastnm_road_traff<lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 population **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
+		+ ". This is higher than the average for its region (" + strofreal(round(lastnm_road_traff_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastnm_road_traff_mi,1)) + ").", ///
+		cond(lastnm_road_traff== lastnm_road_traff_mr & lastnm_road_traff==lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 population **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
+		+ ". This is similar to the average for its region (" + strofreal(round(lastnm_road_traff_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_road_traff_mi,1)) + ").", ///
+		cond(lastnm_road_traff== lastnm_road_traff_mr & lastnm_road_traff<lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 population **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
+		+ ". This is similar to the average for its region (" + strofreal(round(lastnm_road_traff_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastnm_road_traff_mi,1)) + ").", ///
+		cond(lastnm_road_traff< lastnm_road_traff_mr & lastnm_road_traff==lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 population **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
+		+ ". This is lower than the average for its region (" + strofreal(round(lastnm_road_traff_mr,1)) + ") but is similar to the average for its income group (" + strofreal(round(lastnm_road_traff_mi,1)) + ").", ///
+		cond(lastnm_road_traff== lastnm_road_traff_mr & lastnm_road_traff>lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 population **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
+		+ ". This is similar to the average for its region (" + strofreal(round(lastnm_road_traff_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastnm_road_traff_mi,1)) + ").", ///
+	    cond(lastnm_road_traff> lastnm_road_traff_mr & lastnm_road_traff==lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 population **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
+		+ ". This is higher than the average for its region (" + strofreal(round(lastnm_road_traff_mr,1)) + ") but is similar to the average for its income group (" + strofreal(round(lastnm_road_traff_mi,1)) + ").", ///
+		"")))))))))	if lastnm_road_traff!=.
+		
+replace road_traff_text="In " + wbcountrynameb + ///
+", data on mortality due to road traffic injury do not exist." + ///
+" The average for the country's region is " + strofreal(round(lastnm_road_traff_mr,1)) + " people per 100,000 population and for its income group is " + strofreal(round(lastnm_road_traff_mi,1)) + " people per 100,000 population." if lastnm_road_traff==.
+
+
+	 
+	 
+////////////////////////////////////////////
+gen electric_text = ///
+	cond(lastnm_electric< lastnm_electric_mr & lastnm_electric<lastnm_electric_mi, "In " + wbcountrynameb + ", **" + strofreal(round(lastnm_electric,1)) + " percent** of the population" ///
+	+ " has access to electricity. This is lower than both the average for its region (" + strofreal(round(lastnm_electric_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_electric_mi,1)) + ").", ///
+		cond(lastnm_electric> lastnm_electric_mr & lastnm_electric>lastnm_electric_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_electric,1))  + " percent** of the population" ///
+		+ " has access to electricity. This is higher than both the average for its region (" + strofreal(round(lastnm_electric_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_electric_mi,1)) + ").", ///
+	   	cond(lastnm_electric< lastnm_electric_mr & lastnm_electric>lastnm_electric_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_electric,1))  + " percent** of the population" ///
+		+ " has access to electricity. This is lower than the average for its region (" + strofreal(round(lastnm_electric_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastnm_electric_mi,1)) + ").", ///
+		cond(lastnm_electric> lastnm_electric_mr & lastnm_electric<lastnm_electric_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_electric,1))  + " percent** of the population" ///
+		+ " has access to electricity. This is higher than the average for its region (" + strofreal(round(lastnm_electric_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastnm_electric_mi,1)) + ").", ///
+		cond(lastnm_electric== lastnm_electric_mr & lastnm_electric==lastnm_electric_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_electric,1))  + " percent** of the population" ///
+		+ " has access to electricity. This is similar to the average for its region (" + strofreal(round(lastnm_electric_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_electric_mi,1)) + ").", ///
+		cond(lastnm_electric== lastnm_electric_mr & lastnm_electric<lastnm_electric_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_electric,1))  + " percent** of the population" ///
+		+ " has access to electricity. This is similar to the average for its region (" + strofreal(round(lastnm_electric_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastnm_electric_mi,1)) + ").", ///
+		cond(lastnm_electric< lastnm_electric_mr & lastnm_electric==lastnm_electric_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_electric,1))  + " percent** of the population" ///
+		+ " has access to electricity. This is lower than the average for its region (" + strofreal(round(lastnm_electric_mr,1)) + ") but is similar to the average for its income group (" + strofreal(round(lastnm_electric_mi,1)) + ").", ///
+		cond(lastnm_electric== lastnm_electric_mr & lastnm_electric>lastnm_electric_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_electric,1))  + " percent** of the population" ///
+		+ " has access to electricity. This is similar to the average for its region (" + strofreal(round(lastnm_electric_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastnm_electric_mi,1)) + ").", ///
+		cond(lastnm_electric> lastnm_electric_mr & lastnm_electric==lastnm_electric_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_electric,1))  + " percent** of the population" ///
+		+ " has access to electricity. This is higher than the average for its region (" + strofreal(round(lastnm_electric_mr,1)) + ") but is similar to the average for its income group (" + strofreal(round(lastnm_electric_mi,1)) + ").", ///
+		"")))))))))	if lastnm_electric!=.
+		
+replace electric_text="In " + wbcountrynameb + ///
+", data on the percentage of the population that has access to electricity do not exist." + ///
+" The average for the country's region is " + strofreal(round(lastnm_electric_mr,1)) + " percent and for its income group is " + strofreal(round(lastnm_electric_mi,1)) + " percent." if lastnm_electric==.
+
+
+
+
+
+
+////////////////////////////////////////////
+gen clean_fuel_text = ///
+	cond(lastnm_clean_fuel< lastnm_clean_fuel_mr & lastnm_clean_fuel<lastnm_clean_fuel_mi, "In " + wbcountrynameb + ", **" + strofreal(round(lastnm_clean_fuel,1)) + " percent** of the population" ///
+	+ " primarily uses clean cooking fuels. This is lower than both the average for its region (" + strofreal(round(lastnm_clean_fuel_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_clean_fuel_mi,1)) + ").", ///
+		cond(lastnm_clean_fuel> lastnm_clean_fuel_mr & lastnm_clean_fuel>lastnm_clean_fuel_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_clean_fuel,1))  + " percent** of the population" ///
+		+ " primarily uses clean cooking fuels. This is higher than both the average for its region (" + strofreal(round(lastnm_clean_fuel_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_clean_fuel_mi,1)) + ").", ///
+	   	cond(lastnm_clean_fuel< lastnm_clean_fuel_mr & lastnm_clean_fuel>lastnm_clean_fuel_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_clean_fuel,1))  + " percent** of the population" ///
+		+ " primarily uses clean cooking fuels. This is lower than the average for its region (" + strofreal(round(lastnm_clean_fuel_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastnm_clean_fuel_mi,1)) + ").", ///
+		cond(lastnm_clean_fuel> lastnm_clean_fuel_mr & lastnm_clean_fuel<lastnm_clean_fuel_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_clean_fuel,1))  + " percent** of the population" ///
+		+ " primarily uses clean cooking fuels. This is higher than the average for its region (" + strofreal(round(lastnm_clean_fuel_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastnm_clean_fuel_mi,1)) + ").", ///
+		cond(lastnm_clean_fuel== lastnm_clean_fuel_mr & lastnm_clean_fuel==lastnm_clean_fuel_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_clean_fuel,1))  + " percent** of the population" ///
+		+ " primarily uses clean cooking fuels. This is similar to the average for its region (" + strofreal(round(lastnm_clean_fuel_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_clean_fuel_mi,1)) + ").", ///
+		cond(lastnm_clean_fuel== lastnm_clean_fuel_mr & lastnm_clean_fuel<lastnm_clean_fuel_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_clean_fuel,1))  + " percent** of the population" ///
+		+ " primarily uses clean cooking fuels. This is similar to the average for its region (" + strofreal(round(lastnm_clean_fuel_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastnm_clean_fuel_mi,1)) + ").", ///
+		cond(lastnm_clean_fuel< lastnm_clean_fuel_mr & lastnm_clean_fuel==lastnm_clean_fuel_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_clean_fuel,1))  + " percent** of the population" ///
+		+ " primarily uses clean cooking fuels. This is lower than the average for its region (" + strofreal(round(lastnm_clean_fuel_mr,1)) + ") but is similar to the average for its income group (" + strofreal(round(lastnm_clean_fuel_mi,1)) + ").", ///
+		cond(lastnm_clean_fuel== lastnm_clean_fuel_mr & lastnm_clean_fuel>lastnm_clean_fuel_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_clean_fuel,1))  + " percent** of the population" ///
+		+ " primarily uses clean cooking fuels. This is similar to the average for its region (" + strofreal(round(lastnm_clean_fuel_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastnm_clean_fuel_mi,1)) + ").", ///
+		cond(lastnm_clean_fuel> lastnm_clean_fuel_mr & lastnm_clean_fuel==lastnm_clean_fuel_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_clean_fuel,1))  + " percent** of the population" ///
+		+ " primarily uses clean cooking fuels. This is higher than the average for its region (" + strofreal(round(lastnm_clean_fuel_mr,1)) + ") but is similar to the average for its income group (" + strofreal(round(lastnm_clean_fuel_mi,1)) + ").", ///
+		"")))))))))	if lastnm_clean_fuel!=.
+		
+replace clean_fuel_text="In " + wbcountrynameb + ///
+", data on the percentage of the population that primarily uses clean cooking fuels do not exist." + ///
+" The average for the country's region is " + strofreal(round(lastnm_clean_fuel_mr,1)) + " percent and for its income group is " + strofreal(round(lastnm_clean_fuel_mi,1)) + " percent." if lastnm_clean_fuel==.
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////
+gen hygiene_basic_text = ///
+	cond(lastnm_hygiene_basic< lastnm_hygiene_basic_mr & lastnm_hygiene_basic<lastnm_hygiene_basic_mi, "In " + wbcountrynameb + ", **" + strofreal(round(lastnm_hygiene_basic,1)) + " percent** of the population" ///
+	+ " has basic hygiene services (soap and water). This is lower than both the average for its region (" + strofreal(round(lastnm_hygiene_basic_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_hygiene_basic_mi,1)) + ").", ///
+		cond(lastnm_hygiene_basic> lastnm_hygiene_basic_mr & lastnm_hygiene_basic>lastnm_hygiene_basic_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_hygiene_basic,1))  + " percent** of the population" ///
+		+ " has basic hygiene services (soap and water). This is higher than both the average for its region (" + strofreal(round(lastnm_hygiene_basic_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_hygiene_basic_mi,1)) + ").", ///
+	   	cond(lastnm_hygiene_basic< lastnm_hygiene_basic_mr & lastnm_hygiene_basic>lastnm_hygiene_basic_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_hygiene_basic,1))  + " percent** of the population" ///
+		+ " has basic hygiene services (soap and water). This is lower than the average for its region (" + strofreal(round(lastnm_hygiene_basic_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastnm_hygiene_basic_mi,1)) + ").", ///
+		cond(lastnm_hygiene_basic> lastnm_hygiene_basic_mr & lastnm_hygiene_basic<lastnm_hygiene_basic_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_hygiene_basic,1))  + " percent** of the population" ///
+		+ " has basic hygiene services (soap and water). This is higher than the average for its region (" + strofreal(round(lastnm_hygiene_basic_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastnm_hygiene_basic_mi,1)) + ").", ///
+		cond(lastnm_hygiene_basic== lastnm_hygiene_basic_mr & lastnm_hygiene_basic==lastnm_hygiene_basic_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_hygiene_basic,1))  + " percent** of the population" ///
+		+ " has basic hygiene services (soap and water). This is similar to the average for its region (" + strofreal(round(lastnm_hygiene_basic_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_hygiene_basic_mi,1)) + ").", ///
+		cond(lastnm_hygiene_basic== lastnm_hygiene_basic_mr & lastnm_hygiene_basic<lastnm_hygiene_basic_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_hygiene_basic,1))  + " percent** of the population" ///
+		+ " has basic hygiene services (soap and water). This is similar to the average for its region (" + strofreal(round(lastnm_hygiene_basic_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastnm_hygiene_basic_mi,1)) + ").", ///
+		cond(lastnm_hygiene_basic< lastnm_hygiene_basic_mr & lastnm_hygiene_basic==lastnm_hygiene_basic_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_hygiene_basic,1))  + " percent** of the population" ///
+		+ " has basic hygiene services (soap and water). This is lower than the average for its region (" + strofreal(round(lastnm_hygiene_basic_mr,1)) + ") but is similar to the average for its income group (" + strofreal(round(lastnm_hygiene_basic_mi,1)) + ").", ///
+		cond(lastnm_hygiene_basic== lastnm_hygiene_basic_mr & lastnm_hygiene_basic>lastnm_hygiene_basic_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_hygiene_basic,1))  + " percent** of the population" ///
+		+ " has basic hygiene services (soap and water). This is similar to the average for its region (" + strofreal(round(lastnm_hygiene_basic_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastnm_hygiene_basic_mi,1)) + ").", ///
+		cond(lastnm_hygiene_basic> lastnm_hygiene_basic_mr & lastnm_hygiene_basic==lastnm_hygiene_basic_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_hygiene_basic,1))  + " percent** of the population" ///
+		+ " has basic hygiene services (soap and water). This is higher than the average for its region (" + strofreal(round(lastnm_hygiene_basic_mr,1)) + ") but is similar to the average for its income group (" + strofreal(round(lastnm_hygiene_basic_mi,1)) + ").", ///
+		"")))))))))	if lastnm_hygiene_basic!=.
+		
+replace hygiene_basic_text="In " + wbcountrynameb + ///
+", data on the percentage of the population that has basic hygiene services (soap and water) do not exist." + ///
+" The average for the country's region is " + strofreal(round(lastnm_hygiene_basic_mr,1)) + " percent and for its income group is " + strofreal(round(lastnm_hygiene_basic_mi,1)) + " percent." if lastnm_hygiene_basic==.
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////
+gen water_text = ///
+	cond(lastnm_water_basic_plus< lastnm_water_basic_plus_mr & lastnm_water_basic_plus<lastnm_water_basic_plus_mi, "In " + wbcountrynameb + ", **" + strofreal(round(lastnm_water_basic_plus,1)) + " percent** of the population" ///
+	+ " has at least basic source of drinking water. This is lower than both the average for its region (" + strofreal(round(lastnm_water_basic_plus_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_water_basic_plus_mi,1)) + ").", ///
+		cond(lastnm_water_basic_plus> lastnm_water_basic_plus_mr & lastnm_water_basic_plus>lastnm_water_basic_plus_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_water_basic_plus,1))  + " percent** of the population" ///
+		+ " has at least basic source of drinking water. This is higher than both the average for its region (" + strofreal(round(lastnm_water_basic_plus_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_water_basic_plus_mi,1)) + ").", ///
+	   	cond(lastnm_water_basic_plus< lastnm_water_basic_plus_mr & lastnm_water_basic_plus>lastnm_water_basic_plus_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_water_basic_plus,1))  + " percent** of the population" ///
+		+ " has at least basic source of drinking water. This is lower than the average for its region (" + strofreal(round(lastnm_water_basic_plus_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastnm_water_basic_plus_mi,1)) + ").", ///
+		cond(lastnm_water_basic_plus> lastnm_water_basic_plus_mr & lastnm_water_basic_plus<lastnm_water_basic_plus_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_water_basic_plus,1))  + " percent** of the population" ///
+		+ " has at least basic source of drinking water. This is higher than the average for its region (" + strofreal(round(lastnm_water_basic_plus_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastnm_water_basic_plus_mi,1)) + ").", ///
+		cond(lastnm_water_basic_plus== lastnm_water_basic_plus_mr & lastnm_water_basic_plus==lastnm_water_basic_plus_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_water_basic_plus,1))  + " percent** of the population" ///
+		+ " has at least basic source of drinking water. This is similar to the average for its region (" + strofreal(round(lastnm_water_basic_plus_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_water_basic_plus_mi,1)) + ").", ///
+		cond(lastnm_water_basic_plus== lastnm_water_basic_plus_mr & lastnm_water_basic_plus<lastnm_water_basic_plus_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_water_basic_plus,1))  + " percent** of the population" ///
+		+ " has at least basic source of drinking water. This is similar to the average for its region (" + strofreal(round(lastnm_water_basic_plus_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastnm_water_basic_plus_mi,1)) + ").", ///
+		cond(lastnm_water_basic_plus< lastnm_water_basic_plus_mr & lastnm_water_basic_plus==lastnm_water_basic_plus_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_water_basic_plus,1))  + " percent** of the population" ///
+		+ " has at least basic source of drinking water. This is lower than the average for its region (" + strofreal(round(lastnm_water_basic_plus_mr,1)) + ") but is similar to the average for its income group (" + strofreal(round(lastnm_water_basic_plus_mi,1)) + ").", ///
+		cond(lastnm_water_basic_plus== lastnm_water_basic_plus_mr & lastnm_water_basic_plus>lastnm_water_basic_plus_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_water_basic_plus,1))  + " percent** of the population" ///
+		+ " has at least basic source of drinking water. This is similar to the average for its region (" + strofreal(round(lastnm_water_basic_plus_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastnm_water_basic_plus_mi,1)) + ").", ///
+		cond(lastnm_water_basic_plus> lastnm_water_basic_plus_mr & lastnm_water_basic_plus==lastnm_water_basic_plus_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_water_basic_plus,1))  + " percent** of the population" ///
+		+ " has at least basic source of drinking water. This is higher than the average for its region (" + strofreal(round(lastnm_water_basic_plus_mr,1)) + ") but is similar to the average for its income group (" + strofreal(round(lastnm_water_basic_plus_mi,1)) + ").", ///
+		"")))))))))	if lastnm_water_basic_plus!=.
+		
+replace water_text="In " + wbcountrynameb + ///
+", data on the percentage of the population that has at least basic source of drinking water do not exist." + ///
+" The average for the country's region is " + strofreal(round(lastnm_water_basic_plus_mr,1)) + " percent and for its income group is " + strofreal(round(lastnm_water_basic_plus_mi,1)) + " percent." if lastnm_water_basic_plus==.
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////
+gen sanit_text = ///
+	cond(lastnm_sanit_basic_plus< lastnm_sanit_basic_plus_mr & lastnm_sanit_basic_plus<lastnm_sanit_basic_plus_mi, "In " + wbcountrynameb + ", **" + strofreal(round(lastnm_sanit_basic_plus,1)) + " percent** of the population" ///
+	+ " has at least basic sanitation. This is lower than both the average for its region (" + strofreal(round(lastnm_sanit_basic_plus_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_sanit_basic_plus_mi,1)) + ").", ///
+		cond(lastnm_sanit_basic_plus> lastnm_sanit_basic_plus_mr & lastnm_sanit_basic_plus>lastnm_sanit_basic_plus_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_sanit_basic_plus,1))  + " percent** of the population" ///
+		+ " has at least basic sanitation. This is higher than both the average for its region (" + strofreal(round(lastnm_sanit_basic_plus_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_sanit_basic_plus_mi,1)) + ").", ///
+	   	cond(lastnm_sanit_basic_plus< lastnm_sanit_basic_plus_mr & lastnm_sanit_basic_plus>lastnm_sanit_basic_plus_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_sanit_basic_plus,1))  + " percent** of the population" ///
+		+ " has at least basic sanitation. This is lower than the average for its region (" + strofreal(round(lastnm_sanit_basic_plus_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastnm_sanit_basic_plus_mi,1)) + ").", ///
+		cond(lastnm_sanit_basic_plus> lastnm_sanit_basic_plus_mr & lastnm_sanit_basic_plus<lastnm_sanit_basic_plus_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_sanit_basic_plus,1))  + " percent** of the population" ///
+		+ " has at least basic sanitation. This is higher than the average for its region (" + strofreal(round(lastnm_sanit_basic_plus_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastnm_sanit_basic_plus_mi,1)) + ").", ///
+		cond(lastnm_sanit_basic_plus== lastnm_sanit_basic_plus_mr & lastnm_sanit_basic_plus==lastnm_sanit_basic_plus_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_sanit_basic_plus,1))  + " percent** of the population" ///
+		+ " has at least basic sanitation. This is similar to the average for its region (" + strofreal(round(lastnm_sanit_basic_plus_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_sanit_basic_plus_mi,1)) + ").", ///
+		cond(lastnm_sanit_basic_plus== lastnm_sanit_basic_plus_mr & lastnm_sanit_basic_plus<lastnm_sanit_basic_plus_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_sanit_basic_plus,1))  + " percent** of the population" ///
+		+ " has at least basic sanitation. This is similar to the average for its region (" + strofreal(round(lastnm_sanit_basic_plus_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastnm_sanit_basic_plus_mi,1)) + ").", ///
+		cond(lastnm_sanit_basic_plus< lastnm_sanit_basic_plus_mr & lastnm_sanit_basic_plus==lastnm_sanit_basic_plus_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_sanit_basic_plus,1))  + " percent** of the population" ///
+		+ " has at least basic sanitation. This is lower than the average for its region (" + strofreal(round(lastnm_sanit_basic_plus_mr,1)) + ") but is similar to the average for its income group (" + strofreal(round(lastnm_sanit_basic_plus_mi,1)) + ").", ///
+		cond(lastnm_sanit_basic_plus== lastnm_sanit_basic_plus_mr & lastnm_sanit_basic_plus>lastnm_sanit_basic_plus_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_sanit_basic_plus,1))  + " percent** of the population" ///
+		+ " has at least basic sanitation. This is similar to the average for its region (" + strofreal(round(lastnm_sanit_basic_plus_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastnm_sanit_basic_plus_mi,1)) + ").", ///
+		cond(lastnm_sanit_basic_plus> lastnm_sanit_basic_plus_mr & lastnm_sanit_basic_plus==lastnm_sanit_basic_plus_mi,"In " + wbcountrynameb + ", **" + strofreal(round(lastnm_sanit_basic_plus,1))  + " percent** of the population" ///
+		+ " has at least basic sanitation. This is higher than the average for its region (" + strofreal(round(lastnm_sanit_basic_plus_mr,1)) + ") but is similar to the average for its income group (" + strofreal(round(lastnm_sanit_basic_plus_mi,1)) + ").", ///
+		"")))))))))	if lastnm_sanit_basic_plus!=.
+		
+replace sanit_text="In " + wbcountrynameb + ///
+", data on the percentage of the population that has at least basic sanitation do not exist." + ///
+" The average for the country's region is " + strofreal(round(lastnm_sanit_basic_plus_mr,1)) + " percent and for its income group is " + strofreal(round(lastnm_sanit_basic_plus_mi,1)) + " percent." if lastnm_sanit_basic_plus==.
+
+
+
+
+
+
 
 			
 			
