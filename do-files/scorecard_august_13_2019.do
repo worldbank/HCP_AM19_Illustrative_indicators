@@ -182,7 +182,7 @@ gen dif_lastafr_targ = lastafr - af_lastafr_targ
 preserve 
 keep if wbregion!="Sub-Saharan Africa"
 
-local x=169
+local x=1
 forvalues i=1/`x' {
 local ctry=wbcode in `i'
 local region=wbregion in `i'
@@ -320,7 +320,6 @@ local date "05-28-2019"
 							legend(off) title("{bf: Percent Using at Least Basic Sanitation Services }", size(vlarge) pos(11)) xtitle("") ytitle("") yscale(range(0 2)) ylabel(none) xlabel(,labsize(large))  graphregion(fcolor(white)) 
 							 graph save lastnm_sanit_basic_plus_`ctry', replace
 
-
 							 							 
 							 _pctile lastnm_hygiene_basic if year==2017, p(33 66)
                              twoway (scatter onesvec lastnm_hygiene_basic if year==2017 & lastnm_hygiene_basic>0 & lastnm_hygiene_basic<=`=scalar(r(r1))', msymbol(Oh) msize(large) mcolor(reddish)) /// 
@@ -389,7 +388,9 @@ local date "05-28-2019"
 	
 	graph combine hci_`gender'_`ctry'.gph wbl_`ctry'.gph  lastner_sec_f_`ctry'.gph lasttfr_`ctry'.gph  ///
 	lastafr_`ctry'.gph contracep_`ctry'.gph  lastspc_`ctry'.gph lastodcomp_`ctry'.gph  ///
-	, colfirst rows(8) cols(1) ysize(8) xsize(5) graphregion(margin(l=22 r=22)) graphregion(margin(zero)) title("{bf: 1. Key Indicators on Human Capital}" /// 
+	lastnm_hygiene_basic_`ctry'.gph lastnm_water_basic_plus_`ctry'.gph ///
+	lastnm_clean_fuel_`ctry'.gph lastnm_electric_`ctry'.gph lastnm_road_traff_`ctry'.gph ///
+	, colfirst rows(13) cols(1) ysize(10) xsize(5) graphregion(margin(l=22 r=22)) graphregion(margin(zero)) title("{bf: 1. Key Indicators on Human Capital}" /// 
 	, size(large) suffix color(black) linegap(3)) graphregion(fcolor(white)) /// 
 	note("{it:- Large circle=`country' ; small circles=other countries.}" ///
 	"{it:- Vertical lines separate terciles of the distribution.}" /// 
@@ -413,7 +414,7 @@ local date "05-28-2019"
 	}
 	
 	
-	
+	exit
 	
 	
 	
