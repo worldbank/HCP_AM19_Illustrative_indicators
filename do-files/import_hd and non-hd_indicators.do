@@ -73,32 +73,10 @@ drop if regionname=="Aggregates"
 duplicates drop wbcode, force
 keep wbcode lastnm* 
 
-gen lasttfr= lastnm_tfr //to make the same vars as in dofile
-gen yeartfr=lastnm_tfr_y 
-
-gen lastafr= lastnm_afr  //to make the same vars as in dofile
-gen lastyearafr=lastnm_afr_y 
-
-gen contracep=lastnm_contra //to make the same vars as in dofile
-gen contracep_year=lastnm_contra_y 
-
-gen lastspc=lastnm_spc 
-gen lastyearspc=lastnm_spc_y 
-
-gen lastodcomp=lastnm_odcomp
-
-gen lastner_sec_f=lastnm_ner_sec_f 
-gen lastner_sec_f_year=lastnm_ner_sec_f_y
-
-gen drm=lastnm_drm 
-gen drm_year=lastnm_drm_y 
-
-gen lastcpia_hr=lastnm_cpia_hr 
-gen lastyearcpia_hr=lastnm_cpia_hr_y
 
 
 foreach j of varlist lastnm_electric lastnm_clean_fuel lastnm_road_traff lastnm_hygiene_basic lastnm_water_basic_plus lastnm_sanit_basic_plus ///
-lasttfr lastafr contracep lastspc lastodcomp lastner_sec_f drm lastcpia_hr { //turn missing if earlier than 2005
+lastnm_tfr lastnm_afr lastnm_contra lastnm_spc lastnm_odcomp lastnm_ner_sec_f lastnm_drm lastnm_cpia_hr { //turn missing if earlier than 2005
 replace `j'=. if `j'_y<2005
 
 }
@@ -196,6 +174,33 @@ lab var lastnm_sp_pc "Soc protec spending per capita- latest"
 lab var lastnm_sp_pc_y "Year of lastest soc prot spending per capita"
 lab var lastnm_pop_total "Latest population data"
 lab var lastnm_pop_total_y "Year of latest population data"
+
+
+
+gen lasttfr= lastnm_tfr //to make the same vars as in dofile
+gen yeartfr=lastnm_tfr_y 
+
+gen lastafr= lastnm_afr  //to make the same vars as in dofile
+gen lastyearafr=lastnm_afr_y 
+
+gen contracep=lastnm_contra //to make the same vars as in dofile
+gen contracep_year=lastnm_contra_y 
+
+gen lastspc=lastnm_spc 
+gen lastyearspc=lastnm_spc_y 
+
+gen lastodcomp=lastnm_odcomp
+
+gen lastner_sec_f=lastnm_ner_sec_f 
+gen lastner_sec_f_year=lastnm_ner_sec_f_y
+
+gen drm=lastnm_drm 
+gen drm_year=lastnm_drm_y 
+
+gen lastcpia_hr=lastnm_cpia_hr 
+gen lastyearcpia_hr=lastnm_cpia_hr_y
+
+
 
 save "input/scorecardanalysis_2019-10-03.dta", replace
 
