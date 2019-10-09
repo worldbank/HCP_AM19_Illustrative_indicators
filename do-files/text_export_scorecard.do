@@ -925,11 +925,11 @@ gen ident_comp= ///
 
 gen ident_text="In " + wbcountrynameb+ ///
 ", **" + strofreal(round(unregpop_share,0.1)) + ///
-" percent** of the population does not have proof of identity."  ///
+" percent** of the population is not registered."  ///
 + ident_comp + ""
 
 replace ident_text="In " + wbcountrynameb + ///
-", data on the percentage of the population that does not have proof of identity do not exist." + ///
+", data on the percentage of the population that is not registered do not exist." + ///
 " The average for the country's region is "  + strofreal(round(unregpop_share_mr,0.1)) + ///
 " percent and for its income group is " + strofreal(round(unregpop_share_mi,0.1)) + " percent." if unregpop_share==.
 

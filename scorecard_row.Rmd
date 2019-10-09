@@ -1,6 +1,6 @@
 ---
 title: "`r countrynamet`"
-author: "Key Human Capital Indicators"
+author: "Illustrative Human Capital Indicators"
 urlcolor: blue
 output:
   pdf_document:
@@ -38,13 +38,13 @@ header-includes:  \usepackage{fancyhdr}
 \definecolor{bondiblue}{rgb}{0.0, 0.58, 0.71}
 \newcommand\boldblue[1]{\textcolor{bondiblue}{\textbf{#1}}}
   
-This country profile presents a snapshot of key indicators that countries need to monitor in the context of human capital development. It is intended to be a conversation starter on where a country is on various aspects of human capital development. The choice of indicators is, to a large extent, driven by what is most relevant for the two regions with the lowest HCI scores (Sub-Saharan Africa and South Asia). As such, not all the indicators included here are relevant for each country. Information contained here should be complemented with other more context specific indicators. 
+This country profile presents a snapshot of illustrative indicators to guide discussions during the Annual Meetings while the set of more strategic indicators are under development. It is intended to be a conversation starter on where a country is on various aspects of human capital development and, as such, it includes indicators from various sectors.It is to be noted that not all the indicators included here are relevant for each country. Information contained here should be complemented with other more context-specific indicators. 
 
  `r x[["hci_text"]]`
 
 \Begin{multicols}{2}
 
-### \boldblue{K\small{EY OUTCOME AND OUTPUT INDICATORS TO MONITOR}}###
+### \boldblue{I\small{LLUSTRATIVE OUTCOME AND OUTPUT INDICATORS}}###
 
 * **Women, Business and the Law Index.** `r x[["wbl_text"]]` 
 
@@ -111,9 +111,9 @@ knitr::include_graphics(gr4)
 \noindent\rule{9cm}{0.4pt}
  &nbsp;
   
-Indicators in this country profile come from the Human Capital Project and the World Development Indicators.
+This country profile is based on most recent data available under the Human Capital Project and the World Development Indicators.
   &nbsp;
   
-For more information, please contact the Human Capital Project team: HCP_Team@worldbank.org 
+For more information on data sources, please contact the Human Capital Project team: HCP_Team@worldbank.org 
 
 \End{multicols}

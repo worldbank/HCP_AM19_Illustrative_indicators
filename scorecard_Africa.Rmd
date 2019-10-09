@@ -67,7 +67,7 @@ This scorecard presents a snapshot of the country's commitment to the human capi
 * **Social Protection Spending.** `r x[["socprot_text"]]`
 
 ```{r out.width = "100%", fig.align = "right", echo=FALSE}
-gr1 <- paste0("charts/all_mf_", x[["wbcode"]], ".pdf")
+gr1 <- paste0("charts/a_all_mf_", x[["wbcode"]], ".pdf")
 knitr::include_graphics(gr1)
 ```
 
@@ -150,14 +150,14 @@ The following table summarizes the World Bank's investments in Human Development
 
 * **HC Development Policy Operations.** `r x[["dpohc_text"]]`
 
-* **Women's Empowerment Project.** `r x[["wep_text"]]`
 
 \vspace{-3mm}
 \noindent\rule{9cm}{0.4pt}
-This scorecard is intended to be a conversation starter on where a country is on various aspects of human capital development and the state of the World Bank's support in the social sectors. The list of indicators presented here is not exhaustive and should be complemented with more context specific variables. Most of the indicators are related to the Africa Human Capital Plan.
+This scorecard is intended to be a conversation starter on where a country is on various aspects of human capital development and the state of the World Bank's support in the social sectors. The list of indicators presented here is not exhaustive and should be complemented with more context-specific variables. Most of the indicators are related to the Africa Human Capital Plan.
 &nbsp;
+
 
 The sources of data for the different indicators include: the Human Capital Project, the World Development Indicators, and the World Bank's internal system to monitor investments.
 &nbsp;
 
-For more information, please contact the Africa Human Capital Project team: AFR_HCP_Team@worldbankgroup.org 
+For more information on data sources, please contact the Africa Human Capital Project team: AFR_HCP_Team@worldbankgroup.org 
