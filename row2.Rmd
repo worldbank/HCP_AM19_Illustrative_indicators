@@ -1,0 +1,125 @@
+---
+title: "India"
+author: "Key Human Capital Indicators"
+output:
+  pdf_document:
+   latex_engine: xelatex
+   fig_caption: yes
+   keep_tex: yes
+fontsize: 9.2pt
+geometry: "left=1.5cm,right=1.5cm,top=2.2cm,bottom=2.2cm"
+header-includes:  \usepackage{fancyhdr}
+  \usepackage{graphicx}
+  \usepackage{eurosym}
+  \usepackage{booktabs,xcolor} \pagestyle{fancy}
+  \rhead{Human Capital Project - \today}
+  \rfoot{}  
+  \lfoot{\includegraphics[width=19.5cm]{footerpdf.pdf}} 
+  \fancypagestyle{plain}{\pagestyle{fancy}}
+  \pagenumbering{gobble}
+  \usepackage{pagecolor}
+  \pagecolor{white}
+  \usepackage{fourier}
+  \usepackage[fontsize=8.7pt]{scrextend}
+  \usepackage{float}
+  \restylefloat{table}
+  \usepackage{xcolor}
+  \usepackage{multicol}
+  \newcommand{\hideFromPandoc}[1]{#1}
+  \hideFromPandoc{
+    \let\Begin\begin
+    \let\End\end
+  }
+  \usepackage{caption}
+  \captionsetup{skip=0pt} 
+---
+  
+  \definecolor{bondiblue}{rgb}{0.0, 0.58, 0.71}
+\newcommand\boldblue[1]{\textcolor{bondiblue}{\textbf{#1}}}
+  
+This country profile presents a snapshot of key indicators that countries need to monitor in the context of human capital development. It is intended to be a conversation starter on where a country is on various aspects of human capital development. The choice of indicators is, to a large extent, driven by what is most relevant for the two regions with the lowest HCI scores (Sub-Saharan Africa and South Asia). As such, not all the indicators included here are relevant for each country. Information contained here should be complemented with other more context specific indicators.
+
+In India the productivity as a future worker of a child born today is **44 percent** as much as it could be. The country ranks **115 out of 157** in the global HCI. For more information on human capital outcomes and the HCI, please see the country two-pager on \boldblue{www.worldbank.org/humancapitalproject}
+
+
+\Begin{multicols}{2}
+
+### \boldblue{K\small{EY OUTCOME AND OUTPUT INDICATORS TO MONITOR}}###
+
+* **Women, Business and the Law Index.** This index measures gender equality in the law (how the economic decisions women make are affected by the law), with a larger value showing higher gender equality. In India, the value is **71** out of 100. This is higher than both the average for its region (58) and the average for its income group (69).
+
+
+* **Adolescent Fertility Rate.** In India, there are **13 births** per 1,000 women ages 15-19. This is lower than both the average for its region (40) and the average for its income group (56).
+
+* **Contraceptive Prevalence.** In India, **54 percent** of women ages 15-49 uses some form of contraceptive method. This is higher than both the average for its region (46) and the average for its income group (49).
+
+* **Social Protection Coverage.** In India, **96 percent** of the poorest quintile is covered by social safety nets. This is higher than both the average for its region (33) and the average for its income group (38).
+
+* **Open Defecation.** In India, **26 percent** of the population practices open defecation. This is higher than both the average for its region (9) and the average for its income group (12).
+
+* **Hygiene.** In India, **60 percent** of the population has basic hygiene services (soap and water). This is higher than both the average for its region (59) and the average for its income group (53).
+
+* **Source of Drinking Water.** In India, **93 percent** of the population has at least basic source of drinking water. This is higher than both the average for its region (90) and the average for its income group (83).
+
+* **Cooking Fuel.** In India, **41 percent** of the population primarily uses clean cooking fuels. This is lower than both the average for its region (42) and the average for its income group (47).
+
+* **Access to Electricity.** In India, **93 percent** of the population has access to electricity. This is higher than both the average for its region (92) and the average for its income group (82).
+
+* **Road Traffic Deaths.** In India, for every 100,000 population **23 people** die due to road traffic injury. This is higher than both the average for its region (15) and the average for its income group (19).  
+
+ ```{r out.width = "100%", fig.align = "right", echo=FALSE}
+knitr::include_graphics("graph1_India.pdf")
+  ``` 
+  
+### \boldblue{D\small{OMESTIC RESOURCE USE AND MOBILIZATION}}###
+  
+* **Health Spending.** India spends **3.1 percent** of its GDP on health.  This is lower than both the regional average (6.8) and the average for its income group (7.7).
+
+* **Education Spending.** India spends **14.1 percent** of its GDP on education.  This is lower than both the regional average (16.1) and the average for its income group (15.7).
+
+* **Social Protection Spending.** India spends **14.7 percent** of its GDP on social protection. This is higher than both the regional average (9.6) and the average for its income group (9.3). 
+
+
+ 
+  
+ ```{r out.width = "100%", out.height="120%", fig.align = "right", echo=FALSE, strip.white=TRUE}
+knitr::include_graphics("graph2_India.pdf")
+```
+  \vspace{3mm}
+  
+  * **Efficiency of Spending.** The HCI in India is **lower** than what would be predicted for its level of per capita government spending on the social sectors.
+  
+  ```{r out.width = "100%", out.height="50%",  fig.align = "center", echo=FALSE, strip.white=TRUE}
+knitr::include_graphics("graph3_India.pdf")
+```
+  
+  * **Domestic Resource Mobilization.** The tax revenue in India is **11.2** percent of GDP. This is lower than both the regional average (13.4) and the average for its income group (15.5).
+  
+  ```{r out.width = "100%", out.height="50%", fig.align = "right", echo=FALSE}
+knitr::include_graphics("graph4_India.pdf")
+  ```
+  
+### \boldblue{O\small{THER RELEVANT INDICATORS }}#####
+  
+  * **Human Capital Project.** India is not an HCP country.
+  
+  * **Building Human Capital.** The Country Policy and Institutional Assesment rating for building human resources in India is **4** (1 is low and 6 is high). This is lower than  the average for its region (4.1) but higher than the average for its income group (3.6). This indicator assesses the national policies and public and private sector service delivery that affect access to and quality of health and education services.
+  
+  * **Identification.** In India, **12 percent** of the population does not have proof of identity. This is lower than both the regional average (22.4) and the average for its income group (20.3).
+  
+  
+  
+ 
+  
+  \noindent\rule{9cm}{0.4pt}
+
+  &nbsp;
+  
+Indicators in this country profile come from the Human Capital Project and the World Development Indicators.
+  &nbsp;
+  
+For more information, please contact the Human Capital Project team: HCP_Team@worldbank.org 
+  
+  
+\End{multicols}
+  
