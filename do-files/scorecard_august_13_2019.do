@@ -3,7 +3,7 @@
 //AUTHORS: MARTIN and ZELALEM 
 // Project: HCP 2019
 
-clear
+clear all
 set more off
 
 
@@ -182,8 +182,8 @@ gen dif_lastafr_targ = lastafr - af_lastafr_targ
 preserve 
 keep if wbregion!="Sub-Saharan Africa"
 
-local x=1
-forvalues i=1/`x' {
+local x=70
+forvalues i=70/`x' {
 local ctry=wbcode in `i'
 local region=wbregion in `i'
 local income=wbincomegroup in `i'
@@ -386,7 +386,7 @@ local date "05-28-2019"
 	// Tall version of slider graph 
 	
 	
-	graph combine hci_`gender'_`ctry'.gph wbl_`ctry'.gph  lastner_sec_f_`ctry'.gph lasttfr_`ctry'.gph  ///
+	graph combine hci_`gender'_`ctry'.gph wbl_`ctry'.gph   ///
 	lastafr_`ctry'.gph contracep_`ctry'.gph  lastspc_`ctry'.gph lastodcomp_`ctry'.gph  ///
 	lastnm_hygiene_basic_`ctry'.gph lastnm_water_basic_plus_`ctry'.gph ///
 	lastnm_clean_fuel_`ctry'.gph lastnm_electric_`ctry'.gph lastnm_road_traff_`ctry'.gph ///

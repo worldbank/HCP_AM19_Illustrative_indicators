@@ -4,7 +4,7 @@ Author: Zelalem Debebe
 Date: October 03 2019
 */
 
-clear
+clear all
 set more off	
 set maxvar 32000
 
@@ -47,12 +47,11 @@ rename sp_dyn_conu_zs contra
 
 rename per_sa_allsa_cov_q1_ spc
 rename sh_sta_odfc_zs od
-gen odcomp=1-od
+gen odcomp=100-od
 rename se_sec_nenr_fe ner_sec_f
 rename gc_tax_totl_gd_zs drm
 rename iq_cpa_hres_xq cpia_hr
 
-		 
 gen nyear = -year 		 
 		 
 // generate vars for the last and first observations in a timeseries 
