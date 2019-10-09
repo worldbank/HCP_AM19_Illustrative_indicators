@@ -114,6 +114,6 @@ knitr::include_graphics(gr4)
 This country profile is based on most recent data available under the Human Capital Project and the World Development Indicators.
   &nbsp;
   
-For more information on data sources, please contact the Human Capital Project team: HCP_Team@worldbank.org 
+For more information on data sources, please contact the Human Capital Project team: humancapital@worldbank.org.  
 
 \End{multicols}

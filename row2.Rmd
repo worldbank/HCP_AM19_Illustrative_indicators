@@ -39,7 +39,7 @@ header-includes:  \usepackage{fancyhdr}
   
 This country profile presents a snapshot of key indicators that countries need to monitor in the context of human capital development. It is intended to be a conversation starter on where a country is on various aspects of human capital development. The choice of indicators is, to a large extent, driven by what is most relevant for the two regions with the lowest HCI scores (Sub-Saharan Africa and South Asia). As such, not all the indicators included here are relevant for each country. Information contained here should be complemented with other more context specific indicators.
 
-In India the productivity as a future worker of a child born today is **44 percent** as much as it could be. The country ranks **115 out of 157** in the global HCI. For more information on human capital outcomes and the HCI, please see the country two-pager on \boldblue{www.worldbank.org/humancapitalproject}
+In India the productivity as a future worker of a child born today is **44 percent** as much as it could be. The country ranks **115 out of 157** in the global HCI. For more information on human capital outcomes and the HCI, please see the country two-pager on \boldblue{https://www.worldbank.org/en/publication/human-capital#Data}
 
 
 \Begin{multicols}{2}
