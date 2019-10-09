@@ -167,6 +167,10 @@ gen dif_lastafr_targ = lastafr - af_lastafr_targ
 ////////////////////////////////////////////////////////////////////////////////////////////////////////		
 
 
+
+
+
+
 // set trace on	
 
 /* Old option
@@ -196,14 +200,13 @@ foreach i of local obs {
 //Figure 1.			
 
 //////////////////////////////////////////////////////////////////////
-*##s
 count
 numlist "1/`r(N)'"
 local obs = "`r(numlist)'"
-local obs = 90
+//local obs = 90 //use this to only run for one country
 
 foreach i of local obs {
-	if (wbregion[`i'] == "Sub-Saharan Africa") continue 
+	if (wbregion[`i'] == "fakeregion") continue 
 	
 	local ctry=wbcode in `i'
 	local region=wbregion in `i'
@@ -342,6 +345,7 @@ foreach i of local obs {
 		graph save lastnm_sanit_basic_plus_`ctry', replace
 		
 		
+	
 		_pctile lastnm_hygiene_basic if year==2017, p(33 66)
 		twoway (scatter onesvec lastnm_hygiene_basic if year==2017 & lastnm_hygiene_basic>0 & lastnm_hygiene_basic<=`=scalar(r(r1))', msymbol(Oh) msize(large) mcolor(reddish)) /// 
 		(scatter onesvec lastnm_hygiene_basic if year==2017 & lastnm_hygiene_basic>`=scalar(r(r1))' & lastnm_hygiene_basic<=`=scalar(r(r2))', msymbol(Oh) msize(large)  mcolor(orangebrown)) /// 							 
@@ -415,7 +419,7 @@ foreach i of local obs {
 		, size(large) suffix color(black) linegap(3)) graphregion(fcolor(white)) /// 
 		note("{it:- Large circle=`country' ; small circles=other countries.}" ///
 		"{it:- Vertical lines separate terciles of the distribution.}" /// 
-		"{it:- Pink/light blue=1st tercile; orange/gray=2nd tercile; green/blue=3rd tercile.}" ///
+		"{it:- Colors indicate the terciles of the distribution across countries.}" ///
 		, size (small))
     graph export "$charts\all_`gender'_`ctry'.pdf", replace
     graph save "$charts\all_`gender'_`ctry'", replace
@@ -430,6 +434,12 @@ foreach i of local obs {
 		erase ner_`ctry'.gph
 		erase lastspc_`ctry'.gph
 		erase lastner_sec_f_`ctry'.gph
+		erase lastnm_sanit_basic_plus_`ctry'.gph
+		erase lastnm_hygiene_basic_`ctry'.gph
+		erase lastnm_water_basic_plus_`ctry'.gph
+		erase lastnm_clean_fuel_`ctry'.gph
+		erase lastnm_electric_`ctry'.gph
+		erase lastnm_road_traff_`ctry'.gph
 		
 	}
 }
@@ -589,10 +599,10 @@ foreach i of local obs {
 		, size(large) suffix color(black) linegap(3)) graphregion(fcolor(white)) /// 
 		note("{it:- Large circle=`country' ; small circles=other countries.}" ///
 		"{it:- Vertical lines refer to regional targets.}" /// 
-		"{it:- Pink/light blue=1st tercile; orange/gray=2nd tercile; green/blue=3rd tercile.}" ///
+		"{it:- Colors indicate the terciles of the distribution across countries.}" ///
 		, size (small))
-    graph export "$charts\all_`gender'_`ctry'.pdf", replace
-    graph save "$charts\all_`gender'_`ctry'", replace
+    graph export "$charts\a_all_`gender'_`ctry'.pdf", replace
+    graph save "$charts\a_all_`gender'_`ctry'", replace
 		
 		erase hci_`gender'_`ctry'.gph
 		erase lastodcomp_`ctry'.gph
@@ -679,7 +689,7 @@ forvalues i=1/`x' {
 	(bar lastnm_all_soc_ass_pctgdp_mr k, color(turquoise)) ///
 	(bar lastnm_all_soc_ass_pctgdp_mi l, color(sky)) ///
 	in `i',  xlabel(  2 "Health" 6 "Education" 10 "Social Protection") ylabel(0 (10)40) ///
-	ytitle("% of GDP", size(medium)) title("{bf: 2. Government Expenditure on the Social Sectors}" , size(large) span) ///
+	ytitle("% of GDP", size(medium)) title("2. Government Expenditure on the Social Sectors" , size(large) span) ///
 	legend(label(1 "`ctry'") label(2 "`region'") label(3 "`income'")) legend(order(1 2 3) pos(5)col(3) row(1)) graphregion(fcolor(white)) ///
 	graphregion(fcolor(white)) ysize(6) xsize(8) ///
 	text(`hc' 1 "`hclabel'" `hr' 2 "`hrlabel'" `hi' 3 "`hilabel'" ///
@@ -742,7 +752,7 @@ forvalues i=1/`x' {
 	(bar lastnm_exp_total_percgdp_raw_mr f, color(turquoise)) ///
 	(bar lastnm_exp_total_percgdp_raw_mi g, color(sky)) ///
 	in `i' ,  xlabel(  2 "Health" 6 "Education" ) ylabel(0 (10)40) ///
-	ytitle("% of GDP", size(medium)) title("{bf: 2. Government Expenditure on the Social Sectors}" , size(large) span) ///
+	ytitle("% of GDP", size(medium)) title("2. Government Expenditure on the Social Sectors" , size(large) span) ///
 	legend(label(1 "`ctry'") label(2 "`region'") label(3 "`income'")) legend(order(1 2 3) pos(5) col(2) row(1)) graphregion(fcolor(white)) ///
 	graphregion(fcolor(white)) ysize(6) xsize(8) ///
 	text(`hc' 1 "`hclabel'" `hr' 2 "`hrlabel'" `hi' 3 "`hilabel'" ///
@@ -802,7 +812,7 @@ forvalues i=1/`x' {
 	(bar lastnm_all_soc_ass_pctgdp_mr f, color(turquoise)) ///
 	(bar lastnm_all_soc_ass_pctgdp_mi g, color(sky)) ///
 	in `i' ,  xlabel(  2 "Health" 6 "Social Protection" ) ylabel(0 (10)40) ///
-	ytitle("% of GDP", size(medium)) title("{bf: 2. Government Expenditure on Health & Social Protection}" , size(large) span) ///
+	ytitle("% of GDP", size(medium)) title("2. Government Expenditure on Health & Social Protection" , size(large) span) ///
 	legend(label(1 "`ctry'") label(2 "`region'") label(3 "`income'")) legend(order(1 2 3) pos(5) col(2) row(1)) graphregion(fcolor(white)) ///
 	graphregion(fcolor(white)) ysize(6) xsize(8) ///
 	text(`hc' 1 "`hclabel'" `hr' 2 "`hrlabel'" `hi' 3 "`hilabel'" ///
