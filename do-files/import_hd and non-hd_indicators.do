@@ -157,7 +157,6 @@ drop _merge
 
 
 
-
 label var health_ed_pc "Healtha and education spending per capita"
 lab var health_ed_pctgdp "Health and education spending as % of GDP"
 lab var health_ed_sp_pc "Health, educ and social protection spending per capita"

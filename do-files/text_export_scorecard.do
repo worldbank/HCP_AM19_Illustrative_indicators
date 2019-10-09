@@ -146,7 +146,8 @@ do_performance_hd  do_performance_edu do_performance_hnp do_performance_spj ip_p
 ip_performance_edu ip_performance_hnp ip_performance_spj disburratio_hd disburratio_edu ///
 disburratio_hnp disburratio_spj  avgsize_hd avgsize_edu avgsize_hnp avgsize_spj crossgpshare_hd ///
 crossgpshare_edu crossgpshare_hnp crossgpshare_spj ///
-lastnm_water_basic_plus lastnm_sanit_basic_plus lastnm_hygiene_basic lastnm_road_traff lastnm_clean_fuel lastnm_electric {
+lastnm_water_basic_plus lastnm_sanit_basic_plus lastnm_hygiene_basic lastnm_road_traff lastnm_clean_fuel lastnm_electric ///
+lastnm_all_soc_ass_pctgdp lastnm_exp_total_percgdp_raw lastnm_domphegdp {
      egen `var'_mr=mean(`var') if year==2017, by(region)
 	 egen `var'_mi=mean(`var') if year==2017, by(income)
 	 }
@@ -763,73 +764,73 @@ gen hci_mem = ///
 gen hci_memt="" + wbcountrynameb + " " + hci_mem + " signed up to be a member of the Human Capital Project." 
 /////////////////////////////////////
 gen edu_comp_mrmi = ///
-         cond(edugov< edugov_mr & edugov<edugov_mi,                 /* 
-*/ " This is lower than both the regional average (" + strofreal(round(edugov_mr,0.1)) + ") and the average for its income group (" + strofreal(round(edugov_mi,0.1)) + ").",    /* 
-*/       cond( edugov> edugov_mr & edugov>edugov_mi,                         /* 
-*/ "This is higher than both the regional average (" + strofreal(round(edugov_mr,0.1)) + ") and the average for its income group (" + strofreal(round(edugov_mi,0.1)) + ").",     /* 
-*/       cond( edugov< edugov_mr & edugov>edugov_mi,                         /* 
-*/ "This is lower than  the average for its region (" + strofreal(round(edugov_mr,0.1)) + ") but higher than the average for its income group (" + strofreal(round(edugov_mi,0.1)) + ").", /* 
-*/       cond(edugov> edugov_mr & edugov<edugov_mi,                         /* 
-*/ "This is higher than  the average for its region (" + strofreal(round(edugov_mr,0.1)) + ") but lower than the average for its income group (" + strofreal(round(edugov_mi,0.1)) + ").", /*        
-*/ "")))) if edugov!=.
+         cond(lastnm_exp_total_percgdp_raw< lastnm_exp_total_percgdp_raw_mr & lastnm_exp_total_percgdp_raw<lastnm_exp_total_percgdp_raw_mi,                 /* 
+*/ " This is lower than both the regional average (" + strofreal(round(lastnm_exp_total_percgdp_raw_mr,0.1)) + ") and the average for its income group (" + strofreal(round(lastnm_exp_total_percgdp_raw_mi,0.1)) + ").",    /* 
+*/       cond( lastnm_exp_total_percgdp_raw> lastnm_exp_total_percgdp_raw_mr & lastnm_exp_total_percgdp_raw>lastnm_exp_total_percgdp_raw_mi,                         /* 
+*/ "This is higher than both the regional average (" + strofreal(round(lastnm_exp_total_percgdp_raw_mr,0.1)) + ") and the average for its income group (" + strofreal(round(lastnm_exp_total_percgdp_raw_mi,0.1)) + ").",     /* 
+*/       cond( lastnm_exp_total_percgdp_raw< lastnm_exp_total_percgdp_raw_mr & lastnm_exp_total_percgdp_raw>lastnm_exp_total_percgdp_raw_mi,                         /* 
+*/ "This is lower than  the average for its region (" + strofreal(round(lastnm_exp_total_percgdp_raw_mr,0.1)) + ") but higher than the average for its income group (" + strofreal(round(lastnm_exp_total_percgdp_raw_mi,0.1)) + ").", /* 
+*/       cond(lastnm_exp_total_percgdp_raw> lastnm_exp_total_percgdp_raw_mr & lastnm_exp_total_percgdp_raw<lastnm_exp_total_percgdp_raw_mi,                         /* 
+*/ "This is higher than  the average for its region (" + strofreal(round(lastnm_exp_total_percgdp_raw_mr,0.1)) + ") but lower than the average for its income group (" + strofreal(round(lastnm_exp_total_percgdp_raw_mi,0.1)) + ").", /*        
+*/ "")))) if lastnm_exp_total_percgdp_raw!=.
 
 gen edu_text="" + wbcountrynameb + /// we still need to specify for missing data cases
-" spends **" + strofreal(round(edugov,0.1)) + ///
+" spends **" + strofreal(round(lastnm_exp_total_percgdp_raw,0.1)) + ///
 " percent** of its GDP on education. "  /// 
 + edu_comp_mrmi + ""
 
 replace edu_text="In " + wbcountrynameb + ///
 ", data on education spending do not exist." + ///
-" The average for the country's region is "  + strofreal(round(edugov_mr,0.1)) + ///
-" percent and for its income group is " + strofreal(round(edugov_mi,0.1)) + " percent." if edugov==.
+" The average for the country's region is "  + strofreal(round(lastnm_exp_total_percgdp_raw_mr,0.1)) + ///
+" percent and for its income group is " + strofreal(round(lastnm_exp_total_percgdp_raw_mi,0.1)) + " percent." if lastnm_exp_total_percgdp_raw==.
 
 
 ////////////////////////////////////////
 
 gen health_comp_mrmi = ///
-         cond(healthgov< healthgov_mr & healthgov<healthgov_mi,                 /* 
-*/ " This is lower than both the regional average (" + strofreal(round(healthgov_mr,0.1)) + ") and the average for its income group (" + strofreal(round(healthgov_mi,0.1)) + ").",    /* 
-*/       cond( healthgov> healthgov_mr & healthgov>healthgov_mi,                         /* 
-*/ "This is higher than both the regional average (" + strofreal(round(healthgov_mr,0.1)) + ") and the average for its income group (" + strofreal(round(healthgov_mi,0.1)) + ").",     /* 
-*/       cond( healthgov< healthgov_mr & healthgov>healthgov_mi,                         /* 
-*/ "This is lower than  the average for its region (" + strofreal(round(healthgov_mr,0.1)) + ") but higher than the average for its income group (" + strofreal(round(healthgov_mi,0.1)) + ").", /* 
-*/       cond(healthgov> healthgov_mr & healthgov<healthgov_mi,                         /* 
-*/ "This is higher than  the average for its region (" + strofreal(round(healthgov_mr,0.1)) + ") but lower than the average for its income group (" + strofreal(round(healthgov_mi,0.1)) + ").", /*        
-*/ "")))) if healthgov!=.
+         cond(lastnm_domphegdp< lastnm_domphegdp_mr & lastnm_domphegdp<lastnm_domphegdp_mi,                 /* 
+*/ " This is lower than both the regional average (" + strofreal(round(lastnm_domphegdp_mr,0.1)) + ") and the average for its income group (" + strofreal(round(lastnm_domphegdp_mi,0.1)) + ").",    /* 
+*/       cond( lastnm_domphegdp> lastnm_domphegdp_mr & lastnm_domphegdp>lastnm_domphegdp_mi,                         /* 
+*/ "This is higher than both the regional average (" + strofreal(round(lastnm_domphegdp_mr,0.1)) + ") and the average for its income group (" + strofreal(round(lastnm_domphegdp_mi,0.1)) + ").",     /* 
+*/       cond( lastnm_domphegdp< lastnm_domphegdp_mr & lastnm_domphegdp>lastnm_domphegdp_mi,                         /* 
+*/ "This is lower than  the average for its region (" + strofreal(round(lastnm_domphegdp_mr,0.1)) + ") but higher than the average for its income group (" + strofreal(round(lastnm_domphegdp_mi,0.1)) + ").", /* 
+*/       cond(lastnm_domphegdp> lastnm_domphegdp_mr & lastnm_domphegdp<lastnm_domphegdp_mi,                         /* 
+*/ "This is higher than  the average for its region (" + strofreal(round(lastnm_domphegdp_mr,0.1)) + ") but lower than the average for its income group (" + strofreal(round(lastnm_domphegdp_mi,0.1)) + ").", /*        
+*/ "")))) if lastnm_domphegdp!=.
 
 gen health_text="" + wbcountrynameb + ///
-" spends **" + strofreal(round(healthgov,0.1)) + ///
+" spends **" + strofreal(round(lastnm_domphegdp,0.1)) + ///
 " percent** of its GDP on health. "  ///
 + health_comp_mrmi + ""
 
 replace health_text="In " + wbcountrynameb + ///
 ", data on health spending do not exist." + ///
-" The average for the country's region is "  + strofreal(round(healthgov_mr,0.1)) + ///
-" percent and for its income group is " + strofreal(round(healthgov_mi,0.1)) + " percent." if healthgov==.
+" The average for the country's region is "  + strofreal(round(lastnm_domphegdp_mr,0.1)) + ///
+" percent and for its income group is " + strofreal(round(lastnm_domphegdp_mi,0.1)) + " percent." if lastnm_domphegdp==.
 
 
 //////////////////////////////////////////
 
 gen socprot_comp_mrmi = ///
-         cond(socprotgov< socprotgov_mr & socprotgov<socprotgov_mi,                 /* 
-*/ " This is lower than both the regional average (" + strofreal(round(socprotgov_mr,0.1)) + ") and the average for its income group (" + strofreal(round(socprotgov_mi,0.1)) + ").",    /* 
-*/       cond( socprotgov> socprotgov_mr & socprotgov>socprotgov_mi,                         /* 
-*/ "This is higher than both the regional average (" + strofreal(round(socprotgov_mr,0.1)) + ") and the average for its income group (" + strofreal(round(socprotgov_mi,0.1)) + ").",     /* 
-*/       cond( socprotgov< socprotgov_mr & socprotgov>socprotgov_mi,                         /* 
-*/ "This is lower than  the average for its region (" + strofreal(round(socprotgov_mr,0.1)) + ") but higher than the average for its income group (" + strofreal(round(socprotgov_mi,0.1)) + ").", /* 
-*/       cond(socprotgov> socprotgov_mr & socprotgov<socprotgov_mi,                         /* 
-*/ "This is higher than  the average for its region (" + strofreal(round(socprotgov_mr,0.1)) + ") but lower than the average for its income group (" + strofreal(round(socprotgov_mi,0.1)) + ").", /*        
-*/ "")))) if socprotgov!=.
+         cond(lastnm_all_soc_ass_pctgdp< lastnm_all_soc_ass_pctgdp_mr & lastnm_all_soc_ass_pctgdp<lastnm_all_soc_ass_pctgdp_mi,                 /* 
+*/ " This is lower than both the regional average (" + strofreal(round(lastnm_all_soc_ass_pctgdp_mr,0.1)) + ") and the average for its income group (" + strofreal(round(lastnm_all_soc_ass_pctgdp_mi,0.1)) + ").",    /* 
+*/       cond( lastnm_all_soc_ass_pctgdp> lastnm_all_soc_ass_pctgdp_mr & lastnm_all_soc_ass_pctgdp>lastnm_all_soc_ass_pctgdp_mi,                         /* 
+*/ "This is higher than both the regional average (" + strofreal(round(lastnm_all_soc_ass_pctgdp_mr,0.1)) + ") and the average for its income group (" + strofreal(round(lastnm_all_soc_ass_pctgdp_mi,0.1)) + ").",     /* 
+*/       cond( lastnm_all_soc_ass_pctgdp< lastnm_all_soc_ass_pctgdp_mr & lastnm_all_soc_ass_pctgdp>lastnm_all_soc_ass_pctgdp_mi,                         /* 
+*/ "This is lower than  the average for its region (" + strofreal(round(lastnm_all_soc_ass_pctgdp_mr,0.1)) + ") but higher than the average for its income group (" + strofreal(round(lastnm_all_soc_ass_pctgdp_mi,0.1)) + ").", /* 
+*/       cond(lastnm_all_soc_ass_pctgdp> lastnm_all_soc_ass_pctgdp_mr & lastnm_all_soc_ass_pctgdp<lastnm_all_soc_ass_pctgdp_mi,                         /* 
+*/ "This is higher than  the average for its region (" + strofreal(round(lastnm_all_soc_ass_pctgdp_mr,0.1)) + ") but lower than the average for its income group (" + strofreal(round(lastnm_all_soc_ass_pctgdp_mi,0.1)) + ").", /*        
+*/ "")))) if lastnm_all_soc_ass_pctgdp!=.
 
 gen socprot_text="" + wbcountrynameb + ///
-" spends **" + strofreal(round(socprotgov,0.1)) + ///
+" spends **" + strofreal(round(lastnm_all_soc_ass_pctgdp,0.1)) + ///
 " percent** of its GDP on social protection. "  ///
 + socprot_comp_mrmi + ""
 
 replace socprot_text="In " + wbcountrynameb + ///
 ", data on social protection spending do not exist." + ///
-" The average for the country's region is "  + strofreal(round(socprotgov_mr,0.1)) + ///
-" percent and for its income group is " + strofreal(round(socprotgov_mi,0.1)) + " percent." if socprotgov==.
+" The average for the country's region is "  + strofreal(round(lastnm_all_soc_ass_pctgdp_mr,0.1)) + ///
+" percent and for its income group is " + strofreal(round(lastnm_all_soc_ass_pctgdp_mi,0.1)) + " percent." if lastnm_all_soc_ass_pctgdp==.
 
 
 ///////////////////////////////////////////

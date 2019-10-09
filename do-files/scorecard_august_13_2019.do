@@ -69,7 +69,8 @@ foreach gender in mf {
 	ip_performance_hd  ip_performance_edu ip_performance_hnp ip_performance_spj ///
 	disburratio_hd disburratio_edu disburratio_hnp disburratio_spj  avgsize_hd ///
 	avgsize_edu avgsize_hnp avgsize_spj crossgpshare_hd crossgpshare_edu crossgpshare_hnp crossgpshare_spj ///
-	lastnm_water_basic_plus lastnm_sanit_basic_plus lastnm_hygiene_basic lastnm_road_traff lastnm_clean_fuel lastnm_electric {
+	lastnm_water_basic_plus lastnm_sanit_basic_plus lastnm_hygiene_basic lastnm_road_traff lastnm_clean_fuel lastnm_electric ///
+	lastnm_all_soc_ass_pctgdp lastnm_exp_total_percgdp_raw lastnm_domphegdp {
 		egen `var'_mr=mean(`var') if year==2017, by(region)
 		egen `var'_mi=mean(`var') if year==2017, by(income)
 	}
