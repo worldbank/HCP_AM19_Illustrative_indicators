@@ -12,15 +12,15 @@ set maxvar 32000
 
 *set up directory and filepath to database 
 
-if ( "`c(username)'" == "wb469563") {
-global root "C:\Users\WB469563\OneDrive - WBG\Documents (zdebebe@worldbank.org)\OneDrive - WBG\Documents (zdebebe@worldbank.org)\Human Capital Project\CHI_AM19_scorecard"
+if ( lower("`c(username)'") == "wb469563") {
+	global root "C:\Users\WB469563\OneDrive - WBG\Documents (zdebebe@worldbank.org)\OneDrive - WBG\Documents (zdebebe@worldbank.org)\Human Capital Project\CHI_AM19_scorecard"
 }
 
-if ( "`c(username)'" == "wb384996") {
+if ( lower("`c(username)'") == "wb384996") {
 	global root "c:\Users\wb384996\OneDrive - WBG\WorldBank\CHI_AM19_scorecard"
 }
 
-if ( "`c(username)'" == "wb538904") {
+if ( lower("`c(username)'") == "wb538904") {
 	global root "C:\Users\WB538904\OneDrive - WBG\CHI_AM19_scorecard"
 }
 
@@ -554,29 +554,29 @@ replace lastner_sec_f_text= "In " + wbcountrynameb + ///
  
  ////////////////////////////////////////////
 gen road_traff_text = ///
-	cond(lastnm_road_traff< lastnm_road_traff_mr & lastnm_road_traff<lastnm_road_traff_mi, "In " + wbcountrynameb + ", for every 100,000 population **" + strofreal(round(lastnm_road_traff,1)) + " people** die due to road traffic injury" ///
+	cond(lastnm_road_traff< lastnm_road_traff_mr & lastnm_road_traff<lastnm_road_traff_mi, "In " + wbcountrynameb + ", for every 100,000 people **" + strofreal(round(lastnm_road_traff,1)) + " people** die due to road traffic injury" ///
 	+ ". This is lower than both the average for its region (" + strofreal(round(lastnm_road_traff_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_road_traff_mi,1)) + ").", ///
-		cond(lastnm_road_traff> lastnm_road_traff_mr & lastnm_road_traff>lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 population **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
+		cond(lastnm_road_traff> lastnm_road_traff_mr & lastnm_road_traff>lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 people **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
 		+ ". This is higher than both the average for its region (" + strofreal(round(lastnm_road_traff_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_road_traff_mi,1)) + ").", ///
-	   	cond(lastnm_road_traff< lastnm_road_traff_mr & lastnm_road_traff>lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 population **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
+	   	cond(lastnm_road_traff< lastnm_road_traff_mr & lastnm_road_traff>lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 people **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
 		+ ". This is lower than the average for its region (" + strofreal(round(lastnm_road_traff_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastnm_road_traff_mi,1)) + ").", ///
-		cond(lastnm_road_traff> lastnm_road_traff_mr & lastnm_road_traff<lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 population **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
+		cond(lastnm_road_traff> lastnm_road_traff_mr & lastnm_road_traff<lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 people **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
 		+ ". This is higher than the average for its region (" + strofreal(round(lastnm_road_traff_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastnm_road_traff_mi,1)) + ").", ///
-		cond(lastnm_road_traff== lastnm_road_traff_mr & lastnm_road_traff==lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 population **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
+		cond(lastnm_road_traff== lastnm_road_traff_mr & lastnm_road_traff==lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 people **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
 		+ ". This is similar to the average for its region (" + strofreal(round(lastnm_road_traff_mr,1)) + ") and the average for its income group (" + strofreal(round(lastnm_road_traff_mi,1)) + ").", ///
-		cond(lastnm_road_traff== lastnm_road_traff_mr & lastnm_road_traff<lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 population **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
+		cond(lastnm_road_traff== lastnm_road_traff_mr & lastnm_road_traff<lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 people **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
 		+ ". This is similar to the average for its region (" + strofreal(round(lastnm_road_traff_mr,1)) + ") but lower than the average for its income group (" + strofreal(round(lastnm_road_traff_mi,1)) + ").", ///
-		cond(lastnm_road_traff< lastnm_road_traff_mr & lastnm_road_traff==lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 population **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
+		cond(lastnm_road_traff< lastnm_road_traff_mr & lastnm_road_traff==lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 people **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
 		+ ". This is lower than the average for its region (" + strofreal(round(lastnm_road_traff_mr,1)) + ") but is similar to the average for its income group (" + strofreal(round(lastnm_road_traff_mi,1)) + ").", ///
-		cond(lastnm_road_traff== lastnm_road_traff_mr & lastnm_road_traff>lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 population **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
+		cond(lastnm_road_traff== lastnm_road_traff_mr & lastnm_road_traff>lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 people **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
 		+ ". This is similar to the average for its region (" + strofreal(round(lastnm_road_traff_mr,1)) + ") but higher than the average for its income group (" + strofreal(round(lastnm_road_traff_mi,1)) + ").", ///
-	    cond(lastnm_road_traff> lastnm_road_traff_mr & lastnm_road_traff==lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 population **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
+	    cond(lastnm_road_traff> lastnm_road_traff_mr & lastnm_road_traff==lastnm_road_traff_mi,"In " + wbcountrynameb + ", for every 100,000 people **" + strofreal(round(lastnm_road_traff,1))  + " people** die due to road traffic injury" ///
 		+ ". This is higher than the average for its region (" + strofreal(round(lastnm_road_traff_mr,1)) + ") but is similar to the average for its income group (" + strofreal(round(lastnm_road_traff_mi,1)) + ").", ///
 		"")))))))))	if lastnm_road_traff!=.
 		
 replace road_traff_text="In " + wbcountrynameb + ///
 ", data on mortality due to road traffic injury do not exist." + ///
-" The average for the country's region is " + strofreal(round(lastnm_road_traff_mr,1)) + " people per 100,000 population and for its income group is " + strofreal(round(lastnm_road_traff_mi,1)) + " people per 100,000 population." if lastnm_road_traff==.
+" The average number of road traffic deaths for the country's region is " + strofreal(round(lastnm_road_traff_mr,1)) + " people per 100,000 and for its income group is " + strofreal(round(lastnm_road_traff_mi,1)) + " people per 100,000." if lastnm_road_traff==.
 
 
 	 
@@ -757,10 +757,10 @@ replace sanit_text="In " + wbcountrynameb + ///
 			
 ////////////////////////////////////
 gen hci_mem = ///
-  cond(hcicountry == 1, "is",   ///
-  cond(hcicountry  ==0, "is not",           ///
+  cond(hcicountry == 1, "has",   ///
+  cond(hcicountry  ==0, "has not yet",           ///
            ""))
-gen hci_memt="" + wbcountrynameb + " " + hci_mem + " part of a network of countries committed to the Human Capital agenda." 
+gen hci_memt="" + wbcountrynameb + " " + hci_mem + " signed up to be a member of the Human Capital Project." 
 /////////////////////////////////////
 gen edu_comp_mrmi = ///
          cond(edugov< edugov_mr & edugov<edugov_mi,                 /* 
