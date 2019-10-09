@@ -66,9 +66,9 @@ countries <- c("ABW", "AFG", "AND", "ARE", "ASM", "ATG", "AUS", "AUT", "BEL", "B
 
 countries <- c("BIH", "IRQ", "MNE", "NGA")
 
-countries <- c("COD")
 countries <- c("COL", "ARG")
 countries <- NULL
+countries <- c("IND")
 if (length(countries) > 0) {
   hci <-  hci[hci[["wbcode"]]  %in% countries,]
 }
