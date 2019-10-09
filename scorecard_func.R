@@ -131,7 +131,7 @@ dc_files <- function(ver) {
   # check if region folder exists
   reg_dir <- hci %>%
     count(wbregion) %>%
-    transmute(dir = paste0(base_name, wbregion),
+    transmute(dir = paste0(base_name, "/", wbregion),
               dir_e = dir.exists(dir))
 
   lapply(reg_dir$dir[!reg_dir$dir_e], dir.create, showWarnings = FALSE)
@@ -139,7 +139,7 @@ dc_files <- function(ver) {
   # copy PDFs
   x <- hci %>%
     transmute(file = paste0(base_name, "_", wbcode ,".pdf"),
-              dir = paste0(base_name, wbregion))
+              dir = paste0(base_name, "/", wbregion))
 
 
   walk2(x$file, x$dir, ~file.copy(from = .x,
