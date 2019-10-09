@@ -61,19 +61,23 @@ hci <- cbind(hci, tv)
 
 countries <- c("ETH")
 
-# three-page countries
-countries <- c("ABW", "AFG", "AND", "ARE", "ASM", "ATG", "AUS", "AUT", "BEL", "BHR", "BHS", "BLZ", "BMU", "BRB", "BRN", "CAN", "CHE", "CHI", "CUB", "CUW", "CYM", "CYP", "CZE", "DEU", "DMA", "DNK", "DZA", "ERI", "ESP", "FIN", "FRA", "FRO", "FSM", "GBR", "GIB", "GMB", "GNQ", "GRC", "GRD", "GRL", "GUM", "GUY", "HKG", "HTI", "IMN", "IRL", "IRN", "ISL", "ISR", "ITA", "JAM", "JPN", "KIR", "KNA", "KOR", "LBY", "LIE", "LUX", "MAC", "MAF", "MCO", "MDV", "MLT", "MNP", "NCL", "NLD", "NOR", "NRU", "NZL", "OMN", "PLW", "PNG", "PRI", "PRK", "PRT", "PRY", "PSE", "PYF", "QAT", "SGP", "SLB", "SMR", "STP", "SUR", "SWE", "SXM", "SYR", "TCA", "TKM", "TON", "TTO", "TUV", "USA", "UZB", "VCT", "VEN", "VGB", "VIR", "WSM", "YEM")
-
-countries <- c("BIH", "IRQ", "MNE", "NGA")
-
 countries <- c("COL", "ARG")
-countries <- NULL
 countries <- c("IND")
+
+countries <- NULL
+
 if (length(countries) > 0) {
-  hci <-  hci[hci[["wbcode"]]  %in% countries,]
+  hci <-  hci %>% filter(wbcode  %in% countries)
 }
 
-y <- apply(hci, 1, RunMD)
+ver <- "afr"
+ver <- "wld"
+if (ver == "afr") {
+  hci <-  hci %>% filter(wbregion == "Sub-Saharan Africa")
+}
+
+
+y <- apply(hci, 1, RunMD, ver = ver)
 
 ## Show countries with error
 e <- tibble::tibble(code = rep(NA, length(y)), m = rep(NA, length(y)))
