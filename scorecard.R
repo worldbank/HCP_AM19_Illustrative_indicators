@@ -93,7 +93,7 @@ names(err) <- NULL
 err
 
 # Delete and copy files
-dc_files()
+dc_files(ver)
 
 
 

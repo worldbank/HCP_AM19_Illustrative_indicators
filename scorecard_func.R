@@ -76,22 +76,22 @@ RunMD <- function(x, ver) {
   countrynamet <- x[["wbcountryname"]]
 
   if (ver  == "afr") {
-    file_name <- paste0("AFR_scorecard_", x[["wbcode"]])
+    base_name <- "AFR_HC_scorecard"
     input <- "scorecard_Africa.Rmd"
-    output_dir  <-  "output_afr/"
 
   } else {
-    file_name <- paste0("scorecard_", x[["wbcode"]])
+    base_name <- "HC_indicators"
     input <- "scorecard_row.Rmd"
-    output_dir  <-  "output/"
   }
+
+  file_name <- paste0(base_name, "_", x[["wbcode"]], ".pdf")
 
   result <-  tryCatch({
     rmarkdown::render(
       input = input,
       output_format = "pdf_document",
-      output_file = paste0(file_name, ".pdf"),
-      output_dir = output_dir,
+      output_file = file_name,
+      output_dir = base_name,
       intermediates_dir = "failed_log"
     )
 
@@ -123,27 +123,23 @@ dc_files <- function(ver) {
   }
 
   if (ver  == "afr") {
-    file_name <- "AFR_scorecard_"
-    output_dir  <-  "output_afr/"
-
+    base_name <- "AFR_HC_scorecard"
   } else {
-    file_name <- "scorecard_"
-    output_dir  <-  "output/"
+    base_name <- "HC_indicators"
   }
-
 
   # check if region folder exists
   reg_dir <- hci %>%
     count(wbregion) %>%
-    transmute(dir = paste0(output_dir, wbregion),
+    transmute(dir = paste0(base_name, wbregion),
               dir_e = dir.exists(dir))
 
   lapply(reg_dir$dir[!reg_dir$dir_e], dir.create, showWarnings = FALSE)
 
   # copy PDFs
   x <- hci %>%
-    transmute(file = paste0(file_name, wbcode ,".pdf"),
-              dir = paste0(output_dir, wbregion))
+    transmute(file = paste0(base_name, "_", wbcode ,".pdf"),
+              dir = paste0(base_name, wbregion))
 
 
   walk2(x$file, x$dir, ~file.copy(from = .x,
