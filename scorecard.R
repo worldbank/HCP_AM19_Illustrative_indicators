@@ -5,6 +5,7 @@
 
 # Load libraries
 library(tidyverse)
+library(pdftools)
 
 # Sub Functions
 source("scorecard_func.R")
@@ -72,12 +73,25 @@ countries <- c("COL", "ARG")
 countries <- c("IND")
 
 
-countries <- c("ETH")
+countries <- c("BGD")
+countries <- c("LKA", "NPL")
+
 countries <- NULL
 if (length(countries) > 0) {
   hci <-  hci %>% filter(wbcode  %in% countries)
 }
 
+# select countries based on number of pages
+pages <- 1
+if (pages == 1) {
+  p <- page_df(ver) # data frame with countries and pages
+
+  countries <- p %>%
+    filter(pages == 3) %>%
+    select(country)
+
+  hci <-  hci %>% filter(wbcode  %in% countries[["country"]])
+}
 
 # execute creation of pdf
 y <- apply(hci, 1, RunMD, ver = ver)

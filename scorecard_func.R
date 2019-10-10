@@ -157,6 +157,19 @@ dc_files <- function(ver) {
 
   aux_files <- list.files(pattern = "\\.(log|aux|out)$")
   file.remove(aux_files)
+
+
+  #--------- move one-pager for whole world pdfs to another folder
+
+  if (ver  == "wld") {
+    p <- page_df(ver) # data frame with countries and pages
+
+    countries <- p %>%
+      filter(pages == 3) %>%
+      select(country)
+
+    hci <-  hci %>% filter(wbcode  %in% countries[["country"]])
+  }
 }
 
 
@@ -175,4 +188,31 @@ chg_fmt <- function(x, digits = 2, fmt = "f", b = ",") {
 }
 
 
+
+#--------- identify number of pages in pdf
+
+
+c_page <- function(x) {
+  t <- tibble(
+    pages = pdf_info(x)[[2]],
+    country = str_replace( x, ".*([A-Z]{3})\\.pdf", "\\1")
+  )
+  return(t)
+}
+
+page_df <- function(ver) {
+
+  if (ver  == "afr") {
+    pattern = "AFR_HC_scorecard_.*pdf$"
+  } else {
+    pattern = "HC_indicators_.*pdf$"
+  }
+
+
+  file <- list.files(pattern = pattern,
+                     include.dirs = TRUE,
+                     recursive = TRUE)
+  p <- map_dfr(file, c_page)
+  return(p)
+}
 

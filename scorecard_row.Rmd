@@ -8,7 +8,7 @@ output:
    fig_caption: yes
    keep_tex: yes
 fontsize: 9.2pt
-geometry: "left=1.5cm,right=1.5cm,top=2.2cm,bottom=2.2cm"
+geometry: "left=1.3cm,right=1.3cm,top=2cm,bottom=2cm"
 header-includes:  \usepackage{fancyhdr}
   \usepackage{graphicx}
   \usepackage{eurosym}
