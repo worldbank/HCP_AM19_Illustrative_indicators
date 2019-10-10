@@ -621,10 +621,12 @@ foreach i of local obs {
 
 //////////////////////////////////////////////////////////////////////////////////////END
 
-exit
+
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*********************GRAPH FOR EXPEDNTURE IN SOCIAL SECTORS using % of GDP******
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 *********************GRAPH FOR EXPEDNTURE IN SOCIAL SECTORS using % of GDP******
 //Figure 2.	
 //COUNTRIES WITH SPJ SPENDING 
@@ -689,7 +691,7 @@ forvalues i=1/`x' {
 	(bar lastnm_all_soc_ass_pctgdp j, color(reddish)) ///
 	(bar lastnm_all_soc_ass_pctgdp_mr k, color(turquoise)) ///
 	(bar lastnm_all_soc_ass_pctgdp_mi l, color(sky)) ///
-	in `i',  xlabel(  2 "Health" 6 "Education" 10 "Social Protection") ylabel(0 (5)15) ///
+	in `i',  xlabel(  2 "Health" 6 "Education" 10 "Social Assistance") ylabel(0 (5)15) ///
 	ytitle("% of GDP", size(medium)) title("2. Government Expenditure on the Social Sectors" , size(large) span) ///
 	legend(label(1 "`ctry'") label(2 "`region'") label(3 "`income'")) legend(order(1 2 3) pos(5)col(3) row(1)) graphregion(fcolor(white)) ///
 	graphregion(fcolor(white)) ysize(6) xsize(8) ///
@@ -812,8 +814,8 @@ forvalues i=1/`x' {
 	(bar lastnm_all_soc_ass_pctgdp e, color(reddish)) ///
 	(bar lastnm_all_soc_ass_pctgdp_mr f, color(turquoise)) ///
 	(bar lastnm_all_soc_ass_pctgdp_mi g, color(sky)) ///
-	in `i' ,  xlabel(  2 "Health" 6 "Social Protection" ) ylabel(0 (5)15) ///
-	ytitle("% of GDP", size(medium)) title("2. Government Expenditure on Health & Social Protection" , size(large) span) ///
+	in `i' ,  xlabel(  2 "Health" 6 "Social Assistance" ) ylabel(0 (5)15) ///
+	ytitle("% of GDP", size(medium)) title("2. Government Expenditure on Health & Social Assistance" , size(large) span) ///
 	legend(label(1 "`ctry'") label(2 "`region'") label(3 "`income'")) legend(order(1 2 3) pos(5) col(2) row(1)) graphregion(fcolor(white)) ///
 	graphregion(fcolor(white)) ysize(6) xsize(8) ///
 	text(`hc' 1 "`hclabel'" `hr' 2 "`hrlabel'" `hi' 3 "`hilabel'" ///
