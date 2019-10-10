@@ -64,7 +64,7 @@ This scorecard presents a snapshot of the country's commitment to the human capi
 
 * **Education Spending.** `r x[["edu_text"]]`
 
-* **Social Protection Spending.** `r x[["socprot_text"]]`
+* **Social Assistance Spending.** `r x[["socprot_text"]]`
 
 ```{r out.width = "100%", fig.align = "right", echo=FALSE}
 gr1 <- paste0("charts/a_all_mf_", x[["wbcode"]], ".pdf")
@@ -157,7 +157,7 @@ This scorecard is intended to be a conversation starter on where a country is on
 &nbsp;
 
 
-The sources of data for the different indicators include: the Human Capital Project, the World Development Indicators, and the World Bank's internal system to monitor investments.
+The sources of data for the different indicators include: the Human Capital Project, the World Development Indicators, Atlas of Social Protection - Indicators of Resilience and Equity (ASPIRE), Identification for Development (ID4D) and the World Bank's internal system to monitor investments.
 &nbsp;
 
 For more information on data sources, please contact the Africa Human Capital Project team: AFR_HCP_Team@worldbankgroup.org 

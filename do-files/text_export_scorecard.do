@@ -231,7 +231,9 @@ gen difdrmpred = drm-pdrm
 egen nm=rownonmiss(lny drm hci_mf health_ed_pc) //how many countries have nonmissing data for figure 2,3 and 4
 tab nm
 	
-replace  hcicountry=1 if (wbcountryname=="Tanzania" | wbcountryname=="Cambodia") //we have 64 hcp countries 
+replace  hcicountry=1 if (wbcountryname=="Tanzania" | wbcountryname=="Cambodia") 
+replace  hcicountry=1 if (wbcountryname=="Ireland" | wbcountryname=="The Republic of Yemen") 
+replace  hcicountry=1 if (wbcountryname=="The Democratic Republic of Congo" ) //we have 68 hcp countries 
 	
 	
 ///////////////////////////////////////////////for AFRICA			
@@ -824,11 +826,11 @@ gen socprot_comp_mrmi = ///
 
 gen socprot_text="" + wbcountrynameb + ///
 " spends **" + strofreal(round(lastnm_all_soc_ass_pctgdp,0.1)) + ///
-" percent** of its GDP on social protection. "  ///
+" percent** of its GDP on social assistance. "  ///
 + socprot_comp_mrmi + ""
 
 replace socprot_text="In " + wbcountrynameb + ///
-", data on social protection spending do not exist." + ///
+", data on social assistance spending do not exist." + ///
 " The average for the country's region is "  + strofreal(round(lastnm_all_soc_ass_pctgdp_mr,0.1)) + ///
 " percent and for its income group is " + strofreal(round(lastnm_all_soc_ass_pctgdp_mi,0.1)) + " percent." if lastnm_all_soc_ass_pctgdp==.
 
