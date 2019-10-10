@@ -635,7 +635,7 @@ keep if lastnm_all_soc_ass_pctgdp!=. & lastnm_all_soc_ass_pctgdp_mi!=. & lastnm_
 & lastnm_domphegdp!=. & lastnm_domphegdp_mr!=. & lastnm_domphegdp_mi!=.
 
 
-local x=110
+local x=113
 forvalues i=1/`x' {
 	local ctry=wbcode in `i'
 	local region=wbregion in `i'
@@ -689,7 +689,7 @@ forvalues i=1/`x' {
 	(bar lastnm_all_soc_ass_pctgdp j, color(reddish)) ///
 	(bar lastnm_all_soc_ass_pctgdp_mr k, color(turquoise)) ///
 	(bar lastnm_all_soc_ass_pctgdp_mi l, color(sky)) ///
-	in `i',  xlabel(  2 "Health" 6 "Education" 10 "Social Protection") ylabel(0 (10)40) ///
+	in `i',  xlabel(  2 "Health" 6 "Education" 10 "Social Protection") ylabel(0 (5)15) ///
 	ytitle("% of GDP", size(medium)) title("2. Government Expenditure on the Social Sectors" , size(large) span) ///
 	legend(label(1 "`ctry'") label(2 "`region'") label(3 "`income'")) legend(order(1 2 3) pos(5)col(3) row(1)) graphregion(fcolor(white)) ///
 	graphregion(fcolor(white)) ysize(6) xsize(8) ///
@@ -713,7 +713,7 @@ keep if (lastnm_all_soc_ass_pctgdp==. | lastnm_all_soc_ass_pctgdp_mi==. | lastnm
 
 
 
-local x=66
+local x=61
 forvalues i=1/`x' {
 	local ctry=wbcode in `i'
 	local region=wbregion in `i'
@@ -752,7 +752,7 @@ forvalues i=1/`x' {
 	(bar lastnm_exp_total_percgdp_raw e, color(reddish)) ///
 	(bar lastnm_exp_total_percgdp_raw_mr f, color(turquoise)) ///
 	(bar lastnm_exp_total_percgdp_raw_mi g, color(sky)) ///
-	in `i' ,  xlabel(  2 "Health" 6 "Education" ) ylabel(0 (10)40) ///
+	in `i' ,  xlabel(  2 "Health" 6 "Education" ) ylabel(0 (5)15) ///
 	ytitle("% of GDP", size(medium)) title("2. Government Expenditure on the Social Sectors" , size(large) span) ///
 	legend(label(1 "`ctry'") label(2 "`region'") label(3 "`income'")) legend(order(1 2 3) pos(5) col(2) row(1)) graphregion(fcolor(white)) ///
 	graphregion(fcolor(white)) ysize(6) xsize(8) ///
@@ -773,7 +773,7 @@ keep if (lastnm_exp_total_percgdp_raw==. | lastnm_exp_total_percgdp_raw_mi==. | 
 & (lastnm_all_soc_ass_pctgdp!=. & lastnm_all_soc_ass_pctgdp_mi!=. & lastnm_all_soc_ass_pctgdp_mr!=. ///
 & lastnm_domphegdp!=. & lastnm_domphegdp_mr!=. & lastnm_domphegdp_mi!=.)
 
-local x=4
+local x=7
 forvalues i=1/`x' {
 	local ctry=wbcode in `i'
 	local region=wbregion in `i'
@@ -812,7 +812,7 @@ forvalues i=1/`x' {
 	(bar lastnm_all_soc_ass_pctgdp e, color(reddish)) ///
 	(bar lastnm_all_soc_ass_pctgdp_mr f, color(turquoise)) ///
 	(bar lastnm_all_soc_ass_pctgdp_mi g, color(sky)) ///
-	in `i' ,  xlabel(  2 "Health" 6 "Social Protection" ) ylabel(0 (10)40) ///
+	in `i' ,  xlabel(  2 "Health" 6 "Social Protection" ) ylabel(0 (5)15) ///
 	ytitle("% of GDP", size(medium)) title("2. Government Expenditure on Health & Social Protection" , size(large) span) ///
 	legend(label(1 "`ctry'") label(2 "`region'") label(3 "`income'")) legend(order(1 2 3) pos(5) col(2) row(1)) graphregion(fcolor(white)) ///
 	graphregion(fcolor(white)) ysize(6) xsize(8) ///
@@ -821,6 +821,8 @@ forvalues i=1/`x' {
 	graph export "$charts\socsec_`ctry'.pdf", replace
 	graph save "$charts\socsec_`ctry'", replace
 }
+
+
 
 
 
