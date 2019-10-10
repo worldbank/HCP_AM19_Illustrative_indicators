@@ -72,8 +72,8 @@ countries <- c("COL", "ARG")
 countries <- c("IND")
 
 
-countries <- NULL
 countries <- c("ETH")
+countries <- NULL
 if (length(countries) > 0) {
   hci <-  hci %>% filter(wbcode  %in% countries)
 }

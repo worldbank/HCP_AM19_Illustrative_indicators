@@ -363,13 +363,12 @@ replace `j'=round(`j',1)
 gen intro_text  = "This note presents a snapshot of the country's commitment on the human capital agenda and the main actions being taken by the World Bank Group to support the government."
 
 gen hci_text = ///
-  cond(hci_mf_100 != ., "In " + wbcountrynameb + " the productivity as a future worker" ///
+  cond(hci_mf_100 != . & wdr == 1, "In " + wbcountrynameb + " the productivity as a future worker" ///
   + " of a child born today is **" + strofreal(round(hci_mf_100,1)) + " percent**" ///
   + " as much as it could be. The country ranks **" + strofreal(round(hcirank,1)) + " out of 157** in the global HCI." ///
-  + " For more information on human capital outcomes and the HCI, please see the country two-pager on \boldblue{www.worldbank.org/humancapitalproject}",   ///
+  + " For more information on human capital outcomes and the HCI, please see the country two-pager on \boldblue{www.worldbank.org/en/publication/human-capital}.",   ///
      "In " + wbcountrynameb + " there are no enough data to calculate the productivity as a future worker of a child born today." ///
-	 + " The HCI has three components: survival to age 5, health, and education. For more information on human capital outcomes and the HCI, please see" ///
-	 + " the country two-pager on \boldblue{https://www.worldbank.org/en/publication/human-capital#Data}")
+	 + " The HCI has three components: survival to age 5, health, and education. For more information on the HCI, please visit \boldblue{www.worldbank.org/humancapitalproject}.")
 	 
 	 
 ////////////////////////////////////////////
