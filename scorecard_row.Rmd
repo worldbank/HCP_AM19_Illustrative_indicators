@@ -38,9 +38,9 @@ header-includes:  \usepackage{fancyhdr}
 \definecolor{bondiblue}{rgb}{0.0, 0.58, 0.71}
 \newcommand\boldblue[1]{\textcolor{bondiblue}{\textbf{#1}}}
   
-This country profile presents a snapshot of illustrative indicators to guide discussions during the Annual Meetings while the set of more strategic indicators are under development. It is intended to be a conversation starter on where a country is on various aspects of human capital development and, as such, it includes indicators from various sectors.It is to be noted that not all the indicators included here are relevant for each country. Information contained here should be complemented with other more context-specific indicators. 
+This country profile presents a snapshot of illustrative indicators to guide discussions during the Annual Meetings while the set of more strategic indicators are under development. It is intended to be a conversation starter on where a country is on various aspects of human capital development and, as such, it includes indicators from various sectors. It is to be noted that not all the indicators included here are relevant for each country. Information contained here should be complemented with other more context-specific indicators. 
 
- `r x[["hci_text"]]`
+`r x[["hci_text"]]`
 
 \Begin{multicols}{2}
 
@@ -77,7 +77,7 @@ knitr::include_graphics(gr1)
 
 * **Education Spending.** `r x[["edu_text"]]`
 
-* **Social Protection Spending.** `r x[["socprot_text"]]`
+* **Social Assistance Spending.** `r x[["socprot_text"]]`
 
 ```{r out.width = "100%", out.height="120%", fig.align = "right", echo=FALSE, strip.white=TRUE}
 gr2 <- paste0("charts/socsec_", x[["wbcode"]], ".pdf")
@@ -111,7 +111,7 @@ knitr::include_graphics(gr4)
 \noindent\rule{9cm}{0.4pt}
  &nbsp;
   
-This country profile is based on most recent data available under the Human Capital Project and the World Development Indicators.
+This country profile is based on most recent data available under the Human Capital Project, the World Development Indicators, Atlas of Social Protection - Indicators of Resilience and Equity (ASPIRE) and Identification for Development (ID4D).
   &nbsp;
   
 For more information on data sources, please contact the Human Capital Project team: humancapital@worldbank.org.  

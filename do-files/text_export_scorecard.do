@@ -231,7 +231,9 @@ gen difdrmpred = drm-pdrm
 egen nm=rownonmiss(lny drm hci_mf health_ed_pc) //how many countries have nonmissing data for figure 2,3 and 4
 tab nm
 	
-replace  hcicountry=1 if (wbcountryname=="Tanzania" | wbcountryname=="Cambodia") //we have 64 hcp countries 
+replace  hcicountry=1 if (wbcountryname=="Tanzania" | wbcountryname=="Cambodia") 
+replace  hcicountry=1 if (wbcountryname=="Ireland" | wbcountryname=="The Republic of Yemen") 
+replace  hcicountry=1 if (wbcountryname=="The Democratic Republic of Congo" ) //we have 68 hcp countries 
 	
 	
 ///////////////////////////////////////////////for AFRICA			
@@ -361,13 +363,12 @@ replace `j'=round(`j',1)
 gen intro_text  = "This note presents a snapshot of the country's commitment on the human capital agenda and the main actions being taken by the World Bank Group to support the government."
 
 gen hci_text = ///
-  cond(hci_mf_100 != ., "In " + wbcountrynameb + " the productivity as a future worker" ///
+  cond(hci_mf_100 != . & wdr == 1, "In " + wbcountrynameb + " the productivity as a future worker" ///
   + " of a child born today is **" + strofreal(round(hci_mf_100,1)) + " percent**" ///
   + " as much as it could be. The country ranks **" + strofreal(round(hcirank,1)) + " out of 157** in the global HCI." ///
-  + " For more information on human capital outcomes and the HCI, please see the country two-pager on \boldblue{www.worldbank.org/humancapitalproject}",   ///
+  + " For more information on human capital outcomes and the HCI, please see the country two-pager on \boldblue{www.worldbank.org/en/publication/human-capital}.",   ///
      "In " + wbcountrynameb + " there are no enough data to calculate the productivity as a future worker of a child born today." ///
-	 + " The HCI has three components: survival to age 5, health, and education. For more information on human capital outcomes and the HCI, please see" ///
-	 + " the country two-pager on \boldblue{www.worldbank.org/humancapitalproject}")
+	 + " The HCI has three components: survival to age 5, health, and education. For more information on the HCI, please visit \boldblue{www.worldbank.org/humancapitalproject}.")
 	 
 	 
 ////////////////////////////////////////////
@@ -824,11 +825,11 @@ gen socprot_comp_mrmi = ///
 
 gen socprot_text="" + wbcountrynameb + ///
 " spends **" + strofreal(round(lastnm_all_soc_ass_pctgdp,0.1)) + ///
-" percent** of its GDP on social protection. "  ///
+" percent** of its GDP on social assistance. "  ///
 + socprot_comp_mrmi + ""
 
 replace socprot_text="In " + wbcountrynameb + ///
-", data on social protection spending do not exist." + ///
+", data on social assistance spending do not exist." + ///
 " The average for the country's region is "  + strofreal(round(lastnm_all_soc_ass_pctgdp_mr,0.1)) + ///
 " percent and for its income group is " + strofreal(round(lastnm_all_soc_ass_pctgdp_mi,0.1)) + " percent." if lastnm_all_soc_ass_pctgdp==.
 
@@ -1083,7 +1084,7 @@ format %9.0fc unregpop_share_mi
 
 
 
-save "input/textforscorecard.dta", replace
+saveold "input/textforscorecard.dta", replace
 
 
 /////////////////////////////////////////////

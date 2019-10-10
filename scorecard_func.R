@@ -67,24 +67,31 @@ color_cell <-  function(f, df) {
 
 # Run rmarkdown ----------------------------------------------------------------
 
-RunMD <- function(x) {
-  file_name <- paste0("scorecard_", x[["wbcode"]])
+RunMD <- function(x, ver) {
+
+  if (!(ver  %in% c("afr", "wld"))) {
+    stop("option `ver` should be either 'wld' or 'afr'")
+  }
+
   countrynamet <- x[["wbcountryname"]]
 
-  if (x[["adminregion"]] == "SSA") {
+  if (ver  == "afr") {
+    base_name <- "AFR_HC_scorecard"
     input <- "scorecard_Africa.Rmd"
+
   } else {
+    base_name <- "HC_indicators"
     input <- "scorecard_row.Rmd"
   }
 
+  file_name <- paste0(base_name, "_", x[["wbcode"]], ".pdf")
+
   result <-  tryCatch({
     rmarkdown::render(
-      #input = "scorecard.Rmd",
       input = input,
-      #input = "test/test.Rmd",
       output_format = "pdf_document",
-      output_file = paste0(file_name, ".pdf"),
-      output_dir = "output/",
+      output_file = file_name,
+      output_dir = base_name,
       intermediates_dir = "failed_log"
     )
 
@@ -108,25 +115,36 @@ RunMD <- function(x) {
 
 # Delete and copy files --------------------------------------------------------
 
-dc_files <- function() {
+dc_files <- function(ver) {
+
+
+  if (!(ver  %in% c("afr", "wld"))) {
+    stop("option `ver` should be either 'wld' or 'afr'")
+  }
+
+  if (ver  == "afr") {
+    base_name <- "AFR_HC_scorecard"
+  } else {
+    base_name <- "HC_indicators"
+  }
 
   # check if region folder exists
   reg_dir <- hci %>%
     count(wbregion) %>%
-    transmute(dir = paste0("output/", wbregion),
+    transmute(dir = paste0(base_name, "/", wbregion),
               dir_e = dir.exists(dir))
 
   lapply(reg_dir$dir[!reg_dir$dir_e], dir.create, showWarnings = FALSE)
 
   # copy PDFs
   x <- hci %>%
-    transmute(file = paste0("scorecard_", wbcode ,".pdf"),
-              dir = paste0("output/", wbregion))
+    transmute(file = paste0(base_name, "_", wbcode ,".pdf"),
+              dir = paste0(base_name, "/", wbregion))
 
 
-  map2(x$file, x$dir, ~file.copy(from = .x,
-                                        to = .y,
-                                        overwrite = TRUE))
+  walk2(x$file, x$dir, ~file.copy(from = .x,
+                                to = .y,
+                                overwrite = TRUE))
 
   file.remove(x$file)
 
