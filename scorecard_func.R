@@ -164,11 +164,17 @@ dc_files <- function(ver) {
   if (ver  == "wld") {
     p <- page_df(ver) # data frame with countries and pages
 
-    countries <- p %>%
-      filter(pages == 3) %>%
-      select(country)
+    f <- p %>%
+      filter(pages == 1) %>%
+      select(country) %>%
+      summarise(f = paste(country, collapse =  "|"))
 
-    hci <-  hci %>% filter(wbcode  %in% countries[["country"]])
+    one_page <- list.files(pattern = paste0(base_name, "_(", f[["f"]],")\\.pdf$"),
+                       include.dirs = TRUE,
+                       recursive = TRUE)
+
+
+
   }
 }
 

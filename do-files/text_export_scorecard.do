@@ -109,6 +109,12 @@ replace wbcountryname="The Virgin Islands" if wbcountryname=="Virgin Islands (U.
 replace wbcountrynameb=wbcountryname if wbcountrynameb==""
 
 
+* Create variable with capital The for countries with there
+
+gen wbcountrynameB = cond(regexm(wbcountrynameb, "^the "), /* 
+ */ "T"+ substr(wbcountrynameb, 2, .), wbcountrynameb)
+
+
 gen af_hcitarg = 45
 gen af_odtarg = 15
 gen af_lastspctarg = 30
@@ -762,7 +768,7 @@ gen hci_mem = ///
   cond(hcicountry == 1, "has",   ///
   cond(hcicountry  ==0, "has not yet",           ///
            ""))
-gen hci_memt="" + wbcountrynameb + " " + hci_mem + " signed up to be a member of the Human Capital Project." 
+gen hci_memt="" + wbcountrynameB + " " + hci_mem + " signed up to be a member of the Human Capital Project." 
 /////////////////////////////////////
 gen edu_comp_mrmi = ///
          cond(lastnm_exp_total_percgdp_raw< lastnm_exp_total_percgdp_raw_mr & lastnm_exp_total_percgdp_raw<lastnm_exp_total_percgdp_raw_mi,                 /* 
@@ -775,7 +781,7 @@ gen edu_comp_mrmi = ///
 */ "This is higher than  the average for its region (" + strofreal(round(lastnm_exp_total_percgdp_raw_mr,0.1)) + ") but lower than the average for its income group (" + strofreal(round(lastnm_exp_total_percgdp_raw_mi,0.1)) + ").", /*        
 */ "")))) if lastnm_exp_total_percgdp_raw!=.
 
-gen edu_text="" + wbcountrynameb + /// we still need to specify for missing data cases
+gen edu_text="" + wbcountrynameB + /// we still need to specify for missing data cases
 " spends **" + strofreal(round(lastnm_exp_total_percgdp_raw,0.1)) + ///
 " percent** of its GDP on education. "  /// 
 + edu_comp_mrmi + ""
@@ -799,7 +805,7 @@ gen health_comp_mrmi = ///
 */ "This is higher than  the average for its region (" + strofreal(round(lastnm_domphegdp_mr,0.1)) + ") but lower than the average for its income group (" + strofreal(round(lastnm_domphegdp_mi,0.1)) + ").", /*        
 */ "")))) if lastnm_domphegdp!=.
 
-gen health_text="" + wbcountrynameb + ///
+gen health_text="" + wbcountrynameB + ///
 " spends **" + strofreal(round(lastnm_domphegdp,0.1)) + ///
 " percent** of its GDP on health. "  ///
 + health_comp_mrmi + ""
@@ -823,7 +829,7 @@ gen socprot_comp_mrmi = ///
 */ "This is higher than  the average for its region (" + strofreal(round(lastnm_all_soc_ass_pctgdp_mr,0.1)) + ") but lower than the average for its income group (" + strofreal(round(lastnm_all_soc_ass_pctgdp_mi,0.1)) + ").", /*        
 */ "")))) if lastnm_all_soc_ass_pctgdp!=.
 
-gen socprot_text="" + wbcountrynameb + ///
+gen socprot_text="" + wbcountrynameB + ///
 " spends **" + strofreal(round(lastnm_all_soc_ass_pctgdp,0.1)) + ///
 " percent** of its GDP on social assistance. "  ///
 + socprot_comp_mrmi + ""

@@ -77,12 +77,23 @@ countries <- c("BGD")
 countries <- c("LKA", "NPL")
 
 countries <- NULL
+
 if (length(countries) > 0) {
   hci <-  hci %>% filter(wbcode  %in% countries)
 }
 
+cc <- NULL
+cc <- hci %>%
+  filter(str_detect(wbcountrynameb, "^the ")) %>%
+  select(wbcode)
+
+if (length(cc) > 0) {
+  hci <-  hci %>% filter(wbcode  %in% cc[["wbcode"]])
+}
+
+
 # select countries based on number of pages
-pages <- 1
+pages <- 0
 if (pages == 1) {
   p <- page_df(ver) # data frame with countries and pages
 
