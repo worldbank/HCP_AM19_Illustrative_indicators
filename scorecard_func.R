@@ -166,14 +166,18 @@ dc_files <- function(ver) {
 
     f <- p %>%
       filter(pages == 1) %>%
-      select(country) %>%
-      summarise(f = paste(country, collapse =  "|"))
+      pull(country) %>%
+      paste(collapse =  "|")
 
-    one_page <- list.files(pattern = paste0(base_name, "_(", f[["f"]],")\\.pdf$"),
+    one_page <- list.files(pattern = paste0(base_name, "_(", f,")\\.pdf$"),
                        include.dirs = TRUE,
                        recursive = TRUE)
 
-
+    s <- map_lgl(one_page, ~file.copy(from = .x,
+                              to = "one_page",
+                              overwrite = TRUE))
+    one_page <- one_page[s]
+    file.remove(one_page)
 
   }
 }

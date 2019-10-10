@@ -78,19 +78,12 @@ countries <- c("LKA", "NPL")
 
 countries <- NULL
 
-if (length(countries) > 0) {
-  hci <-  hci %>% filter(wbcode  %in% countries)
-}
 
-cc <- NULL
-cc <- hci %>%
+# Select countries based on the word 'the'
+# countries <- countries[["wbcode"]]
+countries <- hci %>%
   filter(str_detect(wbcountrynameb, "^the ")) %>%
-  select(wbcode)
-
-if (length(cc) > 0) {
-  hci <-  hci %>% filter(wbcode  %in% cc[["wbcode"]])
-}
-
+  pull(wbcode)
 
 # select countries based on number of pages
 pages <- 0
@@ -99,9 +92,11 @@ if (pages == 1) {
 
   countries <- p %>%
     filter(pages == 3) %>%
-    select(country)
+    pull(country)
+}
 
-  hci <-  hci %>% filter(wbcode  %in% countries[["country"]])
+if (length(countries) > 0) {
+  hci <-  hci %>% filter(wbcode  %in% countries)
 }
 
 # execute creation of pdf
