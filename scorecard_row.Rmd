@@ -38,9 +38,9 @@ header-includes:  \usepackage{fancyhdr}
 \definecolor{bondiblue}{rgb}{0.0, 0.58, 0.71}
 \newcommand\boldblue[1]{\textcolor{bondiblue}{\textbf{#1}}}
   
-This country profile presents a snapshot of illustrative indicators to guide discussions during the Annual Meetings while the set of more strategic indicators are under development. It is intended to be a conversation starter on where a country is on various aspects of human capital development and, as such, it includes indicators from various sectors.It is to be noted that not all the indicators included here are relevant for each country. Information contained here should be complemented with other more context-specific indicators. 
+This country profile presents a snapshot of illustrative indicators to guide discussions during the Annual Meetings while the set of more strategic indicators are under development. It is intended to be a conversation starter on where a country is on various aspects of human capital development and, as such, it includes indicators from various sectors. It is to be noted that not all the indicators included here are relevant for each country. Information contained here should be complemented with other more context-specific indicators. 
 
- `r x[["hci_text"]]`
+`r x[["hci_text"]]`
 
 \Begin{multicols}{2}
 
