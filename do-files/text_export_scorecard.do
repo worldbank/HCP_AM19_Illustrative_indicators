@@ -367,7 +367,7 @@ gen hci_text = ///
   + " For more information on human capital outcomes and the HCI, please see the country two-pager on \boldblue{www.worldbank.org/humancapitalproject}",   ///
      "In " + wbcountrynameb + " there are no enough data to calculate the productivity as a future worker of a child born today." ///
 	 + " The HCI has three components: survival to age 5, health, and education. For more information on human capital outcomes and the HCI, please see" ///
-	 + " the country two-pager on \boldblue{www.worldbank.org/humancapitalproject}")
+	 + " the country two-pager on \boldblue{https://www.worldbank.org/en/publication/human-capital#Data}")
 	 
 	 
 ////////////////////////////////////////////
@@ -1083,7 +1083,7 @@ format %9.0fc unregpop_share_mi
 
 
 
-save "input/textforscorecard.dta", replace
+saveold "input/textforscorecard.dta", replace
 
 
 /////////////////////////////////////////////

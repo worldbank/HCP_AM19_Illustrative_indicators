@@ -59,17 +59,7 @@ hci <- cbind(hci, tv)
 #   Create two-pagers
 #----------------------------------------------------------
 
-
-countries <- c("COL", "ARG")
-countries <- c("IND")
-
-countries <- NULL
-
-countries <- c("ETH")
-if (length(countries) > 0) {
-  hci <-  hci %>% filter(wbcode  %in% countries)
-}
-
+# select version of document
 ver <- "afr"
 ver <- "wld"
 if (ver == "afr") {
@@ -77,7 +67,21 @@ if (ver == "afr") {
 }
 
 
+# select countries
+countries <- c("COL", "ARG")
+countries <- c("IND")
+
+
+countries <- NULL
+countries <- c("ETH")
+if (length(countries) > 0) {
+  hci <-  hci %>% filter(wbcode  %in% countries)
+}
+
+
+# execute creation of pdf
 y <- apply(hci, 1, RunMD, ver = ver)
+
 
 ## Show countries with error
 e <- tibble::tibble(code = rep(NA, length(y)), m = rep(NA, length(y)))
