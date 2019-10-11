@@ -75,7 +75,7 @@ countries <- c("IND")
 # Select countries based on the word 'the'
 # countries <- countries[["wbcode"]]
 countries <- hci %>%
-  filter(str_detect(wbcountrynameb, "^the ")) %>%
+  filter(str_detect(wbcountrynameb, "^the ")) %>% # countries that start with the
   pull(wbcode)
 
 countries <- c("LKA", "NPL")
@@ -83,6 +83,11 @@ countries <- c("LKA", "NPL")
 countries <- c("COL")
 
 countries <- NULL # move this one right before condition (length(countries) > 0)
+
+countries <- hci %>%
+  filter(str_detect(wbcountryname, "[À-ÿ]")) %>% # find letters and vocal with accents
+  pull(wbcode)
+
 # select countries based on number of pages
 pages <- 0
 if (pages == 1) {

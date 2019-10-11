@@ -1090,7 +1090,7 @@ format %9.0fc unregpop_share_mi
 
 
 
-saveold "input/textforscorecard.dta", replace
+save "input/textforscorecard.dta", replace
 
 
 /////////////////////////////////////////////
