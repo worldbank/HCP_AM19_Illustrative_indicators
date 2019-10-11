@@ -8,7 +8,7 @@ output:
    fig_caption: yes
    keep_tex: yes
 fontsize: 9.2pt
-geometry: "left=1cm,right=1cm,top=2cm,bottom=2cm"
+geometry: "left=1.3cm,right=1.3cm,top=2cm,bottom=2cm"
 header-includes:  \usepackage{fancyhdr}
   \usepackage{graphicx}
   \usepackage{eurosym}
@@ -41,6 +41,8 @@ header-includes:  \usepackage{fancyhdr}
       urlcolor=cyan,
   }
   \urlstyle{same}
+  \usepackage{enumitem}
+  \setlist{leftmargin=*}
 ---
 
 \definecolor{bondiblue}{rgb}{0.0, 0.58, 0.71}
