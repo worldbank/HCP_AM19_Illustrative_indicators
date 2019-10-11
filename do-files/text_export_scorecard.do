@@ -372,9 +372,9 @@ gen hci_text = ///
   cond(hci_mf_100 != . & wdr == 1, "In " + wbcountrynameb + " the productivity as a future worker" ///
   + " of a child born today is **" + strofreal(round(hci_mf_100,1)) + " percent**" ///
   + " as much as it could be. The country ranks **" + strofreal(round(hcirank,1)) + " out of 157** in the global HCI." ///
-  + " For more information on human capital outcomes and the HCI, please see the country two-pager on \boldblue{www.worldbank.org/en/publication/human-capital}.",   ///
+  + " For more information on human capital outcomes and the HCI, please see the country two-pager on \url{www.worldbank.org/en/publication/human-capital}.",   ///
      "In " + wbcountrynameb + " there are no enough data to calculate the productivity as a future worker of a child born today." ///
-	 + " The HCI has three components: survival to age 5, health, and education. For more information on the HCI, please visit \boldblue{www.worldbank.org/humancapitalproject}.")
+	 + " The HCI has three components: survival to age 5, health, and education. For more information on the HCI, please visit \url{www.worldbank.org/humancapitalproject}.")
 	 
 	 
 ////////////////////////////////////////////

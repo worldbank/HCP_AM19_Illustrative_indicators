@@ -72,19 +72,17 @@ if (ver == "afr") {
 countries <- c("COL", "ARG")
 countries <- c("IND")
 
-
-countries <- c("BGD")
-countries <- c("LKA", "NPL")
-
-countries <- NULL
-
-
 # Select countries based on the word 'the'
 # countries <- countries[["wbcode"]]
 countries <- hci %>%
   filter(str_detect(wbcountrynameb, "^the ")) %>%
   pull(wbcode)
 
+countries <- c("LKA", "NPL")
+
+countries <- c("COL")
+
+countries <- NULL # move this one right before condition (length(countries) > 0)
 # select countries based on number of pages
 pages <- 0
 if (pages == 1) {
