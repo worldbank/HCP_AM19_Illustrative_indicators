@@ -169,10 +169,11 @@ dc_files <- function(ver) {
       pull(country) %>%
       paste(collapse =  "|")
 
-    one_page <- list.files(pattern = paste0(base_name, "/.*" , base_name,
-                                            "_(", f,")\\.pdf$"),
+    one_page <- list.files(path = base_name,
+                           pattern = paste0( base_name, "_(", f,")\\.pdf$"),
                        include.dirs = TRUE,
                        recursive = TRUE)
+    one_page <- paste0(base_name,"/",one_page)
 
     if (length(one_page)) {
       s <- map_lgl(one_page, ~file.copy(from = .x,
