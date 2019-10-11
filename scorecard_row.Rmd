@@ -8,7 +8,7 @@ output:
    fig_caption: yes
    keep_tex: yes
 fontsize: 9.2pt
-geometry: "left=1.5cm,right=1.5cm,top=2.2cm,bottom=2.2cm"
+geometry: "left=1cm,right=1cm,top=2cm,bottom=2cm"
 header-includes:  \usepackage{fancyhdr}
   \usepackage{graphicx}
   \usepackage{eurosym}
@@ -32,7 +32,15 @@ header-includes:  \usepackage{fancyhdr}
     \let\End\end
   }
   \usepackage{caption}
-  \captionsetup{skip=0pt} 
+  \captionsetup{skip=0pt}
+  \usepackage{hyperref}
+  \hypersetup{
+      colorlinks=true,
+      linkcolor=blue,
+      filecolor=magenta,      
+      urlcolor=cyan,
+  }
+  \urlstyle{same}
 ---
 
 \definecolor{bondiblue}{rgb}{0.0, 0.58, 0.71}
@@ -66,7 +74,7 @@ This country profile presents a snapshot of illustrative indicators to guide dis
 
 * **Road Traffic Deaths.** `r x[["road_traff_text"]]`
 
-```{r out.width = "100%", fig.align = "right", echo=FALSE}
+```{r gr1, out.width = "100%", fig.align = "right", echo=FALSE}
 gr1 <- paste0("charts/all_mf_", x[["wbcode"]], ".pdf")
 knitr::include_graphics(gr1)
 ```

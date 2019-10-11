@@ -204,7 +204,7 @@ foreach i of local obs {
 count
 numlist "1/`r(N)'"
 local obs = "`r(numlist)'"
-//local obs = 90 //use this to only run for one country
+local obs = 42 //use this to only run for one country
 
 foreach i of local obs {
 	if (wbregion[`i'] == "fakeregion") continue 
@@ -445,7 +445,7 @@ foreach i of local obs {
 	}
 }
 
-
+exit
 //////////////////////////////////////////////////////////////////////////////////////END
 
 //CODES FOR GRAPHS
