@@ -416,8 +416,8 @@ foreach i of local obs {
 		lastafr_`ctry'.gph contracep_`ctry'.gph  lastspc_`ctry'.gph lastodcomp_`ctry'.gph  ///
 		lastnm_hygiene_basic_`ctry'.gph lastnm_water_basic_plus_`ctry'.gph ///
 		lastnm_clean_fuel_`ctry'.gph lastnm_electric_`ctry'.gph lastnm_road_traff_`ctry'.gph ///
-		, colfirst rows(13) cols(1) ysize(10) xsize(5) graphregion(margin(l=22 r=22)) graphregion(margin(zero)) title("" /// 
-		, size(vsmall) suffix color(black) linegap(1)) graphregion(fcolor(white)) /// 
+		, colfirst rows(13) cols(1) ysize(10) xsize(5) graphregion(margin(l=22 r=22)) graphregion(margin(zero)) title("{bf: 1. Key Indicators on Human Capital}" /// 
+		, size(large) suffix color(black) linegap(3)) graphregion(fcolor(white)) /// 
 		note("{it:- Large circle=`country' ; small circles=other countries.}" ///
 		"{it:- Vertical lines separate terciles of the distribution.}" /// 
 		"{it:- Colors indicate the terciles of the distribution across countries.}" ///
@@ -445,7 +445,7 @@ foreach i of local obs {
 	}
 }
 
-exit 
+exit
 //////////////////////////////////////////////////////////////////////////////////////END
 
 //CODES FOR GRAPHS
