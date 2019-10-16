@@ -83,7 +83,6 @@ countries <- c("LKA", "NPL")
 
 countries <- NULL # move this one right before condition (length(countries) > 0)
 
-countries <- c("ARE")
 countries <- hci %>%
   filter(str_detect(wbcountryname, "[À-ÿ]")) %>% # find letters and vocal with accents
   pull(wbcode)
@@ -98,6 +97,7 @@ if (pages == 1) {
     pull(country)
 }
 
+countries <- c("EGY")
 if (length(countries) > 0) {
   hci <-  hci %>% filter(wbcode  %in% countries)
 }
