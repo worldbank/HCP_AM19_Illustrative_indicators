@@ -10,16 +10,11 @@ set more off
 
 
 
-if ( lower("`c(username)'") == "wb469563") {
-	global root "C:\Users\WB469563\OneDrive - WBG\Documents (zdebebe@worldbank.org)\OneDrive - WBG\Documents (zdebebe@worldbank.org)\Human Capital Project\CHI_AM19_scorecard"
+if ( lower("`c(username)'") == "wb####") {   // provide user profile (UPI in WB computers)
+	global root ""
 }
-
-if ( lower("`c(username)'") == "wb384996") {
-	global root "c:\Users\wb384996\OneDrive - WBG\WorldBank\CHI_AM19_scorecard"
-}
-
-if ( lower("`c(username)'") == "wb538904") {
-	global root "C:\Users\WB538904\OneDrive - WBG\CHI_AM19_scorecard"
+else {
+	global root ""
 }
 
 
@@ -445,7 +440,7 @@ foreach i of local obs {
 	}
 }
 
-exit
+
 //////////////////////////////////////////////////////////////////////////////////////END
 
 //CODES FOR GRAPHS
