@@ -15,7 +15,7 @@ source("illustrative_indicators_func.R")
 #----------------------------------------------------------
 
 #--- HCI
-hci <- haven::read_dta("input/textforscorecard.dta")
+hci <- haven::read_dta("input/text_for_illustrative_indicators.dta")
 
 #---- Row labels of table
 rl <- rows_lab()   # rows labels

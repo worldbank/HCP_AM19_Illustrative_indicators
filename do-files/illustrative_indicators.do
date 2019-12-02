@@ -27,7 +27,7 @@ disp "`date'"
 
 
 
-use "input/scorecardanalysis_2019-10-03.dta", clear 
+use "input/illustrative_indicators_2019-10-03.dta", clear 
 graph set window fontface "Fourier"
 
 
