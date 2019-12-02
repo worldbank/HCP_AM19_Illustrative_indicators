@@ -81,7 +81,7 @@ RunMD <- function(x, ver) {
 
   } else {
     base_name <- "HC_indicators"
-    input <- "scorecard_row.Rmd"
+    input <- "illustrative_indicators.Rmd"
   }
 
   file_name <- paste0(base_name, "_", x[["wbcode"]], ".pdf")
