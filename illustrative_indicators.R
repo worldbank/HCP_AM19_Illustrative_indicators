@@ -8,7 +8,7 @@ library(tidyverse)
 library(pdftools)
 
 # Sub Functions
-source("scorecard_func.R")
+source("illustrative_indicators_func.R")
 
 #----------------------------------------------------------
 #   Load data
