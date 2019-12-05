@@ -91,7 +91,7 @@ RunMD <- function(x, ver) {
       input = input,
       output_format = "pdf_document",
       output_file = file_name,
-      output_dir = base_name,
+      #output_dir = base_name,
       intermediates_dir = "failed_log"
     )
 
