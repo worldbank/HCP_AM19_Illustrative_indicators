@@ -1,5 +1,5 @@
 /*
-Objective: Import hd and non-hd indicators from WDI for the scorecard
+Objective: Import hd and non-hd indicators from WDI and merge with spending data 
 Author: Zelalem Debebe
 Date: October 03 2019
 */
@@ -10,7 +10,7 @@ set maxvar 32000
 
 
 if ( lower("`c(username)'") == "wb469563") {
-	global root "C:\Users\WB469563\OneDrive - WBG\Documents (zdebebe@worldbank.org)\OneDrive - WBG\Documents (zdebebe@worldbank.org)\Human Capital Project\CHI_AM19_scorecard"
+	global root "C:\Users\WB469563\OneDrive - WBG\Documents (zdebebe@worldbank.org)\OneDrive - WBG\Documents (zdebebe@worldbank.org)\Human Capital Project\HCP_AM19_Illustrative_indicators"
 }
 
 if ( lower("`c(username)'") == "wb384996") {
@@ -30,10 +30,9 @@ cd "${root}"
 local date: disp %tdCY-m-D date("`c(current_date)'", "DMY")
 disp "`date'"
 
-use "input/scorecardanalysis_2019-08-13.dta", clear 
 
-
-ssc install wbopendata, replace		
+cap which wbopendata
+if _rc ssc install wbopendata, replace		
 set checksum off
 
 
@@ -68,7 +67,7 @@ gen nyear = -year
 		 
 // generate vars for the last and first observations in a timeseries 
 foreach j of varlist electric clean_fuel road_traff hygiene_basic water_basic_plus sanit_basic_plus ///
-tfr afr contra spc odcomp ner_sec_f drm cpia_hr {
+tfr afr contra spc od odcomp ner_sec_f drm cpia_hr {
 
 sort wbcode year, stable
 
@@ -85,9 +84,9 @@ duplicates drop wbcode, force
 keep wbcode lastnm* 
 
 
-
+/// keep last available data only if more recent than 2005
 foreach j of varlist lastnm_electric lastnm_clean_fuel lastnm_road_traff lastnm_hygiene_basic lastnm_water_basic_plus lastnm_sanit_basic_plus ///
-lastnm_tfr lastnm_afr lastnm_contra lastnm_spc lastnm_odcomp lastnm_ner_sec_f lastnm_drm lastnm_cpia_hr { //turn missing if earlier than 2005
+lastnm_tfr lastnm_afr lastnm_contra lastnm_spc lastnm_od lastnm_odcomp lastnm_ner_sec_f lastnm_drm lastnm_cpia_hr { //turn missing if earlier than 2005
 replace `j'=. if `j'_y<2005
 
 }
@@ -142,12 +141,6 @@ save `tmp2', replace
 
 
 use "input/scorecardanalysis_2019-08-13.dta", clear 
-drop lasttfr yeartfr lastafr lastyearafr contracep contracep_year lastspc ///
-lastyearspc lastodcomp lastner_sec_f lastner_sec_f_year drm drm_year lastcpia_hr lastyearcpia_hr
-
-drop health_ed_pctgdp health_ed_pc health_ed_sp_pc health_ed_sp_pctgdp
-drop _merge 
-sort wbcode 
 
 merge 1:1 wbcode using `tmp'
 drop _merge
@@ -200,6 +193,8 @@ gen lastspc=lastnm_spc
 gen lastyearspc=lastnm_spc_y 
 
 gen lastodcomp=lastnm_odcomp
+gen lastod=lastnm_od
+
 
 gen lastner_sec_f=lastnm_ner_sec_f 
 gen lastner_sec_f_year=lastnm_ner_sec_f_y
@@ -212,7 +207,7 @@ gen lastyearcpia_hr=lastnm_cpia_hr_y
 
 
 
-save "input/scorecardanalysis_2019-10-03.dta", replace
+save "input/illustrative_indicators_2019-10-03.dta", replace
 
 exit
 

@@ -1,6 +1,6 @@
 
-//OBJECTIVE: GENERATE GRAPHS FOR SCORECARD
-//AUTHORS: MARTIN and ZELALEM 
+//OBJECTIVE: GENERATE GRAPHS FOR ILLUSTRATIVE INDICATORS COUNTRY PROFILE
+//AUTHORS: MARTIN DE SIMONE and ZELALEM YILMA DEBEBE
 // Project: HCP 2019
 
 
@@ -31,23 +31,13 @@ use "input/illustrative_indicators_2019-10-03.dta", clear
 graph set window fontface "Fourier"
 
 
-//use scorecardanalysis_2019-10-03.dta, clear
 //graph set window fontface "Baskerville Old Face"
 set scheme plotplainblind, permanently
 
 
-//Preliminaries 
 
-foreach var of varlist lastner_sec_f drm lastcpia_hr unregpop lasttime_nostu_rep ///
-lasttime_hlo_mf_rep dpohc wep hdportfolio_share eduportfolio_share hnpportfolio_share ///
-spjportfolio_share pipeline_hd_share pipeline_edu_share pipeline_hnp_share ///
-pipeline_spj_share do_performance_hd  do_performance_edu do_performance_hnp ///
-do_performance_spj ip_performance_hd  ip_performance_edu ip_performance_hnp ///
-ip_performance_spj disburratio_hd disburratio_edu disburratio_hnp disburratio_spj ///
-avgsize_hd avgsize_edu avgsize_hnp avgsize_spj crossgpshare_hd crossgpshare_edu crossgpshare_hnp crossgpshare_spj {
-	egen `var'_sdr=sd(`var') if year==2017, by(region)
-	egen `var'_sdi=sd(`var') if year==2017, by(income)
-}
+
+//Preliminaries 
 
 
 gen hci_mf_100= hci_mf*100
@@ -57,13 +47,7 @@ foreach gender in mf {
 	foreach var of varlist lastner_sec_f hci_`gender' tnep_`gender' nostu_`gender' ///
 	asr_`gender' psurv_`gender' test_`gender' eyrs_`gender' lastod lastodcomp ///
 	lasttfr lastafr contracep wbl unregpop_share unregpopcomp lastspc ner drm ///
-	lastcpia_hr unregpop lasttime_nostu_rep lasttime_hlo_mf_rep dpohc wep ///
-	hdportfolio_share eduportfolio_share hnpportfolio_share spjportfolio_share ///
-	pipeline_hd_share pipeline_edu_share pipeline_hnp_share pipeline_spj_share ///
-	do_performance_hd  do_performance_edu do_performance_hnp do_performance_spj ///
-	ip_performance_hd  ip_performance_edu ip_performance_hnp ip_performance_spj ///
-	disburratio_hd disburratio_edu disburratio_hnp disburratio_spj  avgsize_hd ///
-	avgsize_edu avgsize_hnp avgsize_spj crossgpshare_hd crossgpshare_edu crossgpshare_hnp crossgpshare_spj ///
+	lastcpia_hr unregpop lasttime_nostu_rep lasttime_hlo_mf_rep ///
 	lastnm_water_basic_plus lastnm_sanit_basic_plus lastnm_hygiene_basic lastnm_road_traff lastnm_clean_fuel lastnm_electric ///
 	lastnm_all_soc_ass_pctgdp lastnm_exp_total_percgdp_raw lastnm_domphegdp {
 		egen `var'_mr=mean(`var') if year==2017, by(region)
@@ -82,23 +66,14 @@ gen r="R"
 gen i="I"
 
 
-//for gender analyses
+//for slider graph
 gen onesvec=1
 gen twosvec=2 
 gen threesvec=3
-xtile mquart=hci_m if year==2017, nq(4)
-xtile fquart=hci_f if year==2017, nq(4)
 
 
 
 ////FOR FIGURE 2 
-
-egen edugov_mi=mean( edugov ) if year==2017, by(wbincomegroup)
-egen edugov_mr=mean( edugov ) if year==2017, by(wbregion)
-egen socprotgov_mi=mean( socprotgov ) if year==2017, by(wbincomegroup)
-egen socprotgov_mr=mean( socprotgov ) if year==2017, by(wbregion)
-egen healthgov_mi=mean( healthgov ) if year==2017, by(wbincomegroup)
-egen healthgov_mr=mean(healthgov ) if year==2017, by(wbregion)
 
 gen x=. //for no show bars in twoway bar graphs
 gen y=.
@@ -114,7 +89,8 @@ gen j=9
 gen k=10
 gen l=11
 
-//FOR FIGURE 3 AND TEXT
+
+//FOR FIGURE 3 
 gen log_health_ed_sp_pc = log(health_ed_sp_pc)
 gen log_health_ed_pc = log(health_ed_pc) //Health and education spending per capita in logs (see another dofile I used to generate this)
 
@@ -123,14 +99,6 @@ gen show=1 if ///
 wbcountryname=="Chad" | wbcountryname=="Bangladesh" | wbcountryname=="Ethiopia" | ///
 wbcountryname=="Kenya" | wbcountryname=="Angola"| wbcountryname=="Georgia" | ///
 wbcountryname=="Kazakhstan"| wbcountryname=="Brazil" | wbcountryname=="Botswana" | wbcountryname=="Slovenia" 
-
-reg hci_mf log_health_ed_sp_pc // use for efficiency for countries where data on SP  exist
-predict phci_mf
-gen difhcipred = hci_mf-phci_mf
-
-reg hci_mf log_health_ed_pc 
-predict p1hci_mf
-gen difhcipred1 = hci_mf-p1hci_mf // use for efficiency for countries where data on SP does not exist
 
 
 
@@ -141,25 +109,12 @@ wbcountryname=="United Arab Emirates" | wbcountryname=="Mozambique" | wbcountryn
 wbcountryname=="Nigeria" | wbcountryname=="Burundi"| wbcountryname=="Bangladesh" | wbcountryname=="Brazil"| wbcountryname=="Turkey" | ///
 wbcountryname=="Singapore"
 
-reg drm lny  if drm<25
-predict pdrm
-gen difdrmpred = drm-pdrm
-
-
-egen nm=rownonmiss(lny drm hci_mf health_ed_pc) //how many countries have nonmissing data for figure 2,3 and 4
-tab nm
-
 gen af_hci_mf_targ =0.45 //for graph line 	
-//gen hci_mf_100 = hci_mf*100
 gen af_hci_targ = 45 //for text 
 gen af_od_targ = 15
 gen af_od_targ_comp=85 //target for the complement of OD rate
 gen af_lastspc_targ = 30
 gen af_lastafr_targ = 83
-gen dif_hci_targ = hci_mf_100 - af_hci_targ
-gen dif_od_targ = lastod - af_od_targ
-gen dif_lastspc_targ = lastspc - af_lastspc_targ
-gen dif_lastafr_targ = lastafr - af_lastafr_targ
 ////////////////////////////////////////////////////////////////////////////////////////////////////////		
 
 
@@ -168,7 +123,6 @@ gen dif_lastafr_targ = lastafr - af_lastafr_targ
 
 
 // set trace on	
-
 /* Old option
 
  
@@ -190,6 +144,11 @@ foreach i of local obs {
 	disp "`i'-" _c
 }
 */
+
+
+
+
+
 
 //CODES FOR GRAPHS
 

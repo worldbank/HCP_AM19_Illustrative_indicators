@@ -1,8 +1,8 @@
 
 /*
-OBJECTIVE: GENERATE TEXT FOR HCI SCORECARD
-AUTHOR: MARTIN DE SIMONE AND ZELALEM YILMA DEBEBE
-DATE: AUGUST 07 2019
+OBJECTIVE: GENERATE TEXT FOR ILLUSTRATIVE INDICATORS COUNTRY PROFILE
+AUTHORS: MARTIN DE SIMONE AND ZELALEM YILMA DEBEBE
+DATE: DECEMBER 03 2019
 
 */
 
@@ -13,11 +13,16 @@ set maxvar 32000
 *set up directory and filepath to database 
 
 
-if ( lower("`c(username)'") == "wb####") {   // provide user profile (UPI in WB computers)
-	global root ""
+if ( lower("`c(username)'") == "wb469563") {
+	global root "C:\Users\WB469563\OneDrive - WBG\Documents (zdebebe@worldbank.org)\OneDrive - WBG\Documents (zdebebe@worldbank.org)\Human Capital Project\HCP_AM19_Illustrative_indicators"
 }
-else {
-	global root ""
+
+if ( lower("`c(username)'") == "wb384996") {
+	global root "c:\Users\wb384996\OneDrive - WBG\WorldBank\CHI_AM19_scorecard"
+}
+
+if ( lower("`c(username)'") == "wb538904") {
+	global root "C:\Users\WB538904\OneDrive - WBG\CHI_AM19_scorecard"
 }
 
 
@@ -27,7 +32,7 @@ cd "${root}"
 
 local date: disp %tdCY-m-D date("`c(current_date)'", "DMY")
 disp "`date'"
-
+ 
 use "input/illustrative_indicators_2019-10-03.dta", clear 
 graph set window fontface "Fourier"
 
@@ -35,6 +40,9 @@ graph set window fontface "Fourier"
 
 
 //Preliminaries 
+
+encode wbregion, gen(region)
+encode  wbincomegroup, gen(income)
 
 gen wbcountrynameb=""
 replace wbcountrynameb="the Comoros" if wbcountryname=="Comoros"
@@ -105,49 +113,20 @@ replace wbcountryname="The Virgin Islands" if wbcountryname=="Virgin Islands (U.
 replace wbcountrynameb=wbcountryname if wbcountrynameb==""
 
 
-* Create variable with capital The for countries with there
+* Create variable with capital The for countries with name starting with the
 
 gen wbcountrynameB = cond(regexm(wbcountrynameb, "^the "), /* 
  */ "T"+ substr(wbcountrynameb, 2, .), wbcountrynameb)
 
 
-gen af_hcitarg = 45
-gen af_odtarg = 15
-gen af_lastspctarg = 30
-gen af_lastafrtarg = 83
-
-
-
-
-
-
-
-
-foreach var of varlist lastner_sec_f drm lastcpia_hr unregpop lasttime_nostu_rep ///
-lasttime_hlo_mf_rep dpohc wep hdportfolio_share eduportfolio_share hnpportfolio_share ///
-spjportfolio_share pipeline_hd_share pipeline_edu_share pipeline_hnp_share pipeline_spj_share ///
-do_performance_hd  do_performance_edu do_performance_hnp do_performance_spj ip_performance_hd  ///
-ip_performance_edu ip_performance_hnp ip_performance_spj disburratio_hd disburratio_edu ///
-disburratio_hnp disburratio_spj  avgsize_hd avgsize_edu avgsize_hnp avgsize_spj crossgpshare_hd ///
-crossgpshare_edu crossgpshare_hnp crossgpshare_spj {
-     egen `var'_sdr=sd(`var') if year==2017, by(region)
-	 egen `var'_sdi=sd(`var') if year==2017, by(income)
-	 }
-
 
 gen hci_mf_100= hci_mf*100
 
-
+// generate regional and income averages and label them
 foreach gender in mf {
-foreach var of varlist lastner_sec_f hci_`gender' tnep_`gender' nostu_`gender' asr_`gender' ///
+foreach var of varlist lastner_sec_f hci_`gender'  nostu_`gender' asr_`gender' ///
 psurv_`gender' test_`gender' eyrs_`gender' lastod lastodcomp lasttfr lastafr contracep wbl ///
-unregpop_share unregpopcomp lastspc ner drm lastcpia_hr unregpop lasttime_nostu_rep ///
-lasttime_hlo_mf_rep dpohc wep hdportfolio_share eduportfolio_share hnpportfolio_share ///
-spjportfolio_share pipeline_hd_share pipeline_edu_share pipeline_hnp_share pipeline_spj_share ///
-do_performance_hd  do_performance_edu do_performance_hnp do_performance_spj ip_performance_hd  ///
-ip_performance_edu ip_performance_hnp ip_performance_spj disburratio_hd disburratio_edu ///
-disburratio_hnp disburratio_spj  avgsize_hd avgsize_edu avgsize_hnp avgsize_spj crossgpshare_hd ///
-crossgpshare_edu crossgpshare_hnp crossgpshare_spj ///
+unregpop_share lastspc drm lastcpia_hr  ///
 lastnm_water_basic_plus lastnm_sanit_basic_plus lastnm_hygiene_basic lastnm_road_traff lastnm_clean_fuel lastnm_electric ///
 lastnm_all_soc_ass_pctgdp lastnm_exp_total_percgdp_raw lastnm_domphegdp {
      egen `var'_mr=mean(`var') if year==2017, by(region)
@@ -162,51 +141,13 @@ label var psurv_`gender'_mr "Region mean"
 label var psurv_`gender'_mi "Income mean"
 
 }
-gen r="R"
-gen i="I"
-
-	
-//for gender analyses
-gen onesvec=1
-gen twosvec=2 
-gen threesvec=3
-xtile mquart=hci_m if year==2017, nq(4)
-xtile fquart=hci_f if year==2017, nq(4)
-
 
 							
-////FOR FIGURE 2 
-							
-egen edugov_mi=mean( edugov ) if year==2017, by(wbincomegroup)
-egen edugov_mr=mean( edugov ) if year==2017, by(wbregion)
-egen socprotgov_mi=mean( socprotgov ) if year==2017, by(wbincomegroup)
-egen socprotgov_mr=mean( socprotgov ) if year==2017, by(wbregion)
-egen healthgov_mi=mean( healthgov ) if year==2017, by(wbincomegroup)
-egen healthgov_mr=mean(healthgov ) if year==2017, by(wbregion)
 
-gen x=. //for no show bars in twoway bar graphs
-gen y=.
-gen a=1
-gen b=2
-gen c=3
-gen d=4
-gen e=5
-gen f=6
-gen g=7
-gen h=8
-gen j=9
-gen k=10
-gen l=11
-
-//FOR FIGURE 3 AND TEXT
+//FOR text accompanying  FIGURE 3, generate predicted error term after a linear-log regression
 gen log_health_ed_sp_pc = log(health_ed_sp_pc)
-gen log_health_ed_pc = log(health_ed_pc) //Health and education spending per capita in logs (see another dofile I used to generate this)
+gen log_health_ed_pc = log(health_ed_pc) // per capita health and education spending in logs 
 
-
-gen show=1 if ///
-wbcountryname=="Chad" | wbcountryname=="Bangladesh" | wbcountryname=="Ethiopia" | ///
-wbcountryname=="Kenya" | wbcountryname=="Angola"| wbcountryname=="Georgia" | ///
-wbcountryname=="Kazakhstan"| wbcountryname=="Brazil" | wbcountryname=="Botswana" | wbcountryname=="Slovenia" 
 
 reg hci_mf log_health_ed_sp_pc // use for efficiency for countries where data on SP  exist
 predict phci_mf
@@ -225,22 +166,14 @@ wbcountryname=="United Arab Emirates" | wbcountryname=="Mozambique" | wbcountryn
 wbcountryname=="Nigeria" | wbcountryname=="Burundi"| wbcountryname=="Bangladesh" | wbcountryname=="Brazil"| wbcountryname=="Turkey" | ///
 wbcountryname=="Singapore"
 
-reg drm lny  if drm<25
-predict pdrm
-gen difdrmpred = drm-pdrm
-
-		
-egen nm=rownonmiss(lny drm hci_mf health_ed_pc) //how many countries have nonmissing data for figure 2,3 and 4
-tab nm
 	
+// update the list of HCP countries
 replace  hcicountry=1 if (wbcountryname=="Tanzania" | wbcountryname=="Cambodia") 
 replace  hcicountry=1 if (wbcountryname=="Ireland" | wbcountryname=="The Republic of Yemen") 
 replace  hcicountry=1 if (wbcountryname=="The Democratic Republic of Congo" ) //we have 68 hcp countries 
 	
 	
-///////////////////////////////////////////////for AFRICA			
-gen af_hci_mf_targ =0.45 //for graph line 	
-//gen hci_mf_100 = hci_mf*100
+/////////////////////////////////////////////// Deviation from AFRICA HCP plan target			
 gen af_hci_targ = 45 //for text 
 gen af_od_targ = 15
 gen af_lastspc_targ = 30
@@ -254,96 +187,6 @@ gen dif_lastafr_targ = lastafr - af_lastafr_targ
 
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-****Creating additional variables*****
-gen hdportfolio_share_diffmr = hdportfolio_share - hdportfolio_share_mr	
-gen eduportfolio_share_diffmr = eduportfolio_share - eduportfolio_share_mr	
-gen hnpportfolio_share_diffmr = hnpportfolio_share - hnpportfolio_share_mr	
-gen spjportfolio_share_diffmr= spjportfolio_share - spjportfolio_share_mr
-gen hdportfolio_share_diffmi = hdportfolio_share - hdportfolio_share_mi	
-gen eduportfolio_share_diffmi = eduportfolio_share - eduportfolio_share_mi	
-gen hnpportfolio_share_diffmi = hnpportfolio_share - hnpportfolio_share_mi	
-gen spjportfolio_share_diffmi= spjportfolio_share - spjportfolio_share_mi
-gen pipeline_hd_share_diffmr = pipeline_hd_share - pipeline_hd_share_mr	
-gen pipeline_edu_share_diffmr = pipeline_edu_share - pipeline_edu_share_mr	
-gen pipeline_hnp_share_diffmr = pipeline_hnp_share - pipeline_hnp_share_mr	
-gen pipeline_spj_share_diffmr = pipeline_spj_share - pipeline_spj_share_mr
-gen pipeline_hd_share_diffmi = pipeline_hd_share - pipeline_hd_share_mi	
-gen pipeline_edu_share_diffmi = pipeline_edu_share - pipeline_edu_share_mi	
-gen pipeline_hnp_share_diffmi = pipeline_hnp_share - pipeline_hnp_share_mi	
-gen pipeline_spj_share_diffmi = pipeline_spj_share - pipeline_spj_share_mi
-gen do_performance_hd_diffmr = do_performance_hd - do_performance_hd_mr	
-gen do_performance_edu_diffmr = do_performance_edu - do_performance_edu_mr	
-gen do_performance_hnp_diffmr = do_performance_hnp - do_performance_hnp_mr	
-gen do_performance_spj_diffmr = do_performance_spj - do_performance_spj_mr
-gen do_performance_hd_diffmi = do_performance_hd - do_performance_hd_mi	
-gen do_performance_edu_diffmi = do_performance_edu - do_performance_edu_mi	
-gen do_performance_hnp_diffmi = do_performance_hnp - do_performance_hnp_mi	
-gen do_performance_spj_diffmi = do_performance_spj - do_performance_spj_mi
-gen ip_performance_hd_diffmr = ip_performance_hd - ip_performance_hd_mr	
-gen ip_performance_edu_diffmr = ip_performance_edu - ip_performance_edu_mr	
-gen ip_performance_hnp_diffmr = ip_performance_hnp - ip_performance_hnp_mr	
-gen ip_performance_spj_diffmr = ip_performance_spj - ip_performance_spj_mr
-gen ip_performance_hd_diffmi = ip_performance_hd - ip_performance_hd_mi	
-gen ip_performance_edu_diffmi = ip_performance_edu - ip_performance_edu_mi	
-gen ip_performance_hnp_diffmi = ip_performance_hnp - ip_performance_hnp_mi	
-gen ip_performance_spj_diffmi = ip_performance_spj - ip_performance_spj_mi
-gen disburratio_hd_diffmr = disburratio_hd - disburratio_hd_mr
-gen disburratio_edu_diffmr = disburratio_edu - disburratio_edu_mr
-gen disburratio_hnp_diffmr = disburratio_hnp - disburratio_hnp_mr
-gen disburratio_spj_diffmr = disburratio_spj - disburratio_spj_mr
-gen disburratio_hd_diffmi = disburratio_hd - disburratio_hd_mi
-gen disburratio_edu_diffmi = disburratio_edu - disburratio_edu_mi
-gen disburratio_hnp_diffmi = disburratio_hnp - disburratio_hnp_mi
-gen disburratio_spj_diffmi = disburratio_spj - disburratio_spj_mi
-gen avgsize_hd_diffmr = avgsize_hd - avgsize_hd_mr
-gen avgsize_edu_diffmr = avgsize_edu - avgsize_edu_mr
-gen avgsize_hnp_diffmr = avgsize_hnp - avgsize_hnp_mr
-gen avgsize_spj_diffmr = avgsize_spj - avgsize_spj_mr
-gen avgsize_hd_diffmi = avgsize_hd - avgsize_hd_mi
-gen avgsize_edu_diffmi = avgsize_edu - avgsize_edu_mi
-gen avgsize_hnp_diffmi = avgsize_hnp - avgsize_hnp_mi
-gen avgsize_spj_diffmi = avgsize_spj - avgsize_spj_mi
-gen crossgpshare_hd_diffmr = crossgpshare_hd - crossgpshare_hd_mr
-gen crossgpshare_edu_diffmr = crossgpshare_edu - crossgpshare_edu_mr	
-gen crossgpshare_hnp_diffmr = crossgpshare_hnp - crossgpshare_hnp_mr
-gen crossgpshare_spj_diffmr = crossgpshare_spj - crossgpshare_spj_mr
-gen crossgpshare_hd_diffmi = crossgpshare_hd - crossgpshare_hd_mi
-gen crossgpshare_edu_diffmi = crossgpshare_edu - crossgpshare_edu_mi	
-gen crossgpshare_hnp_diffmi = crossgpshare_hnp - crossgpshare_hnp_mi
-gen crossgpshare_spj_diffmi = crossgpshare_spj - crossgpshare_spj_mi
-	
-****Creat variables for percentiles****
-xtile terc_hdportfolio_share = hdportfolio_share, nq(3)
-xtile terc_eduportfolio_share = eduportfolio_share, nq(3)
-xtile terc_hnpportfolio_share = hnpportfolio_share, nq(3)
-xtile terc_spjportfolio_share = spjportfolio_share, nq(3)
-xtile terc_pipeline_hd_share = pipeline_hd_share, nq(3)	
-xtile terc_pipeline_edu_share = pipeline_edu_share, nq(3)	
-xtile terc_pipeline_hnp_share = pipeline_hnp_share, nq(3)	
-xtile terc_pipeline_spj_share = pipeline_spj_share, nq(3)	
-xtile terc_do_performance_hd = do_performance_hd, nq(3)	
-xtile terc_do_performance_edu = do_performance_edu, nq(3)
-xtile terc_do_performance_hnp = do_performance_hnp, nq(3)
-xtile terc_do_performance_spj = do_performance_spj, nq(3)
-xtile terc_ip_performance_hd = ip_performance_hd, nq(3)	
-xtile terc_ip_performance_edu = ip_performance_edu, nq(3)
-xtile terc_ip_performance_hnp = ip_performance_hnp, nq(3)
-xtile terc_ip_performance_spj = ip_performance_spj, nq(3)
-xtile terc_disburratio_hd = disburratio_hd, nq(3)
-xtile terc_disburratio_edu = disburratio_edu, nq(3)
-xtile terc_disburratio_hnp = disburratio_hnp, nq(3)
-xtile terc_disburratio_spj = disburratio_spj, nq(3)
-xtile terc_avgsize_hd = avgsize_hd, nq(3)
-xtile terc_avgsize_edu = avgsize_edu, nq(3)
-xtile terc_avgsize_hnp = avgsize_hnp, nq(3)
-xtile terc_avgsize_spj = avgsize_spj, nq(3)
-xtile terc_crossgpshare_hd = crossgpshare_hd, nq(3)
-xtile terc_crossgpshare_edu = crossgpshare_edu, nq(3)
-xtile terc_crossgpshare_hnp = crossgpshare_hnp, nq(3)
-xtile terc_crossgpshare_spj = crossgpshare_spj, nq(3)
-	
 
 /// round so we dont end up with > when indeed the same value in the text
 foreach j of varlist lastnm_water_basic_plus lastnm_sanit_basic_plus lastnm_hygiene_basic lastnm_road_traff lastnm_clean_fuel lastnm_electric ///
@@ -353,13 +196,14 @@ replace `j'=round(`j',1)
 }
 
 
-****Keep only variables that are relevant for analysis***	
-*preserve
-*keep wbcode lastner_sec_f lastner_sec_f_mr lastner_sec_f_mi lastner_sec_f_sdr lastner_sec_f_sdm percsatisfip_hd percsatisfip_edu percsatisfip_hnp percsatisfip_spj percsatisfdo_hd percsatisfdo_edu percsatisfdo_hnp percsatisfdo_spj avgsize_hd avgsize_edu avgsize_hnp avgsize_spj hdportfolio eduportfolio hnpportfolio spjportfolio pipeline_hd pipeline_edu pipeline_hnp pipeline_spj terc_disburratio_spj terc_avgsize_hd terc_avgsize_edu terc_avgsize_hnp terc_avgsize_spj terc_crossgpshare_hd terc_crossgpshare_edu terc_crossgpshare_hnp terc_crossgpshare_spj terc_ip_performance_hd terc_ip_performance_edu terc_ip_performance_hnp terc_ip_performance_spj terc_disburratio_hd terc_disburratio_edu terc_disburratio_hnp terc_pipeline_hnp_share terc_pipeline_spj_share terc_do_performance_hd terc_do_performance_edu terc_do_performance_hnp terc_do_performance_spj terc_hdportfolio_share 	terc_eduportfolio_share terc_hnpportfolio_share terc_spjportfolio_share terc_pipeline_hd_share terc_pipeline_edu_share  hdportfolio_share_sdr hdportfolio_share_sdi eduportfolio_share_sdr eduportfolio_share_sdi hnpportfolio_share_sdr hnpportfolio_share_sdi spjportfolio_share_sdr spjportfolio_share_sdi pipeline_hd_share_sdr pipeline_hd_share_sdi pipeline_edu_share_sdr pipeline_edu_share_sdi pipeline_hnp_share_sdr pipeline_hnp_share_sdi pipeline_spj_share_sdr pipeline_spj_share_sdi do_performance_hd_sdr do_performance_hd_sdi do_performance_edu_sdr do_performance_edu_sdi do_performance_hnp_sdr do_performance_hnp_sdi do_performance_spj_sdr do_performance_spj_sdi ip_performance_hd_sdr ip_performance_hd_sdi ip_performance_edu_sdr ip_performance_edu_sdi ip_performance_hnp_sdr ip_performance_hnp_sdi ip_performance_spj_sdr ip_performance_spj_sdi disburratio_hd_sdr disburratio_hd_sdi disburratio_edu_sdr disburratio_edu_sdi disburratio_hnp_sdr disburratio_hnp_sdi disburratio_spj_sdr disburratio_spj_sdi avgsize_hd_sdr avgsize_hd_sdi avgsize_edu_sdr avgsize_edu_sdi avgsize_hnp_sdr avgsize_hnp_sdi avgsize_spj_sdi crossgpshare_hd_sdr crossgpshare_hd_sdi crossgpshare_edu_sdr crossgpshare_edu_sdi crossgpshare_hnp_sdr crossgpshare_hnp_sdi crossgpshare_spj_sdr crossgpshare_spj_sdi crossgpshare_spj_diffmi crossgpshare_hnp_diffmi crossgpshare_edu_diffmi crossgpshare_hd_diffmi crossgpshare_spj_diffmr crossgpshare_hnp_diffmr crossgpshare_edu_diffmr crossgpshare_hd_diffmr  avgsize_spj_diffmi avgsize_hnp_diffmi avgsize_edu_diffmi avgsize_hd_diffmi avgsize_spj_diffmr  avgsize_hnp_diffmr  avgsize_edu_diffmi  avgsize_hd_diffmi avgsize_spj_diffmr avgsize_hnp_diffmr  avgsize_edu_diffmr  avgsize_hd_diffmr  disburratio_hd_diffmi disburratio_edu_diffmi disburratio_hnp_diffmi disburratio_spj_diffmi disburratio_hd_diffmr disburratio_edu_diffmr disburratio_hnp_diffmr disburratio_spj_diffmr ip_performance_spj_diffmi ip_performance_hnp_diffmi ip_performance_edu_diffmi ip_performance_hd_diffmi  ip_performance_spj_diffmr ip_performance_hnp_diffmr  ip_performance_edu_diffmr  ip_performance_hd_diffmr do_performance_spj_diffmi do_performance_hnp_diffmi do_performance_edu_diffmi do_performance_hd_diffmi do_performance_spj_diffmr do_performance_hnp_diffmr do_performance_edu_diffmr do_performance_hd_diffmr pipeline_spj_share_diffmi  pipeline_hnp_share_diffmi  pipeline_edu_share_diffmi pipeline_hd_share_diffmi pipeline_spj_share_diffmr pipeline_hnp_share_diffmr  pipeline_edu_share_diffmr  pipeline_hd_share_diffmr  spjportfolio_share_diffmi hnpportfolio_share_diffmi hdportfolio_share_diffmr  eduportfolio_share_diffmr hnpportfolio_share_diffmr spjportfolio_share_diffmr hdportfolio_share_diffmi eduportfolio_share_diffmi wbcountrynameb wbregion wbincomegroup hci_mf_100 lastspc lastspc_mr lastspc_mi lastod lastod_mr lastod_mi lasttfr lasttfr_mr lasttfr_mi lastafr lastafr_mr lastafr_mi contracep contracep_mr contracep_mi wbl wbl_mr wbl_mi hcicountry edugov edugov_mr edugov_mi healthgov healthgov_mi healthgov_mr socprotgov socprotgov_mr socprotgov_mi difhcipred drm drm_mr drm_mi difdrmpred lastcpia_hr lastcpia_hr_mr lastcpia_hr_mi unregpop unregpop_mr unregpop_mi lasttime_nostu_rep lasttime_hlo_mf_rep dpohc wep hdportfolio_share eduportfolio_share hnpportfolio_share spjportfolio_share pipeline_hd_share pipeline_edu_share pipeline_hnp_share pipeline_spj_share do_performance_hd  do_performance_edu do_performance_hnp do_performance_spj ip_performance_hd  ip_performance_edu ip_performance_hnp ip_performance_spj disburratio_hd disburratio_edu disburratio_hnp disburratio_spj  avgsize_hd avgsize_edu avgsize_hnp avgsize_spj crossgpshare_hd crossgpshare_edu crossgpshare_hnp crossgpshare_spj 
-*save relevant_variables_3, replace
-*restore
 	
-
+	
+///////////////////GENERATE TEXT	
+	
+	
+	
+	
+	
 	
 	
 gen intro_text  = "This note presents a snapshot of the country's commitment on the human capital agenda and the main actions being taken by the World Bank Group to support the government."
@@ -684,10 +528,6 @@ replace hygiene_basic_text="In " + wbcountrynameb + ///
 
 
 
-
-
-
-
 ////////////////////////////////////////////
 gen water_text = ///
 	cond(lastnm_water_basic_plus< lastnm_water_basic_plus_mr & lastnm_water_basic_plus<lastnm_water_basic_plus_mi, "In " + wbcountrynameb + ", **" + strofreal(round(lastnm_water_basic_plus,1)) + " percent** of the population" ///
@@ -940,107 +780,7 @@ replace ident_text="In " + wbcountrynameb + ///
 ////////////////////////////////////////
 
 
-gen stat_text= "In " + wbcountrynameb + ///
-", the latest available data point on stunting rate is from " ///
-+ strofreal(round(lasttime_nostu_rep,1)) + ///
-". Similarly, the latest available data point on Harmonized Learning Outcomes is from " ///
-+ strofreal(round(lasttime_hlo_mf_rep,1)) + "."
 
-replace stat_text="In " + wbcountrynameb + ///
-", data on stunting rate and Harmonized Learning Outcomes are unavailable after year 2000." ///
-if lasttime_nostu_rep==. & lasttime_hlo_mf_rep==.
-
-  
-replace stat_text="In " + wbcountrynameb + ///
-", data on stunting rate are unavailable after year 2000." + ///
-" The latest available data point on Harmonized Learning Outcomes is from " ///
-+ strofreal(round(lasttime_hlo_mf_rep,1)) + "." ///
-if lasttime_nostu_rep==. & lasttime_hlo_mf_rep!=.
-
-replace stat_text="In " + wbcountrynameb + ///
-", data on Harmonized Learning Outcomes are unavailable after year 2000." + ///
-" The latest available data point on stunting rate is from " ///
-+ strofreal(round(lasttime_nostu_rep,1)) + "." ///
-if lasttime_nostu_rep!=. & lasttime_hlo_mf_rep==.
-
-///////////////////////////////////////////////////////////////////
-
-gen dpohc_text= ///
-         cond(dpohc==1,                 /* 
-*/ "Currently, the pipeline for " + wbcountrynameb + " includes at least one Development Policy Operation with a Human Capital-related component or prior action.",    /* 
-*/       cond(dpohc==0,                         /* 
-*/ "Currently, the pipeline for " + wbcountrynameb + " does not include any Development Policy Operation with a Human Capital-related component or prior action.",     /*    
-*/ ""))
-
-gen wep_text= ///
-         cond(wep==1,                 /* 
-*/ "Currently, " + wbcountrynameb + " has at least one active project focused on women empowerment or on sexual and reproductive health.",    /* 
-*/       cond(wep==0,                         /* 
-*/ "Currently, the pipeline for " + wbcountrynameb + " does not have an active project focused on women empowerment or on sexual and reproductive health.",     /*    
-*/ ""))
-
-
-
-
-replace pipeline_hd_share = pipeline_hd_share *100
-replace pipeline_edu_share = pipeline_edu_share *100
-replace pipeline_hnp_share = pipeline_hnp_share *100
-replace pipeline_spj_share = pipeline_spj_share *100
-
-replace pipeline_hd_share_diffmr = pipeline_hd_share_diffmr *100
-replace pipeline_edu_share_diffmr = pipeline_edu_share_diffmr *100
-replace pipeline_hnp_share_diffmr = pipeline_hnp_share_diffmr *100
-replace pipeline_spj_share_diffmr = pipeline_spj_share_diffmr *100
-
-replace pipeline_hd_share_diffmi = pipeline_hd_share_diffmi *100
-replace pipeline_edu_share_diffmi = pipeline_edu_share_diffmi *100
-replace pipeline_hnp_share_diffmi = pipeline_hnp_share_diffmi *100
-replace pipeline_spj_share_diffmi = pipeline_spj_share_diffmi *100
-
-destring percsatisfdo_hd percsatisfdo_edu percsatisfdo_hnp percsatisfdo_spj , replace 
-destring percsatisfip_hd percsatisfip_edu percsatisfip_hnp percsatisfip_spj , replace 
-
-replace percsatisfdo_hd = percsatisfdo_hd *100
-replace percsatisfdo_edu = percsatisfdo_edu *100
-replace percsatisfdo_hnp = percsatisfdo_hnp *100
-replace percsatisfdo_spj = percsatisfdo_spj *100
-
-replace percsatisfip_hd = percsatisfip_hd *100
-replace percsatisfip_edu = percsatisfip_edu *100
-replace percsatisfip_hnp = percsatisfip_hnp *100
-replace percsatisfip_spj = percsatisfip_spj *100
-
-replace crossgpshare_hd = crossgpshare_hd *100
-replace crossgpshare_edu = crossgpshare_edu *100
-replace crossgpshare_hnp = crossgpshare_hnp *100
-replace crossgpshare_spj = crossgpshare_spj *100
-
-replace crossgpshare_hd_diffmr = crossgpshare_hd_diffmr *100
-replace crossgpshare_edu_diffmr = crossgpshare_edu_diffmr *100
-replace crossgpshare_hnp_diffmr = crossgpshare_hnp_diffmr *100
-replace crossgpshare_spj_diffmr = crossgpshare_spj_diffmr *100
-
-replace crossgpshare_hd_diffmi = crossgpshare_hd_diffmi *100
-replace crossgpshare_edu_diffmi = crossgpshare_edu_diffmi *100
-replace crossgpshare_hnp_diffmi = crossgpshare_hnp_diffmi *100
-replace crossgpshare_spj_diffmi = crossgpshare_spj_diffmi *100
-
-
-
-
-format %9.0fc hdportfolio eduportfolio hnpportfolio spjportfolio pipeline_hd pipeline_edu pipeline_hnp pipeline_spj avgsize_hd avgsize_edu avgsize_hnp avgsize_spj avgsize_hd_diffmr avgsize_edu_diffmr avgsize_hnp_diffmr avgsize_hd_diffmi avgsize_edu_diffmi avgsize_hnp_diffmi avgsize_spj_diffmi hdportfolio_share eduportfolio_share hnpportfolio_share spjportfolio_share hdportfolio_share_diffmr eduportfolio_share_diffmr hnpportfolio_share_diffmr spjportfolio_share_diffmr hdportfolio_share_diffmi eduportfolio_share_diffmi hnpportfolio_share_diffmi spjportfolio_share_diffmi pipeline_hd_share pipeline_edu_share pipeline_hnp_share pipeline_spj_share pipeline_hd_share_diffmi pipeline_edu_share_diffmi pipeline_hnp_share_diffmi pipeline_spj_share_diffmi pipeline_hd_share_diffmr pipeline_edu_share_diffmr pipeline_hnp_share_diffmr pipeline_spj_share_diffmr percsatisfdo_hd percsatisfdo_edu percsatisfdo_hnp percsatisfdo_spj percsatisfip_hd percsatisfip_edu percsatisfip_hnp percsatisfip_spj disburratio_hd disburratio_edu disburratio_hnp disburratio_spj disburratio_hd_diffmr disburratio_edu_diffmr  disburratio_hnp_diffmr disburratio_spj_diffmr disburratio_hd_diffmi disburratio_edu_diffmi  disburratio_hnp_diffmi disburratio_spj_diffmi crossgpshare_hd crossgpshare_edu crossgpshare_hnp crossgpshare_spj crossgpshare_hd_diffmr crossgpshare_edu_diffmr crossgpshare_hnp_diffmr crossgpshare_spj_diffmr crossgpshare_hd_diffmi crossgpshare_edu_diffmi crossgpshare_hnp_diffmi crossgpshare_spj_diffmi
-format %9.0fc  avgsize_hd_diffmr avgsize_edu_diffmr avgsize_hnp_diffmr avgsize_spj_diffmr
-
-format %9.2fc do_performance_hd do_performance_edu do_performance_hnp do_performance_spj 
-format %9.2fc do_performance_hd_diffmr do_performance_edu_diffmr do_performance_hnp_diffmr do_performance_spj_diffmr
-format %9.2fc do_performance_hd_diffmi do_performance_edu_diffmi do_performance_hnp_diffmi do_performance_spj_diffmi
-
-format %9.2fc ip_performance_hd ip_performance_edu ip_performance_hnp ip_performance_spj 
-format %9.2fc ip_performance_hd_diffmr ip_performance_edu_diffmr ip_performance_hnp_diffmr ip_performance_spj_diffmr
-format %9.2fc ip_performance_hd_diffmi ip_performance_edu_diffmi ip_performance_hnp_diffmi ip_performance_spj_diffmi
-
-format %9.2fc do_performance_hd_diffmr do_performance_edu_diffmr do_performance_hnp_diffmr do_performance_spj_diffmr
-format %9.2fc ip_performance_hd_diffmr ip_performance_edu_diffmr ip_performance_hnp_diffmr ip_performance_spj_diffmr
 
 
 format %9.0fc hci_mf_100
@@ -1065,15 +805,6 @@ format %9.0fc wbl_mi
 format %9.0fc lastner_sec_f
 format %9.0fc lastner_sec_f_mr
 format %9.0fc lastner_sec_f_mi
-format %9.1fc edugov
-format %9.1fc edugov_mr
-format %9.1fc edugov_mi
-format %9.1fc healthgov
-format %9.1fc healthgov_mr
-format %9.1fc healthgov_mi
-format %9.1fc socprotgov
-format %9.1fc socprotgov_mr
-format %9.1fc socprotgov_mi
 format %9.1fc drm
 format %9.1fc drm_mr
 format %9.1fc drm_mi
@@ -1089,7 +820,6 @@ format %9.0fc unregpop_share_mi
 save "input/text_for_illustrative_indicators.dta", replace
 
 
-/////////////////////////////////////////////
 
 
 
